@@ -1,0 +1,38 @@
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+
+# User specific environment and startup programs
+export PATH=$PATH:$HOME/bin:/usr/lib64/openmpi/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/openmpi/lib
+
+# For PAMR/AMRD
+export INCLUDE_PATHS="/usr/include/openmpi-x86_64 /home/bantilan/packages/rnpl/include"
+export LIB_PATHS="/usr/lib64/openmpi/lib /home/bantilan/packages/rnpl/lib"
+export CC="/usr/lib64/openmpi/bin/mpicc"
+export F77="/usr/lib64/openmpi/bin/mpif77"
+
+# For AdS5D
+export INCLUDE_PATHS=$INCLUDE_PATHS" /home/bantilan/packages/pamr/include"
+export LIB_PATHS=$LIB_PATHS" /home/bantilan/packages/pamr/lib" 
+export RNPL_FLIBS="-lrnpl -lxvs"
+
+# For PBS runs
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/bantilan/packages/rnpl/lib:/home/bantilan/packages/pamr/lib
+
+# For DV
+export INCLUDE_PATHS=$INCLUDE_PATHS" /home/bantilan/packages/xforms/include/X11"
+export LIB_PATHS=$LIB_PATHS" /home/bantilan/packages/xforms/lib"
+export PATH=$PATH:/home/bantilan/packages/rnpl/bin:/home/bantilan/packages/DV/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/bantilan/packages/xforms/lib
+
+# sets environmental variables for CVS
+CVSROOT=":ext:cvs@bh1.physics.ubc.ca:/home/cvs"; export CVSROOT
+CVS_RSH="/usr/bin/ssh"; export CVS_RSH
+
+# sets environmental variables for DV
+export DVHOST="duan145-52.colorado.edu"
+export DVRHOST="duan145-52.colorado.edu"

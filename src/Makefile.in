@@ -1,0 +1,94 @@
+.IGNORE:
+
+SHELL = /bin/sh
+
+prefix = @prefix@
+BBH_SYSTEM = @BBH_SYSTEM@
+bindir = ../bin
+
+BBH_SYSTEM = @BBH_SYSTEM@
+
+RNPL   = rnpl
+
+AR     = @AR@
+RANLIB = @RANLIB@
+
+F77_TRANSFORM = @F77_TRANSFORM@
+
+LIBS       = -lpamr -lamrd $(MPILIB) @LIBS@ @CCF77LIBS@ 
+LDFLAGS    = -L$(prefix)/lib @APP_LIB_PATHS@ @LDFLAGS@ -L. @BBH_MISC_FLFLAGS@
+
+CC       = @CC@
+CFLAGS     = @CFLAGS@ 
+CPPFLAGS = -I. -I$(prefix)/include @CPPFLAGS@ @APP_INCLUDE_PATHS@
+
+CC_COMP  = $(CC) -c $(CFLAGS) $(CPPFLAGS)
+CC_LOAD  = $(CC) $(LDFLAGS)
+
+F77      = @F77@
+F77FLAGS = @F77FLAGS@
+
+F77_COMP   = $(F77) -c $(F77FLAGS) 
+F77_LOAD   = $(F77) $(F77FLAGS) $(F77_LDFLAGS) $(LDFLAGS) 
+
+EXECUTABLES     = CFE4D
+# Miscellaneous files to clean up
+MISCDATAFILES   =
+
+SRC = *.f *.inc
+
+all: $(EXECUTABLES)
+
+.f.o:
+	$(F77_COMP) $*.f 
+
+.c.o:
+	@CC_TRANSFORM@ $*.c > $*_.c
+	$(CC_COMP) -c $*_.c
+	mv $*_.o $*.o
+
+all: $(EXECUTABLES)
+
+install: all
+
+full: install confidence_tests
+
+confidence_tests:
+	echo "Not implemented yet"
+
+translate: 
+	touch translate
+
+CFE4D.o: CFE4D.h 
+g_evo_opt.o: 
+init_nm1.o : 
+misc.o: 
+axisym.o:
+ires.o:
+mg_sup.o:
+init_hb.o:
+gauge.o:
+
+ADS5DP_OBJS = CFE4D.o g_evo_opt.o init_nm1.o misc.o axisym.o ires.o mg_sup.o init_hb.o gauge.o 
+CFE4D: $(ADS5DP_OBJS) 
+	$(CC_LOAD) $(ADS5DP_OBJS) $(LIBS) -o CFE4D
+	cp CFE4D $(bindir)
+
+export:
+	autoconf
+	make clean
+	(cd ..; tar cfL $(PACKAGE).tar $(PACKAGE); rm $(PACKAGE).tar.Z; compress $(PACKAGE).tar; cp $(PACKAGE).tar.Z $(HOME)/autoconf)
+
+########################################################################
+# Clean-up
+########################################################################
+clean:
+	/bin/rm $(EXECUTABLES)
+	/bin/rm *_.c > /dev/null 2>&1 
+	/bin/rm *.o 
+	/bin/rm *.a
+	/bin/rm *.sdf
+	/bin/rm *.segdat
+	/bin/rm *~
+	/bin/rm  Makefile config.cache config.log config.status
+	/bin/rm $(MISCDATAFILES)

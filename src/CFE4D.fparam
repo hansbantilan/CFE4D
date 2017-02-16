@@ -1,0 +1,89 @@
+#---------- AdS4D 1+1 polar fixed parameter file --------------------------
+
+app_name := ["AdS4D 1+1 polar"]
+
+#==============================================================================
+
+dim := 1
+num_evo_tl := 3
+ic_n := 2
+t0 := 0
+
+base_bbox := [0.0 1.0]
+
+#==============================================================================
+# excision is not optional
+#==============================================================================
+ex    := 1
+do_ex := 1
+
+#==============================================================================
+# NOTE: gb_ab, psi and Hb_a are *regular* quantities
+#       with the appropriate divergent terms factored out
+#==============================================================================
+
+num_hyperbolic_vars := 46
+hyperbolic_vars := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_tttt" "db_tttx" "db_tttp" "db_ttxx" "db_ttxp" "db_txtx" "db_txtp" "db_txxx" "db_txxp" "db_tptp" "db_tpxp" "db_tppp" "db_xxxx" "db_xxxp" "db_xpxp" "db_xppp" "db_tttt_t" "db_tttx_t" "db_tttp_t" "db_ttxx_t" "db_ttxp_t" "db_txtx_t" "db_txtp_t" "db_txxx_t" "db_txxp_t" "db_tptp_t" "db_tpxp_t" "db_tppp_t" "db_xxxx_t" "db_xxxp_t" "db_xpxp_t" "db_xppp_t" ]
+
+#==============================================================================
+# For now only time-symmetric initial data, conformal to slice of pure AdS 
+#==============================================================================
+
+num_elliptic_vars_t0 := 1
+elliptic_vars_t0 := ["zetab"]
+
+#==============================================================================
+# "work" variables ... residuals, inverse metric components, etc.
+#==============================================================================
+
+num_AMRH_work_vars := 21
+AMRH_work_vars := [ "w1" "w2" "w3" "w4" "gb_res" "hb_t_res" "hb_i_res" "Hb_t_0" "Hb_x_0" "kg_res" "efe_all_ires" "phj_ires" "pij_ires" "alphaq_ires" "thetap_ires" "phj" "iresall" "pij" "alphaq" "thetap" "cl_res" ]
+
+num_MGH_work_vars := 4
+MGH_work_vars := [ "mg_w1" "mg_w2" "mg_w3" "mg_w4" ]
+
+num_AMRH_work_in_MGH_vars := 15
+AMRH_work_in_MGH_vars := [ "w1" "w2" "w3" "w4" "gb_res" "hb_t_res" "hb_i_res" "Hb_t_0" "Hb_x_0" "kg_res" "efe_all_ires" "phj_ires" "pij_ires" "thetap" "cl_res" ]
+
+num_amr_inject   := 46
+amr_inject       := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_tttt" "db_tttx" "db_tttp" "db_ttxx" "db_ttxp" "db_txtx" "db_txtp" "db_txxx" "db_txxp" "db_tptp" "db_tpxp" "db_tppp" "db_xxxx" "db_xxxp" "db_xpxp" "db_xppp" "db_tttt_t" "db_tttx_t" "db_tttp_t" "db_ttxx_t" "db_ttxp_t" "db_txtx_t" "db_txtp_t" "db_txxx_t" "db_txxp_t" "db_tptp_t" "db_tpxp_t" "db_tppp_t" "db_xxxx_t" "db_xxxp_t" "db_xpxp_t" "db_xppp_t" ]
+
+num_amr_sync     := 46
+amr_sync         := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_tttt" "db_tttx" "db_tttp" "db_ttxx" "db_ttxp" "db_txtx" "db_txtp" "db_txxx" "db_txxp" "db_tptp" "db_tpxp" "db_tppp" "db_xxxx" "db_xxxp" "db_xpxp" "db_xppp" "db_tttt_t" "db_tttx_t" "db_tttp_t" "db_ttxx_t" "db_ttxp_t" "db_txtx_t" "db_txtp_t" "db_txxx_t" "db_txxp_t" "db_tptp_t" "db_tpxp_t" "db_tppp_t" "db_xxxx_t" "db_xxxp_t" "db_xpxp_t" "db_xppp_t" ]
+
+num_amr_interp4  := 46
+amr_interp4      := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_tttt" "db_tttx" "db_tttp" "db_ttxx" "db_ttxp" "db_txtx" "db_txtp" "db_txxx" "db_txxp" "db_tptp" "db_tpxp" "db_tppp" "db_xxxx" "db_xxxp" "db_xpxp" "db_xppp" "db_tttt_t" "db_tttx_t" "db_tttp_t" "db_ttxx_t" "db_ttxp_t" "db_txtx_t" "db_txtp_t" "db_txxx_t" "db_txxp_t" "db_tptp_t" "db_tpxp_t" "db_tppp_t" "db_xxxx_t" "db_xxxp_t" "db_xpxp_t" "db_xppp_t" ]
+
+num_amr_transfer4:= 46
+amr_transfer4    := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_tttt" "db_tttx" "db_tttp" "db_ttxx" "db_ttxp" "db_txtx" "db_txtp" "db_txxx" "db_txxp" "db_tptp" "db_tpxp" "db_tppp" "db_xxxx" "db_xxxp" "db_xpxp" "db_xppp" "db_tttt_t" "db_tttx_t" "db_tttp_t" "db_ttxx_t" "db_ttxp_t" "db_txtx_t" "db_txtp_t" "db_txxx_t" "db_txxp_t" "db_tptp_t" "db_tpxp_t" "db_tppp_t" "db_xxxx_t" "db_xxxp_t" "db_xpxp_t" "db_xppp_t" ]
+
+num_mg_hw_restr  := 2
+mg_hw_restr      := [ "zetab" "phi1" ]
+
+num_mg_sync      := 1
+mg_sync          := [ "zetab" ]
+
+num_mg_interp2   := 1
+mg_interp2       := [ "zetab" ]
+
+num_MG_cnst_data_vars := 44
+MG_cnst_data_vars     := [ "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_tttt" "db_tttx" "db_tttp" "db_ttxx" "db_ttxp" "db_txtx" "db_txtp" "db_txxx" "db_txxp" "db_tptp" "db_tpxp" "db_tppp" "db_xxxx" "db_xxxp" "db_xpxp" "db_xppp" "db_tttt_t" "db_tttx_t" "db_tttp_t" "db_ttxx_t" "db_ttxp_t" "db_txtx_t" "db_txtp_t" "db_txxx_t" "db_txxp_t" "db_tptp_t" "db_tpxp_t" "db_tppp_t" "db_xxxx_t" "db_xxxp_t" "db_xpxp_t" "db_xppp_t" ]  
+
+num_rg_diss_vars := 46
+rg_diss_vars     := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_tttt" "db_tttx" "db_tttp" "db_ttxx" "db_ttxp" "db_txtx" "db_txtp" "db_txxx" "db_txxp" "db_tptp" "db_tpxp" "db_tppp" "db_xxxx" "db_xxxp" "db_xpxp" "db_xppp" "db_tttt_t" "db_tttx_t" "db_tttp_t" "db_ttxx_t" "db_ttxp_t" "db_txtx_t" "db_txtp_t" "db_txxx_t" "db_txxp_t" "db_tptp_t" "db_tpxp_t" "db_tppp_t" "db_xxxx_t" "db_xxxp_t" "db_xpxp_t" "db_xppp_t" ]
+
+num_tn_diss_vars := 46
+tn_diss_vars := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_tttt" "db_tttx" "db_tttp" "db_ttxx" "db_ttxp" "db_txtx" "db_txtp" "db_txxx" "db_txxp" "db_tptp" "db_tpxp" "db_tppp" "db_xxxx" "db_xxxp" "db_xpxp" "db_xppp" "db_tttt_t" "db_tttx_t" "db_tttp_t" "db_ttxx_t" "db_ttxp_t" "db_txtx_t" "db_txtp_t" "db_txxx_t" "db_txxp_t" "db_tptp_t" "db_tpxp_t" "db_tppp_t" "db_xxxx_t" "db_xxxp_t" "db_xpxp_t" "db_xppp_t" ]
+num_tnp1_diss_vars := 46
+tnp1_diss_vars := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_tttt" "db_tttx" "db_tttp" "db_ttxx" "db_ttxp" "db_txtx" "db_txtp" "db_txxx" "db_txxp" "db_tptp" "db_tpxp" "db_tppp" "db_xxxx" "db_xxxp" "db_xpxp" "db_xppp" "db_tttt_t" "db_tttx_t" "db_tttp_t" "db_ttxx_t" "db_ttxp_t" "db_txtx_t" "db_txtp_t" "db_txxx_t" "db_txxp_t" "db_tptp_t" "db_tpxp_t" "db_tppp_t" "db_xxxx_t" "db_xxxp_t" "db_xpxp_t" "db_xppp_t" ]
+
+num_even_vars_x0min := 10
+even_vars_x0min := [ "phi1" "phi1_t" "gb_tt" "gb_xx" "psi" "gb_tt_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_t_t" ]
+num_odb_vars_x0min := 4
+odb_vars_x0min := [ "gb_tx" "gb_tx_t" "Hb_x" "Hb_x_t" ]
+
+num_even_vars_x0max := 0
+num_odb_vars_x0max := 14
+odb_vars_x0max := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" ]
+
+#-----------------------------------------------------
