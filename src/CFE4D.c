@@ -1029,7 +1029,14 @@ void CFE4D_t0_cnst_data(void)
    }
    else
    {
-     init_ghb_(zetab,phi1,gb_tt,gb_tx,gb_xx,psi,
+     init_ghb_(zetab,phi1,
+               db_txtx,db_txty,db_txtz,db_txxy,
+               db_txxz,db_txyz,db_tyty,db_tytz,
+               db_tyxy,db_tyxz,db_tyyz,db_tztz,
+               db_tzxy,db_tzxz,db_tzyz,db_xyxy,
+               db_xyxz,db_xyyz,db_xzxz,db_xzyz,
+               db_yzyz,
+               gb_tt,gb_tx,gb_xx,psi,
                &AdS_L,phys_bdy,x,chr_mg,&AMRD_ex,&Nx,&rhoa,&rhob);
    }
 

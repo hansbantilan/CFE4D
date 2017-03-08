@@ -199,17 +199,27 @@ c in polar coordinates t,x, for x in [0,1]
 c
 c The following initializes the rest of the metric and Hb,
 c given zetab
-c
-c NOTE: if we ever add gb_xz,gb_yz,... must define them
-c       as AMRD MG_cnst vars
 c-----------------------------------------------------------------------
-        subroutine init_ghb(zetab,phi1,gb_tt,gb_tx,gb_xx,psi,
+        subroutine init_ghb(zetab,phi1,
+     &                      db_txtx,db_txty,db_txtz,db_txxy,
+     &                      db_txxz,db_txyz,db_tyty,db_tytz,
+     &                      db_tyxy,db_tyxz,db_tyyz,db_tztz,
+     &                      db_tzxy,db_tzxz,db_tzyz,db_xyxy,
+     &                      db_xyxz,db_xyyz,db_xzxz,db_xzyz,
+     &                      db_yzyz,
+     &                      gb_tt,gb_tx,gb_xx,psi,
      &                      L,phys_bdy,x,chr,ex,Nx,rhoa,rhob)
         implicit none
         integer Nx
         integer phys_bdy(2)
         real*8 zetab(Nx)
         real*8 phi1(Nx)
+        real*8 db_txtx(Nx),db_txty(Nx),db_txtz(Nx),db_txxy(Nx) 
+        real*8 db_txxz(Nx),db_txyz(Nx),db_tyty(Nx),db_tytz(Nx)
+        real*8 db_tyxy(Nx),db_tyxz(Nx),db_tyyz(Nx),db_tztz(Nx)
+        real*8 db_tzxy(Nx),db_tzxz(Nx),db_tzyz(Nx),db_xyxy(Nx)
+        real*8 db_xyxz(Nx),db_xyyz(Nx),db_xzxz(Nx),db_xzyz(Nx)
+        real*8 db_yzyz(Nx)
         real*8 gb_tt(Nx),gb_tx(Nx),gb_xx(Nx),psi(Nx)
         real*8 chr(Nx),ex,L
         real*8 x(Nx)

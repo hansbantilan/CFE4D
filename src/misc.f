@@ -471,6 +471,9 @@ c----------------------------------------------------------------------
         ! level variables, and as these are the only derivatives we
         ! use we drop any _n identifier
         !--------------------------------------------------------------
+        real*8 db_txtx_t,db_txtx_x
+        real*8 db_txtx_tt,db_txtx_tx,db_txtx_xx
+
         real*8 gb_tt_t,gb_tt_x
         real*8 gb_tt_tt,gb_tt_tx,gb_tt_xx
         real*8 gb_tx_t,gb_tx_x
@@ -481,7 +484,9 @@ c----------------------------------------------------------------------
         real*8 psi_tt,psi_tx,psi_xx
         real*8 phi1_t,phi1_x
         real*8 phi1_tt,phi1_tx,phi1_xx
-  
+ 
+        real*8 db_txtx0
+ 
         real*8 gb_tt0,gb_tx0,gb_xx0,psi0,phi10
 
         real*8 g0_tt_ads_x,g0_tt_ads_xx
@@ -512,6 +517,9 @@ c----------------------------------------------------------------------
         g0_xx_ads0 =(-3d0/lambda4)*4*(1+x0**2)**2/(1-x0**2)**4
         g0_psi_ads0=(-3d0/lambda4)*sinh(2*x0/(1-x0**2))**2
 
+        ! set dbar values
+        db_txtx0=db_txtx_n(i)
+
         ! set gbar values
         gb_tt0=gb_tt_n(i)
         gb_tx0=gb_tx_n(i)
@@ -541,6 +549,12 @@ c----------------------------------------------------------------------
      &               *cosh((4*x0)/(-1+x0**2))
      &               +x0*(-3 + 2*x0**2 + x0**4)
      &               *sinh((4*x0)/(-1 + x0**2))))/(-1 + x0**2)**4
+
+        ! calculate dbar derivatives
+        call df2_int(db_txtx_np1,db_txtx_n,db_txtx_nm1,
+     &       db_txtx_t,db_txtx_x,
+     &       db_txtx_tt,db_txtx_tx,db_txtx_xx,
+     &       dx,dt,i,chr,ex,Nx,'db_txtx')
  
         ! calculate gbar derivatives
         call df2_int(gb_tt_np1,gb_tt_n,gb_tt_nm1,
@@ -573,6 +587,12 @@ c----------------------------------------------------------------------
      &       phi1_t,phi1_x,
      &       phi1_tt,phi1_tx,phi1_xx,
      &       dx,dt,i,chr,ex,Nx,'phi1')
+
+        d0_llll(1,2,1,2)       =db_txtx0
+
+        d0_llll_x(1,2,1,2,1)   =db_txtx_t
+
+        d0_llll_xx(1,2,1,2,1,1)=db_txtx_tt
 
 !NEED TO UPDATE BELOW GIVEN NEW G0_ADS ABOVE!
         ! give values to the metric, using sin(chi)=1,sin(theta)=1 w.l.o.g 

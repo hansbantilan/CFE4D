@@ -226,7 +226,14 @@ void ires_(real *efe_all_ires, real *phj_ires,
 void mg_sup_(int *action, real *zetab, real *zetab_rhs, real *zetab_lop,real *zetab_res, 
              real *phi1, real *AdS_L, real *cmask, int *phys_bdy, real *chr, real *ex, real *x, real *norm, int *Nx);
 
-void init_ghb_(real *zetab, real *phi1, real *gb_tt, real *gb_tx, real *gb_xx, real *psi,
+void init_ghb_(real *zetab, real *phi1,
+               real *db_txtx, real *db_txty, real *db_txtz, real *db_txxy,
+               real *db_txxz, real *db_txyz, real *db_tyty, real *db_tytz,
+               real *db_tyxy, real *db_tyxz, real *db_tyyz, real *db_tztz,
+               real *db_tzxy, real *db_tzxz, real *db_tzyz, real *db_xyxy,
+               real *db_xyxz, real *db_xyyz, real *db_xzxz, real *db_xzyz,
+               real *db_yzyz, 
+               real *gb_tt, real *gb_tx, real *gb_xx, real *psi,
                real *AdS_L, int *phys_bdy, real *x, real *chr, real *ex, int *Nx, real* rhoa, real* rhob);
 
 void init_sch_(real *gb_tt, real *gb_tx, real *gb_xx, real *psi, real *ief_bh_r0, 
