@@ -113,7 +113,9 @@ c----------------------------------------------------------------------
         ! variables for tensor manipulations 
         !(indices are t,x,chi,theta)
         !--------------------------------------------------------------
-        real*8 d0_llll(4,4,4,4),g0_ll(4,4),g0_uu(4,4)
+        real*8 d0_llll(4,4,4,4)
+        real*8 d0_llll_x(4,4,4,4,4),d0_llll_xx(4,4,4,4,4,4)
+        real*8 g0_ll(4,4),g0_uu(4,4)
         real*8 g0_ll_x(4,4,4),g0_uu_x(4,4,4),g0_ll_xx(4,4,4,4)
         real*8 gads_ll(4,4),gads_uu(4,4)
         real*8 gads_ll_x(4,4,4),gads_uu_x(4,4,4),gads_ll_xx(4,4,4,4)
@@ -138,7 +140,9 @@ c----------------------------------------------------------------------
         data gammagg,gammahh/64*0.0,64*0.0/
         data gammagh,gammahg/64*0.0,64*0.0/
 
-        data d0_llll,g0_ll,g0_uu/256*0,16*0.0,16*0.0/
+        data d0_llll/256*0/
+        data d0_llll_x,d0_llll_xx/1024*0,4096*0/
+        data g0_ll,g0_uu/16*0.0,16*0.0/
         data gads_ll,gads_uu/16*0.0,16*0.0/
         data h0_ll,h0_uu/16*0.0,16*0.0/
         data gamma_ull/64*0.0/
@@ -219,7 +223,8 @@ c----------------------------------------------------------------------
      &            Hb_t_n,Hb_t_n,Hb_t_n,
      &            Hb_x_n,Hb_x_n,Hb_x_n,
      &            phi1_n,phi1_n,phi1_n,
-     &            d0_llll,g0_ll,g0_uu,g0_ll_x,g0_uu_x,g0_ll_xx,
+     &            d0_llll,d0_llll_x,d0_llll_xx,
+     &            g0_ll,g0_uu,g0_ll_x,g0_uu_x,g0_ll_xx,
      &            gads_ll,gads_uu,gads_ll_x,gads_uu_x,gads_ll_xx,
      &            h0_ll,h0_uu,h0_ll_x,h0_uu_x,h0_ll_xx,
      &            A_l,A_l_x,Hads_l,
