@@ -22,8 +22,8 @@ do_ex := 1
 #       with the appropriate divergent terms factored out
 #==============================================================================
 
-num_hyperbolic_vars := 46
-hyperbolic_vars := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_tttt" "db_tttx" "db_tttp" "db_ttxx" "db_ttxp" "db_txtx" "db_txtp" "db_txxx" "db_txxp" "db_tptp" "db_tpxp" "db_tppp" "db_xxxx" "db_xxxp" "db_xpxp" "db_xppp" "db_tttt_t" "db_tttx_t" "db_tttp_t" "db_ttxx_t" "db_ttxp_t" "db_txtx_t" "db_txtp_t" "db_txxx_t" "db_txxp_t" "db_tptp_t" "db_tpxp_t" "db_tppp_t" "db_xxxx_t" "db_xxxp_t" "db_xpxp_t" "db_xppp_t" ]
+num_hyperbolic_vars := 56
+hyperbolic_vars := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_txtx" "db_txty" "db_txtz" "db_txxy" "db_txxz" "db_txyz" "db_tyty" "db_tytz" "db_tyxy" "db_tyxz" "db_tyyz" "db_tztz" "db_tzxy" "db_tzxz" "db_tzyz" "db_xyxy" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_txtx_t" "db_txty_t" "db_txtz_t" "db_txxy_t" "db_txxz_t" "db_txyz_t" "db_tyty_t" "db_tytz_t" "db_tyxy_t" "db_tyxz_t" "db_tyyz_t" "db_tztz_t" "db_tzxy_t" "db_tzxz_t" "db_tzyz_t" "db_xyxy_t" "db_xyxz_t" "db_xyyz_t" "db_xzxz_t" "db_xzyz_t" "db_yzyz_t" ]
 
 #==============================================================================
 # For now only time-symmetric initial data, conformal to slice of pure AdS 
@@ -45,17 +45,17 @@ MGH_work_vars := [ "mg_w1" "mg_w2" "mg_w3" "mg_w4" ]
 num_AMRH_work_in_MGH_vars := 15
 AMRH_work_in_MGH_vars := [ "w1" "w2" "w3" "w4" "gb_res" "hb_t_res" "hb_i_res" "Hb_t_0" "Hb_x_0" "kg_res" "efe_all_ires" "phj_ires" "pij_ires" "thetap" "cl_res" ]
 
-num_amr_inject   := 46
-amr_inject       := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_tttt" "db_tttx" "db_tttp" "db_ttxx" "db_ttxp" "db_txtx" "db_txtp" "db_txxx" "db_txxp" "db_tptp" "db_tpxp" "db_tppp" "db_xxxx" "db_xxxp" "db_xpxp" "db_xppp" "db_tttt_t" "db_tttx_t" "db_tttp_t" "db_ttxx_t" "db_ttxp_t" "db_txtx_t" "db_txtp_t" "db_txxx_t" "db_txxp_t" "db_tptp_t" "db_tpxp_t" "db_tppp_t" "db_xxxx_t" "db_xxxp_t" "db_xpxp_t" "db_xppp_t" ]
+num_amr_inject   := 56
+amr_inject       := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_txtx" "db_txty" "db_txtz" "db_txxy" "db_txxz" "db_txyz" "db_tyty" "db_tytz" "db_tyxy" "db_tyxz" "db_tyyz" "db_tztz" "db_tzxy" "db_tzxz" "db_tzyz" "db_xyxy""db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_txtx_t" "db_txty_t" "db_txtz_t" "db_txxy_t" "db_txxz_t" "db_txyz_t" "db_tyty_t" "db_tytz_t" "db_tyxy_t" "db_tyxz_t" "db_tyyz_t" "db_tztz_t" "db_tzxy_t" "db_tzxz_t" "db_tzyz_t" "db_xyxy_t" "db_xyxz_t" "db_xyyz_t" "db_xzxz_t" "db_xzyz_t" "db_yzyz_t" ]
 
-num_amr_sync     := 46
-amr_sync         := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_tttt" "db_tttx" "db_tttp" "db_ttxx" "db_ttxp" "db_txtx" "db_txtp" "db_txxx" "db_txxp" "db_tptp" "db_tpxp" "db_tppp" "db_xxxx" "db_xxxp" "db_xpxp" "db_xppp" "db_tttt_t" "db_tttx_t" "db_tttp_t" "db_ttxx_t" "db_ttxp_t" "db_txtx_t" "db_txtp_t" "db_txxx_t" "db_txxp_t" "db_tptp_t" "db_tpxp_t" "db_tppp_t" "db_xxxx_t" "db_xxxp_t" "db_xpxp_t" "db_xppp_t" ]
+num_amr_sync     := 56
+amr_sync         := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_txtx" "db_txty" "db_txtz" "db_txxy" "db_txxz" "db_txyz" "db_tyty" "db_tytz" "db_tyxy" "db_tyxz" "db_tyyz" "db_tztz" "db_tzxy" "db_tzxz" "db_tzyz" "db_xyxy" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_txtx_t" "db_txty_t" "db_txtz_t" "db_txxy_t" "db_txxz_t" "db_txyz_t" "db_tyty_t" "db_tytz_t" "db_tyxy_t" "db_tyxz_t" "db_tyyz_t" "db_tztz_t" "db_tzxy_t" "db_tzxz_t" "db_tzyz_t" "db_xyxy_t" "db_xyxz_t" "db_xyyz_t" "db_xzxz_t" "db_xzyz_t" "db_yzyz_t" ]
 
-num_amr_interp4  := 46
-amr_interp4      := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_tttt" "db_tttx" "db_tttp" "db_ttxx" "db_ttxp" "db_txtx" "db_txtp" "db_txxx" "db_txxp" "db_tptp" "db_tpxp" "db_tppp" "db_xxxx" "db_xxxp" "db_xpxp" "db_xppp" "db_tttt_t" "db_tttx_t" "db_tttp_t" "db_ttxx_t" "db_ttxp_t" "db_txtx_t" "db_txtp_t" "db_txxx_t" "db_txxp_t" "db_tptp_t" "db_tpxp_t" "db_tppp_t" "db_xxxx_t" "db_xxxp_t" "db_xpxp_t" "db_xppp_t" ]
+num_amr_interp4  := 56
+amr_interp4      := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_txtx" "db_txty" "db_txtz" "db_txxy" "db_txxz" "db_txyz" "db_tyty" "db_tytz" "db_tyxy" "db_tyxz" "db_tyyz" "db_tztz" "db_tzxy" "db_tzxz" "db_tzyz" "db_xyxy" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_txtx_t" "db_txty_t" "db_txtz_t" "db_txxy_t" "db_txxz_t" "db_txyz_t" "db_tyty_t" "db_tytz_t" "db_tyxy_t" "db_tyxz_t" "db_tyyz_t" "db_tztz_t" "db_tzxy_t" "db_tzxz_t" "db_tzyz_t" "db_xyxy_t" "db_xyxz_t" "db_xyyz_t" "db_xzxz_t" "db_xzyz_t" "db_yzyz_t" ]
 
-num_amr_transfer4:= 46
-amr_transfer4    := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_tttt" "db_tttx" "db_tttp" "db_ttxx" "db_ttxp" "db_txtx" "db_txtp" "db_txxx" "db_txxp" "db_tptp" "db_tpxp" "db_tppp" "db_xxxx" "db_xxxp" "db_xpxp" "db_xppp" "db_tttt_t" "db_tttx_t" "db_tttp_t" "db_ttxx_t" "db_ttxp_t" "db_txtx_t" "db_txtp_t" "db_txxx_t" "db_txxp_t" "db_tptp_t" "db_tpxp_t" "db_tppp_t" "db_xxxx_t" "db_xxxp_t" "db_xpxp_t" "db_xppp_t" ]
+num_amr_transfer4:= 56
+amr_transfer4    := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_txtx" "db_txty" "db_txtz" "db_txxy" "db_txxz" "db_txyz" "db_tyty" "db_tytz" "db_tyxy" "db_tyxz" "db_tyyz" "db_tztz" "db_tzxy" "db_tzxz" "db_tzyz" "db_xyxy" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_txtx_t" "db_txty_t" "db_txtz_t" "db_txxy_t" "db_txxz_t" "db_txyz_t" "db_tyty_t" "db_tytz_t" "db_tyxy_t" "db_tyxz_t" "db_tyyz_t" "db_tztz_t" "db_tzxy_t" "db_tzxz_t" "db_tzyz_t" "db_xyxy_t" "db_xyxz_t" "db_xyyz_t" "db_xzxz_t" "db_xzyz_t" "db_yzyz_t" ]
 
 num_mg_hw_restr  := 2
 mg_hw_restr      := [ "zetab" "phi1" ]
@@ -66,16 +66,16 @@ mg_sync          := [ "zetab" ]
 num_mg_interp2   := 1
 mg_interp2       := [ "zetab" ]
 
-num_MG_cnst_data_vars := 44
-MG_cnst_data_vars     := [ "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_tttt" "db_tttx" "db_tttp" "db_ttxx" "db_ttxp" "db_txtx" "db_txtp" "db_txxx" "db_txxp" "db_tptp" "db_tpxp" "db_tppp" "db_xxxx" "db_xxxp" "db_xpxp" "db_xppp" "db_tttt_t" "db_tttx_t" "db_tttp_t" "db_ttxx_t" "db_ttxp_t" "db_txtx_t" "db_txtp_t" "db_txxx_t" "db_txxp_t" "db_tptp_t" "db_tpxp_t" "db_tppp_t" "db_xxxx_t" "db_xxxp_t" "db_xpxp_t" "db_xppp_t" ]  
+num_MG_cnst_data_vars := 54
+MG_cnst_data_vars     := [ "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_txtx" "db_txty" "db_txtz" "db_txxy" "db_txxz" "db_txyz" "db_tyty" "db_tytz" "db_tyxy" "db_tyxz" "db_tyyz" "db_tztz" "db_tzxy" "db_tzxz" "db_tzyz" "db_xyxy" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_txtx_t" "db_txty_t" "db_txtz_t" "db_txxy_t" "db_txxz_t" "db_txyz_t" "db_tyty_t" "db_tytz_t" "db_tyxy_t" "db_tyxz_t" "db_tyyz_t" "db_tztz_t" "db_tzxy_t" "db_tzxz_t" "db_tzyz_t" "db_xyxy_t" "db_xyxz_t" "db_xyyz_t" "db_xzxz_t" "db_xzyz_t" "db_yzyz_t" ]  
 
-num_rg_diss_vars := 46
-rg_diss_vars     := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_tttt" "db_tttx" "db_tttp" "db_ttxx" "db_ttxp" "db_txtx" "db_txtp" "db_txxx" "db_txxp" "db_tptp" "db_tpxp" "db_tppp" "db_xxxx" "db_xxxp" "db_xpxp" "db_xppp" "db_tttt_t" "db_tttx_t" "db_tttp_t" "db_ttxx_t" "db_ttxp_t" "db_txtx_t" "db_txtp_t" "db_txxx_t" "db_txxp_t" "db_tptp_t" "db_tpxp_t" "db_tppp_t" "db_xxxx_t" "db_xxxp_t" "db_xpxp_t" "db_xppp_t" ]
+num_rg_diss_vars := 56
+rg_diss_vars     := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_txtx" "db_txty" "db_txtz" "db_txxy" "db_txxz" "db_txyz" "db_tyty" "db_tytz" "db_tyxy" "db_tyxz" "db_tyyz" "db_tztz" "db_tzxy" "db_tzxz" "db_tzyz" "db_xyxy" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_txtx_t" "db_txty_t" "db_txtz_t" "db_txxy_t" "db_txxz_t" "db_txyz_t" "db_tyty_t" "db_tytz_t" "db_tyxy_t" "db_tyxz_t" "db_tyyz_t" "db_tztz_t" "db_tzxy_t" "db_tzxz_t" "db_tzyz_t" "db_xyxy_t" "db_xyxz_t" "db_xyyz_t" "db_xzxz_t" "db_xzyz_t" "db_yzyz_t" ]
 
-num_tn_diss_vars := 46
-tn_diss_vars := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_tttt" "db_tttx" "db_tttp" "db_ttxx" "db_ttxp" "db_txtx" "db_txtp" "db_txxx" "db_txxp" "db_tptp" "db_tpxp" "db_tppp" "db_xxxx" "db_xxxp" "db_xpxp" "db_xppp" "db_tttt_t" "db_tttx_t" "db_tttp_t" "db_ttxx_t" "db_ttxp_t" "db_txtx_t" "db_txtp_t" "db_txxx_t" "db_txxp_t" "db_tptp_t" "db_tpxp_t" "db_tppp_t" "db_xxxx_t" "db_xxxp_t" "db_xpxp_t" "db_xppp_t" ]
-num_tnp1_diss_vars := 46
-tnp1_diss_vars := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_tttt" "db_tttx" "db_tttp" "db_ttxx" "db_ttxp" "db_txtx" "db_txtp" "db_txxx" "db_txxp" "db_tptp" "db_tpxp" "db_tppp" "db_xxxx" "db_xxxp" "db_xpxp" "db_xppp" "db_tttt_t" "db_tttx_t" "db_tttp_t" "db_ttxx_t" "db_ttxp_t" "db_txtx_t" "db_txtp_t" "db_txxx_t" "db_txxp_t" "db_tptp_t" "db_tpxp_t" "db_tppp_t" "db_xxxx_t" "db_xxxp_t" "db_xpxp_t" "db_xppp_t" ]
+num_tn_diss_vars := 56
+tn_diss_vars := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_txtx" "db_txty" "db_txtz" "db_txxy" "db_txxz" "db_txyz" "db_tyty" "db_tytz" "db_tyxy" "db_tyxz" "db_tyyz" "db_tztz" "db_tzxy" "db_tzxz" "db_tzyz" "db_xyxy" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_txtx_t" "db_txty_t" "db_txtz_t" "db_txxy_t" "db_txxz_t" "db_txyz_t" "db_tyty_t" "db_tytz_t" "db_tyxy_t" "db_tyxz_t" "db_tyyz_t" "db_tztz_t" "db_tzxy_t" "db_tzxz_t" "db_tzyz_t" "db_xyxy_t" "db_xyxz_t" "db_xyyz_t" "db_xzxz_t" "db_xzyz_t" "db_yzyz_t" ]
+num_tnp1_diss_vars := 56
+tnp1_diss_vars := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_txtx" "db_txty" "db_txtz" "db_txxy" "db_txxz" "db_txyz" "db_tyty" "db_tytz" "db_tyxy" "db_tyxz" "db_tyyz" "db_tztz" "db_tzxy" "db_tzxz" "db_tzyz" "db_xyxy" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_txtx_t" "db_txty_t" "db_txtz_t" "db_txxy_t" "db_txxz_t" "db_txyz_t" "db_tyty_t" "db_tytz_t" "db_tyxy_t" "db_tyxz_t" "db_tyyz_t" "db_tztz_t" "db_tzxy_t" "db_tzxz_t" "db_tzyz_t" "db_xyxy_t" "db_xyxz_t" "db_xyyz_t" "db_xzxz_t" "db_xzyz_t" "db_yzyz_t" ]
 
 num_even_vars_x0min := 10
 even_vars_x0min := [ "phi1" "phi1_t" "gb_tt" "gb_xx" "psi" "gb_tt_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_t_t" ]
