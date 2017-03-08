@@ -6,7 +6,29 @@ c note that at interior boundaries the spatial derivatives
 c are calculated using backwards/forwards stencils
 c (can't inject from the parent level, as they are out of sync)
 c----------------------------------------------------------------------
-        subroutine init_nm1(gb_tt_np1,gb_tt_n,gb_tt_nm1,gb_tt_t_n,
+        subroutine init_nm1(
+     &                      db_txtx_np1,db_txtx_n,db_txtx_nm1,
+     &                      db_txty_np1,db_txty_n,db_txty_nm1,
+     &                      db_txtz_np1,db_txtz_n,db_txtz_nm1,
+     &                      db_txxy_np1,db_txxy_n,db_txxy_nm1,
+     &                      db_txxz_np1,db_txxz_n,db_txxz_nm1,
+     &                      db_txyz_np1,db_txyz_n,db_txyz_nm1,
+     &                      db_tyty_np1,db_tyty_n,db_tyty_nm1,
+     &                      db_tytz_np1,db_tytz_n,db_tytz_nm1,
+     &                      db_tyxy_np1,db_tyxy_n,db_tyxy_nm1,
+     &                      db_tyxz_np1,db_tyxz_n,db_tyxz_nm1,
+     &                      db_tyyz_np1,db_tyyz_n,db_tyyz_nm1,
+     &                      db_tztz_np1,db_tztz_n,db_tztz_nm1,
+     &                      db_tzxy_np1,db_tzxy_n,db_tzxy_nm1,
+     &                      db_tzxz_np1,db_tzxz_n,db_tzxz_nm1,
+     &                      db_tzyz_np1,db_tzyz_n,db_tzyz_nm1,
+     &                      db_xyxy_np1,db_xyxy_n,db_xyxy_nm1,
+     &                      db_xyxz_np1,db_xyxz_n,db_xyxz_nm1,
+     &                      db_xyyz_np1,db_xyyz_n,db_xyyz_nm1,
+     &                      db_xzxz_np1,db_xzxz_n,db_xzxz_nm1,
+     &                      db_xzyz_np1,db_xzyz_n,db_xzyz_nm1,
+     &                      db_yzyz_np1,db_yzyz_n,db_yzyz_nm1,
+     &                      gb_tt_np1,gb_tt_n,gb_tt_nm1,gb_tt_t_n,
      &                      gb_tx_np1,gb_tx_n,gb_tx_nm1,gb_tx_t_n,
      &                      gb_xx_np1,gb_xx_n,gb_xx_nm1,gb_xx_t_n,
      &                      psi_np1,psi_n,psi_nm1,psi_t_n,
@@ -19,6 +41,27 @@ c----------------------------------------------------------------------
         integer phys_bdy(2)
         real*8 dt,ex,L
         real*8 chr(Nx)
+        real*8 db_txtx_np1(Nx),db_txtx_n(Nx),db_txtx_nm1(Nx)
+        real*8 db_txty_np1(Nx),db_txty_n(Nx),db_txty_nm1(Nx)
+        real*8 db_txtz_np1(Nx),db_txtz_n(Nx),db_txtz_nm1(Nx)
+        real*8 db_txxy_np1(Nx),db_txxy_n(Nx),db_txxy_nm1(Nx)
+        real*8 db_txxz_np1(Nx),db_txxz_n(Nx),db_txxz_nm1(Nx)
+        real*8 db_txyz_np1(Nx),db_txyz_n(Nx),db_txyz_nm1(Nx)
+        real*8 db_tyty_np1(Nx),db_tyty_n(Nx),db_tyty_nm1(Nx)
+        real*8 db_tytz_np1(Nx),db_tytz_n(Nx),db_tytz_nm1(Nx)
+        real*8 db_tyxy_np1(Nx),db_tyxy_n(Nx),db_tyxy_nm1(Nx)
+        real*8 db_tyxz_np1(Nx),db_tyxz_n(Nx),db_tyxz_nm1(Nx)
+        real*8 db_tyyz_np1(Nx),db_tyyz_n(Nx),db_tyyz_nm1(Nx)
+        real*8 db_tztz_np1(Nx),db_tztz_n(Nx),db_tztz_nm1(Nx)
+        real*8 db_tzxy_np1(Nx),db_tzxy_n(Nx),db_tzxy_nm1(Nx)
+        real*8 db_tzxz_np1(Nx),db_tzxz_n(Nx),db_tzxz_nm1(Nx)
+        real*8 db_tzyz_np1(Nx),db_tzyz_n(Nx),db_tzyz_nm1(Nx)
+        real*8 db_xyxy_np1(Nx),db_xyxy_n(Nx),db_xyxy_nm1(Nx)
+        real*8 db_xyxz_np1(Nx),db_xyxz_n(Nx),db_xyxz_nm1(Nx)
+        real*8 db_xyyz_np1(Nx),db_xyyz_n(Nx),db_xyyz_nm1(Nx)
+        real*8 db_xzxz_np1(Nx),db_xzxz_n(Nx),db_xzxz_nm1(Nx)
+        real*8 db_xzyz_np1(Nx),db_xzyz_n(Nx),db_xzyz_nm1(Nx)
+        real*8 db_yzyz_np1(Nx),db_yzyz_n(Nx),db_yzyz_nm1(Nx)
         real*8 gb_tt_np1(Nx),gb_tt_n(Nx),gb_tt_nm1(Nx),gb_tt_t_n(Nx)
         real*8 gb_tx_np1(Nx),gb_tx_n(Nx),gb_tx_nm1(Nx),gb_tx_t_n(Nx)
         real*8 gb_xx_np1(Nx),gb_xx_n(Nx),gb_xx_nm1(Nx),gb_xx_t_n(Nx)
@@ -148,6 +191,27 @@ c----------------------------------------------------------------------
 
           ! computes tensors at point i 
           call tensor_init(
+     &            db_txtx_np1,db_txtx_n,db_txtx_nm1,
+     &            db_txty_np1,db_txty_n,db_txty_nm1,
+     &            db_txtz_np1,db_txtz_n,db_txtz_nm1,
+     &            db_txxy_np1,db_txxy_n,db_txxy_nm1,
+     &            db_txxz_np1,db_txxz_n,db_txxz_nm1,
+     &            db_txyz_np1,db_txyz_n,db_txyz_nm1,
+     &            db_tyty_np1,db_tyty_n,db_tyty_nm1,
+     &            db_tytz_np1,db_tytz_n,db_tytz_nm1,
+     &            db_tyxy_np1,db_tyxy_n,db_tyxy_nm1,
+     &            db_tyxz_np1,db_tyxz_n,db_tyxz_nm1,
+     &            db_tyyz_np1,db_tyyz_n,db_tyyz_nm1,
+     &            db_tztz_np1,db_tztz_n,db_tztz_nm1,
+     &            db_tzxy_np1,db_tzxy_n,db_tzxy_nm1,
+     &            db_tzxz_np1,db_tzxz_n,db_tzxz_nm1,
+     &            db_tzyz_np1,db_tzyz_n,db_tzyz_nm1,
+     &            db_xyxy_np1,db_xyxy_n,db_xyxy_nm1,
+     &            db_xyxz_np1,db_xyxz_n,db_xyxz_nm1,
+     &            db_xyyz_np1,db_xyyz_n,db_xyyz_nm1,
+     &            db_xzxz_np1,db_xzxz_n,db_xzxz_nm1,
+     &            db_xzyz_np1,db_xzyz_n,db_xzyz_nm1,
+     &            db_yzyz_np1,db_yzyz_n,db_yzyz_nm1,
      &            gb_tt_n,gb_tt_n,gb_tt_n,
      &            gb_tx_n,gb_tx_n,gb_tx_n,
      &            gb_xx_n,gb_xx_n,gb_xx_n,

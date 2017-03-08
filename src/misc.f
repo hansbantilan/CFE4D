@@ -362,6 +362,27 @@ c----------------------------------------------------------------------
 c calculates all the tensorial objects in x coordinates at point i
 c----------------------------------------------------------------------
         subroutine tensor_init(
+     &                  db_txtx_np1,db_txtx_n,db_txtx_nm1,
+     &                  db_txty_np1,db_txty_n,db_txty_nm1,
+     &                  db_txtz_np1,db_txtz_n,db_txtz_nm1,
+     &                  db_txxy_np1,db_txxy_n,db_txxy_nm1,
+     &                  db_txxz_np1,db_txxz_n,db_txxz_nm1,
+     &                  db_txyz_np1,db_txyz_n,db_txyz_nm1,
+     &                  db_tyty_np1,db_tyty_n,db_tyty_nm1,
+     &                  db_tytz_np1,db_tytz_n,db_tytz_nm1,
+     &                  db_tyxy_np1,db_tyxy_n,db_tyxy_nm1,
+     &                  db_tyxz_np1,db_tyxz_n,db_tyxz_nm1,
+     &                  db_tyyz_np1,db_tyyz_n,db_tyyz_nm1,
+     &                  db_tztz_np1,db_tztz_n,db_tztz_nm1,
+     &                  db_tzxy_np1,db_tzxy_n,db_tzxy_nm1,
+     &                  db_tzxz_np1,db_tzxz_n,db_tzxz_nm1,
+     &                  db_tzyz_np1,db_tzyz_n,db_tzyz_nm1,
+     &                  db_xyxy_np1,db_xyxy_n,db_xyxy_nm1,
+     &                  db_xyxz_np1,db_xyxz_n,db_xyxz_nm1,
+     &                  db_xyyz_np1,db_xyyz_n,db_xyyz_nm1,
+     &                  db_xzxz_np1,db_xzxz_n,db_xzxz_nm1,
+     &                  db_xzyz_np1,db_xzyz_n,db_xzyz_nm1,
+     &                  db_yzyz_np1,db_yzyz_n,db_yzyz_nm1,
      &                  gb_tt_np1,gb_tt_n,gb_tt_nm1,
      &                  gb_tx_np1,gb_tx_n,gb_tx_nm1,
      &                  gb_xx_np1,gb_xx_n,gb_xx_nm1,
@@ -384,6 +405,27 @@ c----------------------------------------------------------------------
         real*8 chr(Nx),ex
         real*8 x(Nx),dt,L
 
+        real*8 db_txtx_np1(Nx),db_txtx_n(Nx),db_txtx_nm1(Nx)
+        real*8 db_txty_np1(Nx),db_txty_n(Nx),db_txty_nm1(Nx)
+        real*8 db_txtz_np1(Nx),db_txtz_n(Nx),db_txtz_nm1(Nx)
+        real*8 db_txxy_np1(Nx),db_txxy_n(Nx),db_txxy_nm1(Nx)
+        real*8 db_txxz_np1(Nx),db_txxz_n(Nx),db_txxz_nm1(Nx)
+        real*8 db_txyz_np1(Nx),db_txyz_n(Nx),db_txyz_nm1(Nx)
+        real*8 db_tyty_np1(Nx),db_tyty_n(Nx),db_tyty_nm1(Nx)
+        real*8 db_tytz_np1(Nx),db_tytz_n(Nx),db_tytz_nm1(Nx)
+        real*8 db_tyxy_np1(Nx),db_tyxy_n(Nx),db_tyxy_nm1(Nx)
+        real*8 db_tyxz_np1(Nx),db_tyxz_n(Nx),db_tyxz_nm1(Nx)
+        real*8 db_tyyz_np1(Nx),db_tyyz_n(Nx),db_tyyz_nm1(Nx)
+        real*8 db_tztz_np1(Nx),db_tztz_n(Nx),db_tztz_nm1(Nx)
+        real*8 db_tzxy_np1(Nx),db_tzxy_n(Nx),db_tzxy_nm1(Nx)
+        real*8 db_tzxz_np1(Nx),db_tzxz_n(Nx),db_tzxz_nm1(Nx)
+        real*8 db_tzyz_np1(Nx),db_tzyz_n(Nx),db_tzyz_nm1(Nx)
+        real*8 db_xyxy_np1(Nx),db_xyxy_n(Nx),db_xyxy_nm1(Nx)
+        real*8 db_xyxz_np1(Nx),db_xyxz_n(Nx),db_xyxz_nm1(Nx)
+        real*8 db_xyyz_np1(Nx),db_xyyz_n(Nx),db_xyyz_nm1(Nx)
+        real*8 db_xzxz_np1(Nx),db_xzxz_n(Nx),db_xzxz_nm1(Nx)
+        real*8 db_xzyz_np1(Nx),db_xzyz_n(Nx),db_xzyz_nm1(Nx)
+        real*8 db_yzyz_np1(Nx),db_yzyz_n(Nx),db_yzyz_nm1(Nx)
         real*8 gb_tt_np1(Nx),gb_tt_n(Nx),gb_tt_nm1(Nx)
         real*8 gb_tx_np1(Nx),gb_tx_n(Nx),gb_tx_nm1(Nx)
         real*8 gb_xx_np1(Nx),gb_xx_n(Nx),gb_xx_nm1(Nx)
@@ -481,21 +523,21 @@ c----------------------------------------------------------------------
         phi10=phi1_n(i)
 
         ! set gads derivatives
-        g0_tt_ads_x  =(-2*(1+rho0**2)*sinh((4*rho0)/(1-rho0**2)))
-     &               /(-1+rho0**2)**2
-        g0_tt_ads_xx =(-4*(2*(1+rho0**2)**2*Cosh((4*rho0)/(-1+rho0**2))
-     &               +rho0*(-3 + 2*rho0**2 + rho0**4)
-     &               *Sinh((4*rho0)/(-1 + rho0**2))))/(-1 + rho0**2)**4
-        g0_xx_ads_x  =(-16*L**2*rho0*(1+rho0**2)*(3+rho0**2))
-     &               /(-1+rho0**2)**5
-        g0_xx_ads_xx =(16*L**2*(3+39*rho0**2+33*rho0**4+5*rho0**6))
-     &               /(-1+rho0**2)**6
-        g0_psi_ads_x =(2*L**2*(1+rho0**2)*Sinh((4*rho0)/(1-rho0**2)))
-     &               /(-1+rho0**2)**2
-        g0_psi_ads_xx=(4*L**2*(2*(1+rho0**2)**2
-     &               *Cosh((4*rho0)/(-1+rho0**2))
-     &               +rho0*(-3 + 2*rho0**2 + rho0**4)
-     &               *Sinh((4*rho0)/(-1 + rho0**2))))/(-1 + rho0**2)**4
+        g0_tt_ads_x  =(-2*(1+x0**2)*sinh((4*x0)/(1-x0**2)))
+     &               /(-1+x0**2)**2
+        g0_tt_ads_xx =(-4*(2*(1+x0**2)**2*cosh((4*x0)/(-1+x0**2))
+     &               +x0*(-3 + 2*x0**2 + x0**4)
+     &               *sinh((4*x0)/(-1 + x0**2))))/(-1 + x0**2)**4
+        g0_xx_ads_x  =(-16*L**2*x0*(1+x0**2)*(3+x0**2))
+     &               /(-1+x0**2)**5
+        g0_xx_ads_xx =(16*L**2*(3+39*x0**2+33*x0**4+5*x0**6))
+     &               /(-1+x0**2)**6
+        g0_psi_ads_x =(2*L**2*(1+x0**2)*sinh((4*x0)/(1-x0**2)))
+     &               /(-1+x0**2)**2
+        g0_psi_ads_xx=(4*L**2*(2*(1+x0**2)**2
+     &               *cosh((4*x0)/(-1+x0**2))
+     &               +x0*(-3 + 2*x0**2 + x0**4)
+     &               *sinh((4*x0)/(-1 + x0**2))))/(-1 + x0**2)**4
  
         ! calculate gbar derivatives
         call df2_int(gb_tt_np1,gb_tt_n,gb_tt_nm1,
