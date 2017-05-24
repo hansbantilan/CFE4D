@@ -32,10 +32,11 @@ F77_COMP   = $(F77) -c $(F77FLAGS)
 F77_LOAD   = $(F77) $(F77FLAGS) $(F77_LDFLAGS) $(LDFLAGS) 
 
 EXECUTABLES     = CFE4D
+
 # Miscellaneous files to clean up
 MISCDATAFILES   =
 
-SRC = *.f *.inc
+SRC = *.f 
 
 all: $(EXECUTABLES)
 
@@ -59,19 +60,23 @@ confidence_tests:
 translate: 
 	touch translate
 
-CFE4D.o: CFE4D.h 
+CFE4D.o: CFE4D.h apph.h
 g_evo_opt.o: 
 init_nm1.o : 
 misc.o: 
 axisym.o:
-ires.o:
-mg_sup.o:
-init_hb.o:
-gauge.o:
+ires.o: 
+mg_sup.o: 
+init_hb.o: 
+init_ghbdot.o: 
+gauge.o: 
+apph.o: CFE4D.h apph.h
+exp.o:
+interp.o:
 
-ADS5DP_OBJS = CFE4D.o g_evo_opt.o init_nm1.o misc.o axisym.o ires.o mg_sup.o init_hb.o gauge.o 
-CFE4D: $(ADS5DP_OBJS) 
-	$(CC_LOAD) $(ADS5DP_OBJS) $(LIBS) -o CFE4D
+ADS5D_OBJS = CFE4D.o g_evo_opt.o init_nm1.o misc.o axisym.o ires.o mg_sup.o init_hb.o init_ghbdot.o gauge.o apph.o exp.o interp.o
+CFE4D: $(ADS5D_OBJS) 
+	$(CC_LOAD) $(ADS5D_OBJS) $(LIBS) -o CFE4D
 	cp CFE4D $(bindir)
 
 export:

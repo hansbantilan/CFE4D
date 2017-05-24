@@ -1,89 +1,88 @@
-#---------- AdS4D 1+1 polar fixed parameter file --------------------------
+#---------- AdS 5D axisymmetric fixed parameter file --------------------------
 
-app_name := ["AdS4D 1+1 polar"]
+app_name := ["AdS 5D, axisymmetry with scalar field"]
 
 #==============================================================================
 
-dim := 1
+dim := 2
 num_evo_tl := 3
 ic_n := 2
 t0 := 0
 
-base_bbox := [0.0 1.0]
+base_bbox := [-1.0 1.0 -1.0 1.0]
 
 #==============================================================================
-# excision is not optional
+# Also, excision is not optional
 #==============================================================================
-ex    := 1
-do_ex := 1
+ex :=1
+do_ex :=1
 
 #==============================================================================
-# NOTE: gb_ab, psi and Hb_a are *regular* quantities
-#       with the appropriate divergent terms factored out
+# NOTE: the gb_ab,psi and Hb_a are the *regular* quantities 
+#       with the appropriate divergent terms factored out.
+#       See the maple scripts for the exact definitions     
 #==============================================================================
 
-num_hyperbolic_vars := 56
-hyperbolic_vars := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_txtx" "db_txty" "db_txtz" "db_txxy" "db_txxz" "db_txyz" "db_tyty" "db_tytz" "db_tyxy" "db_tyxz" "db_tyyz" "db_tztz" "db_tzxy" "db_tzxz" "db_tzyz" "db_xyxy" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_txtx_t" "db_txty_t" "db_txtz_t" "db_txxy_t" "db_txxz_t" "db_txyz_t" "db_tyty_t" "db_tytz_t" "db_tyxy_t" "db_tyxz_t" "db_tyyz_t" "db_tztz_t" "db_tzxy_t" "db_tzxz_t" "db_tzyz_t" "db_xyxy_t" "db_xyxz_t" "db_xyyz_t" "db_xzxz_t" "db_xzyz_t" "db_yzyz_t" ]
+num_hyperbolic_vars := 22
+hyperbolic_vars := [ "phi1" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
 
 #==============================================================================
-# For now only time-symmetric initial data, conformal to slice of pure AdS 
+# For now only time-symmetric initial data ... 'conformal' to AdS space
+# with conformal factor zeta 
 #==============================================================================
 
 num_elliptic_vars_t0 := 1
-elliptic_vars_t0 := ["zetab"]
+elliptic_vars_t0 := ["zeta"]
 
 #==============================================================================
 # "work" variables ... residuals, inverse metric components, etc.
 #==============================================================================
 
-num_AMRH_work_vars := 21
-AMRH_work_vars := [ "w1" "w2" "w3" "w4" "gb_res" "hb_t_res" "hb_i_res" "Hb_t_0" "Hb_x_0" "kg_res" "efe_all_ires" "phj_ires" "pij_ires" "alphaq_ires" "thetap_ires" "phj" "iresall" "pij" "alphaq" "thetap" "cl_res" ]
+num_AMRH_work_vars := 62
+AMRH_work_vars := [ "phi1_res" "gb_res" "hb_t_res" "hb_i_res" "kg_ires" "efe_all_ires" "efe_tt_ires" "efe_tx_ires" "efe_ty_ires" "efe_xx_ires" "efe_xy_ires" "efe_yy_ires" "efe_psi_ires" "quasiset_tt" "quasiset_tx" "quasiset_ty" "quasiset_xx" "quasiset_xy" "quasiset_yy" "quasiset_psi" "quasiset_mass" "kretsch" "w1" "w2" "w3" "w4" "alpha" "theta" "f" "tfunction" "iresall" "irestt" "irestx" "iresty" "iresxx" "iresxy" "iresyy" "irespsi" "qstt" "qstx" "qsty" "qsxx" "qsxy" "qsyy" "qspsi" "qsmass" "qsone" "test1" "test2" "test3" "test4" "gu_tt" "gu_tx" "gu_ty" "gu_xx" "gu_xy" "gu_yy" "m_g_det" "Hb_t_0" "Hb_x_0" "Hb_y_0" "cl_res" ]
 
 num_MGH_work_vars := 4
 MGH_work_vars := [ "mg_w1" "mg_w2" "mg_w3" "mg_w4" ]
 
-num_AMRH_work_in_MGH_vars := 15
-AMRH_work_in_MGH_vars := [ "w1" "w2" "w3" "w4" "gb_res" "hb_t_res" "hb_i_res" "Hb_t_0" "Hb_x_0" "kg_res" "efe_all_ires" "phj_ires" "pij_ires" "thetap" "cl_res" ]
+num_AMRH_work_in_MGH_vars := 26
+AMRH_work_in_MGH_vars := [ "phi1_res" "gb_res" "gb_ii_res" "hb_t_res" "hb_i_res" "kg_ires" "efe_all_ires" "efe_tt_ires" "efe_xx_ires" "efe_xy_ires" "efe_yy_ires" "efe_psi_ires" "w1" "w2" "w3" "w4" "alpha" "theta" "test1" "test2" "test3" "test4" "Hb_t_0" "Hb_x_0" "Hb_y_0" "cl_res" ]
 
-num_amr_inject   := 56
-amr_inject       := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_txtx" "db_txty" "db_txtz" "db_txxy" "db_txxz" "db_txyz" "db_tyty" "db_tytz" "db_tyxy" "db_tyxz" "db_tyyz" "db_tztz" "db_tzxy" "db_tzxz" "db_tzyz" "db_xyxy""db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_txtx_t" "db_txty_t" "db_txtz_t" "db_txxy_t" "db_txxz_t" "db_txyz_t" "db_tyty_t" "db_tytz_t" "db_tyxy_t" "db_tyxz_t" "db_tyyz_t" "db_tztz_t" "db_tzxy_t" "db_tzxz_t" "db_tzyz_t" "db_xyxy_t" "db_xyxz_t" "db_xyyz_t" "db_xzxz_t" "db_xzyz_t" "db_yzyz_t" ]
+num_amr_inject   := 22
+amr_inject       := [ "phi1" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
 
-num_amr_sync     := 56
-amr_sync         := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_txtx" "db_txty" "db_txtz" "db_txxy" "db_txxz" "db_txyz" "db_tyty" "db_tytz" "db_tyxy" "db_tyxz" "db_tyyz" "db_tztz" "db_tzxy" "db_tzxz" "db_tzyz" "db_xyxy" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_txtx_t" "db_txty_t" "db_txtz_t" "db_txxy_t" "db_txxz_t" "db_txyz_t" "db_tyty_t" "db_tytz_t" "db_tyxy_t" "db_tyxz_t" "db_tyyz_t" "db_tztz_t" "db_tzxy_t" "db_tzxz_t" "db_tzyz_t" "db_xyxy_t" "db_xyxz_t" "db_xyyz_t" "db_xzxz_t" "db_xzyz_t" "db_yzyz_t" ]
+num_amr_sync     := 22
+amr_sync         := [ "phi1" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
 
-num_amr_interp4  := 56
-amr_interp4      := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_txtx" "db_txty" "db_txtz" "db_txxy" "db_txxz" "db_txyz" "db_tyty" "db_tytz" "db_tyxy" "db_tyxz" "db_tyyz" "db_tztz" "db_tzxy" "db_tzxz" "db_tzyz" "db_xyxy" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_txtx_t" "db_txty_t" "db_txtz_t" "db_txxy_t" "db_txxz_t" "db_txyz_t" "db_tyty_t" "db_tytz_t" "db_tyxy_t" "db_tyxz_t" "db_tyyz_t" "db_tztz_t" "db_tzxy_t" "db_tzxz_t" "db_tzyz_t" "db_xyxy_t" "db_xyxz_t" "db_xyyz_t" "db_xzxz_t" "db_xzyz_t" "db_yzyz_t" ]
+num_amr_interp4  := 22
+amr_interp4      := [ "phi1" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
 
-num_amr_transfer4:= 56
-amr_transfer4    := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_txtx" "db_txty" "db_txtz" "db_txxy" "db_txxz" "db_txyz" "db_tyty" "db_tytz" "db_tyxy" "db_tyxz" "db_tyyz" "db_tztz" "db_tzxy" "db_tzxz" "db_tzyz" "db_xyxy" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_txtx_t" "db_txty_t" "db_txtz_t" "db_txxy_t" "db_txxz_t" "db_txyz_t" "db_tyty_t" "db_tytz_t" "db_tyxy_t" "db_tyxz_t" "db_tyyz_t" "db_tztz_t" "db_tzxy_t" "db_tzxz_t" "db_tzyz_t" "db_xyxy_t" "db_xyxz_t" "db_xyyz_t" "db_xzxz_t" "db_xzyz_t" "db_yzyz_t" ]
+num_amr_transfer4:= 22
+amr_transfer4    := [ "phi1" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
 
 num_mg_hw_restr  := 2
-mg_hw_restr      := [ "zetab" "phi1" ]
+mg_hw_restr      := [ "zeta" "phi1" ]
 
 num_mg_sync      := 1
-mg_sync          := [ "zetab" ]
+mg_sync          := [ "zeta" ]
 
 num_mg_interp2   := 1
-mg_interp2       := [ "zetab" ]
+mg_interp2       := [ "zeta" ]
 
-num_MG_cnst_data_vars := 54
-MG_cnst_data_vars     := [ "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_txtx" "db_txty" "db_txtz" "db_txxy" "db_txxz" "db_txyz" "db_tyty" "db_tytz" "db_tyxy" "db_tyxz" "db_tyyz" "db_tztz" "db_tzxy" "db_tzxz" "db_tzyz" "db_xyxy" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_txtx_t" "db_txty_t" "db_txtz_t" "db_txxy_t" "db_txxz_t" "db_txyz_t" "db_tyty_t" "db_tytz_t" "db_tyxy_t" "db_tyxz_t" "db_tyyz_t" "db_tztz_t" "db_tzxy_t" "db_tzxz_t" "db_tzyz_t" "db_xyxy_t" "db_xyxz_t" "db_xyyz_t" "db_xzxz_t" "db_xzyz_t" "db_yzyz_t" ]  
+num_MG_cnst_data_vars := 20
+MG_cnst_data_vars := [ "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t"]
 
-num_rg_diss_vars := 56
-rg_diss_vars     := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_txtx" "db_txty" "db_txtz" "db_txxy" "db_txxz" "db_txyz" "db_tyty" "db_tytz" "db_tyxy" "db_tyxz" "db_tyyz" "db_tztz" "db_tzxy" "db_tzxz" "db_tzyz" "db_xyxy" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_txtx_t" "db_txty_t" "db_txtz_t" "db_txxy_t" "db_txxz_t" "db_txyz_t" "db_tyty_t" "db_tytz_t" "db_tyxy_t" "db_tyxz_t" "db_tyyz_t" "db_tztz_t" "db_tzxy_t" "db_tzxz_t" "db_tzyz_t" "db_xyxy_t" "db_xyxz_t" "db_xyyz_t" "db_xzxz_t" "db_xzyz_t" "db_yzyz_t" ]
+num_rg_diss_vars := 22
+rg_diss_vars     := [ "phi1" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
 
-num_tn_diss_vars := 56
-tn_diss_vars := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_txtx" "db_txty" "db_txtz" "db_txxy" "db_txxz" "db_txyz" "db_tyty" "db_tytz" "db_tyxy" "db_tyxz" "db_tyyz" "db_tztz" "db_tzxy" "db_tzxz" "db_tzyz" "db_xyxy" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_txtx_t" "db_txty_t" "db_txtz_t" "db_txxy_t" "db_txxz_t" "db_txyz_t" "db_tyty_t" "db_tytz_t" "db_tyxy_t" "db_tyxz_t" "db_tyyz_t" "db_tztz_t" "db_tzxy_t" "db_tzxz_t" "db_tzyz_t" "db_xyxy_t" "db_xyxz_t" "db_xyyz_t" "db_xzxz_t" "db_xzyz_t" "db_yzyz_t" ]
-num_tnp1_diss_vars := 56
-tnp1_diss_vars := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" "db_txtx" "db_txty" "db_txtz" "db_txxy" "db_txxz" "db_txyz" "db_tyty" "db_tytz" "db_tyxy" "db_tyxz" "db_tyyz" "db_tztz" "db_tzxy" "db_tzxz" "db_tzyz" "db_xyxy" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_xyxz" "db_xyyz" "db_xzxz" "db_xzyz" "db_yzyz" "db_txtx_t" "db_txty_t" "db_txtz_t" "db_txxy_t" "db_txxz_t" "db_txyz_t" "db_tyty_t" "db_tytz_t" "db_tyxy_t" "db_tyxz_t" "db_tyyz_t" "db_tztz_t" "db_tzxy_t" "db_tzxz_t" "db_tzyz_t" "db_xyxy_t" "db_xyxz_t" "db_xyyz_t" "db_xzxz_t" "db_xzyz_t" "db_yzyz_t" ]
+num_tn_diss_vars := 22
+tn_diss_vars := [ "phi1" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
 
-num_even_vars_x0min := 10
-even_vars_x0min := [ "phi1" "phi1_t" "gb_tt" "gb_xx" "psi" "gb_tt_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_t_t" ]
-num_odb_vars_x0min := 4
-odb_vars_x0min := [ "gb_tx" "gb_tx_t" "Hb_x" "Hb_x_t" ]
+num_tnp1_diss_vars := 22
+tnp1_diss_vars := [ "phi1" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
 
-num_even_vars_x0max := 0
-num_odb_vars_x0max := 14
-odb_vars_x0max := [ "phi1" "phi1_t" "gb_tt" "gb_tx" "gb_xx" "psi" "gb_tt_t" "gb_tx_t" "gb_xx_t" "psi_t" "Hb_t" "Hb_x" "Hb_t_t" "Hb_x_t" ]
+num_even_vars_x1min := 16
+even_vars_x1min := [ "phi1" "gb_tt" "gb_tx" "gb_xx" "gb_yy" "Hb_t" "Hb_x" "psi" "phi1_t" "gb_tt_t" "gb_tx_t" "gb_xx_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" ]
+num_odd_vars_x1min := 6
+odd_vars_x1min := [ "gb_ty" "gb_xy" "Hb_y" "gb_ty_t" "gb_xy_t" "Hb_y_t"]
 
 #-----------------------------------------------------

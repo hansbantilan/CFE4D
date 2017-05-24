@@ -974,7 +974,7 @@ else
                     CPPFLAGS="$CPPFLAGS -DLINUX -DPORT_GROUP -DWant_c_files"
                     CXXFLAGS="$CXXFLAGS -DLINUX -DPORT_GROUP -DWant_c_files"
                     if test "X$CCF77LIBS" = "X"; then
-                       CCF77LIBS='-lgfortran -lm'
+                       CCF77LIBS='-lg2c -lm'
                     fi
                  ;;
                  esac;
@@ -1038,7 +1038,7 @@ else
                  CPPFLAGS="$CPPFLAGS -DDARWIN -D__ -DWant_c_files"
                  CXXFLAGS="$CXXFLAGS -DDARWIN -D__ -DWant_c_files"
                  if test "X$CCF77LIBS" = "X"; then
-                    CCF77LIBS='-lgfortran -lm'
+                    CCF77LIBS='-lg2c -lm'
                  fi
                  RPCGEN_CPPFLAGS="-U__STDC__"
                  LDFLAGS="$LDFLAGS -L/usr/X11R6/lib -L/sw/lib"
@@ -1832,7 +1832,7 @@ else
                     CPPFLAGS="$CPPFLAGS -DLINUX -DPORT_GROUP -DWant_c_files"
                     CXXFLAGS="$CXXFLAGS -DLINUX -DPORT_GROUP -DWant_c_files"
                     if test "X$CCF77LIBS" = "X"; then
-                       CCF77LIBS='-lgfortran -lm'
+                       CCF77LIBS='-lg2c -lm'
                     fi
                  ;;
                  esac;
@@ -1896,7 +1896,7 @@ else
                  CPPFLAGS="$CPPFLAGS -DDARWIN -D__ -DWant_c_files"
                  CXXFLAGS="$CXXFLAGS -DDARWIN -D__ -DWant_c_files"
                  if test "X$CCF77LIBS" = "X"; then
-                    CCF77LIBS='-lgfortran -lm'
+                    CCF77LIBS='-lg2c -lm'
                  fi
                  RPCGEN_CPPFLAGS="-U__STDC__"
                  LDFLAGS="$LDFLAGS -L/usr/X11R6/lib -L/sw/lib"
@@ -2455,7 +2455,7 @@ else
                     CPPFLAGS="$CPPFLAGS -DLINUX -DPORT_GROUP -DWant_c_files"
                     CXXFLAGS="$CXXFLAGS -DLINUX -DPORT_GROUP -DWant_c_files"
                     if test "X$CCF77LIBS" = "X"; then
-                       CCF77LIBS='-lgfortran -lm'
+                       CCF77LIBS='-lg2c -lm'
                     fi
                  ;;
                  esac;
@@ -2519,7 +2519,7 @@ else
                  CPPFLAGS="$CPPFLAGS -DDARWIN -D__ -DWant_c_files"
                  CXXFLAGS="$CXXFLAGS -DDARWIN -D__ -DWant_c_files"
                  if test "X$CCF77LIBS" = "X"; then
-                    CCF77LIBS='-lgfortran -lm'
+                    CCF77LIBS='-lg2c -lm'
                  fi
                  RPCGEN_CPPFLAGS="-U__STDC__"
                  LDFLAGS="$LDFLAGS -L/usr/X11R6/lib -L/sw/lib"
@@ -3173,7 +3173,7 @@ else
                     CPPFLAGS="$CPPFLAGS -DLINUX -DPORT_GROUP -DWant_c_files"
                     CXXFLAGS="$CXXFLAGS -DLINUX -DPORT_GROUP -DWant_c_files"
                     if test "X$CCF77LIBS" = "X"; then
-                       CCF77LIBS='-lgfortran -lm'
+                       CCF77LIBS='-lg2c -lm'
                     fi
                  ;;
                  esac;
@@ -3237,7 +3237,7 @@ else
                  CPPFLAGS="$CPPFLAGS -DDARWIN -D__ -DWant_c_files"
                  CXXFLAGS="$CXXFLAGS -DDARWIN -D__ -DWant_c_files"
                  if test "X$CCF77LIBS" = "X"; then
-                    CCF77LIBS='-lgfortran -lm'
+                    CCF77LIBS='-lg2c -lm'
                  fi
                  RPCGEN_CPPFLAGS="-U__STDC__"
                  LDFLAGS="$LDFLAGS -L/usr/X11R6/lib -L/sw/lib"
@@ -3861,7 +3861,7 @@ else
                     CPPFLAGS="$CPPFLAGS -DLINUX -DPORT_GROUP -DWant_c_files"
                     CXXFLAGS="$CXXFLAGS -DLINUX -DPORT_GROUP -DWant_c_files"
                     if test "X$CCF77LIBS" = "X"; then
-                       CCF77LIBS='-lgfortran -lm'
+                       CCF77LIBS='-lg2c -lm'
                     fi
                  ;;
                  esac;
@@ -3925,7 +3925,7 @@ else
                  CPPFLAGS="$CPPFLAGS -DDARWIN -D__ -DWant_c_files"
                  CXXFLAGS="$CXXFLAGS -DDARWIN -D__ -DWant_c_files"
                  if test "X$CCF77LIBS" = "X"; then
-                    CCF77LIBS='-lgfortran -lm'
+                    CCF77LIBS='-lg2c -lm'
                  fi
                  RPCGEN_CPPFLAGS="-U__STDC__"
                  LDFLAGS="$LDFLAGS -L/usr/X11R6/lib -L/sw/lib"

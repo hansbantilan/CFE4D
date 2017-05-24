@@ -428,7 +428,7 @@ dnl                 CXXFLAGS="$CXXFLAGS -DLINUX -D__ -DPORT_GROUP -DWant_c_files
                     CPPFLAGS="$CPPFLAGS -DLINUX -DPORT_GROUP -DWant_c_files"
                     CXXFLAGS="$CXXFLAGS -DLINUX -DPORT_GROUP -DWant_c_files"
                     if test "X$CCF77LIBS" = "X"; then
-                       CCF77LIBS='-lgfortran -lm'
+                       CCF77LIBS='-lg2c -lm'
                     fi
                  ;;
                  esac;
@@ -462,7 +462,7 @@ dnl ----------------------------------------------------------------------
                  CPPFLAGS="$CPPFLAGS -DDARWIN -D__ -DWant_c_files"
                  CXXFLAGS="$CXXFLAGS -DDARWIN -D__ -DWant_c_files"
                  if test "X$CCF77LIBS" = "X"; then
-                    CCF77LIBS='-lgfortran -lm'
+                    CCF77LIBS='-lg2c -lm'
                  fi
                  RPCGEN_CPPFLAGS="-U__STDC__"
 dnl ----------------------------------------------------------------------
