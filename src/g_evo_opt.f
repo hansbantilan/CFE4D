@@ -8,7 +8,13 @@ c choosing theta=pi/2
 c
 c L below is the AdS length scale
 c----------------------------------------------------------------------
-        subroutine g_evo_opt(gb_res,kg_res,cl_res,
+        subroutine g_evo_opt(eb_res,gb_res,kg_res,cl_res,
+     &                       eb_xx_np1,eb_xx_n,eb_xx_nm1,
+     &                       eb_xy_np1,eb_xy_n,eb_xy_nm1,
+     &                       eb_xz_np1,eb_xz_n,eb_xz_nm1,
+     &                       eb_yy_np1,eb_yy_n,eb_yy_nm1,
+     &                       eb_yz_np1,eb_yz_n,eb_yz_nm1,
+     &                       eb_zz_np1,eb_zz_n,eb_zz_nm1,
      &                       gb_tt_np1,gb_tt_n,gb_tt_nm1,
      &                       gb_tx_np1,gb_tx_n,gb_tx_nm1,
      &                       gb_ty_np1,gb_ty_n,gb_ty_nm1,
@@ -35,26 +41,24 @@ c----------------------------------------------------------------------
         integer diss_kmax
         integer max_ghost_width
         real*8 kappa_cd,rho_cd
-        real*8 gb_res(Nx,Ny),kg_res(Nx,Ny),cl_res(Nx,Ny)
-        real*8 gb_tt_np1(Nx,Ny),gb_tx_np1(Nx,Ny)
-        real*8 gb_ty_np1(Nx,Ny)
-        real*8 gb_xx_np1(Nx,Ny),gb_xy_np1(Nx,Ny)
-        real*8 gb_yy_np1(Nx,Ny),psi_np1(Nx,Ny)
-        real*8 gb_tt_n(Nx,Ny),gb_tx_n(Nx,Ny)
-        real*8 gb_ty_n(Nx,Ny)
-        real*8 gb_xx_n(Nx,Ny),gb_xy_n(Nx,Ny)
-        real*8 gb_yy_n(Nx,Ny),psi_n(Nx,Ny)
-        real*8 gb_tt_nm1(Nx,Ny),gb_tx_nm1(Nx,Ny)
-        real*8 gb_ty_nm1(Nx,Ny)
-        real*8 gb_xx_nm1(Nx,Ny),gb_xy_nm1(Nx,Ny)
-        real*8 gb_yy_nm1(Nx,Ny),psi_nm1(Nx,Ny)
-        real*8 Hb_t_n(Nx,Ny),Hb_x_n(Nx,Ny)
-        real*8 Hb_y_n(Nx,Ny),Hb_z_n(Nx,Ny)
-        real*8 Hb_t_np1(Nx,Ny),Hb_x_np1(Nx,Ny)
-        real*8 Hb_y_np1(Nx,Ny),Hb_z_np1(Nx,Ny)
-        real*8 Hb_t_nm1(Nx,Ny),Hb_x_nm1(Nx,Ny)
-        real*8 Hb_y_nm1(Nx,Ny),Hb_z_nm1(Nx,Ny)
+        real*8 eb_res(Nx,Ny),gb_res(Nx,Ny),kg_res(Nx,Ny),cl_res(Nx,Ny)
+        real*8 eb_xx_np1(Nx,Ny),eb_xx_n(Nx,Ny),eb_xx_nm1(Nx,Ny)
+        real*8 eb_xy_np1(Nx,Ny),eb_xy_n(Nx,Ny),eb_xy_nm1(Nx,Ny)
+        real*8 eb_xz_np1(Nx,Ny),eb_xz_n(Nx,Ny),eb_xz_nm1(Nx,Ny)
+        real*8 eb_yy_np1(Nx,Ny),eb_yy_n(Nx,Ny),eb_yy_nm1(Nx,Ny)
+        real*8 eb_yz_np1(Nx,Ny),eb_yz_n(Nx,Ny),eb_yz_nm1(Nx,Ny)
+        real*8 eb_zz_np1(Nx,Ny),eb_zz_n(Nx,Ny),eb_zz_nm1(Nx,Ny)
+        real*8 gb_tt_np1(Nx,Ny),gb_tt_n(Nx,Ny),gb_tt_nm1(Nx,Ny)
+        real*8 gb_tx_np1(Nx,Ny),gb_tx_n(Nx,Ny),gb_tx_nm1(Nx,Ny)
+        real*8 gb_ty_np1(Nx,Ny),gb_ty_n(Nx,Ny),gb_ty_nm1(Nx,Ny)
+        real*8 gb_xx_np1(Nx,Ny),gb_xx_n(Nx,Ny),gb_xx_nm1(Nx,Ny)
+        real*8 gb_xy_np1(Nx,Ny),gb_xy_n(Nx,Ny),gb_xy_nm1(Nx,Ny)
+        real*8 gb_yy_np1(Nx,Ny),gb_yy_n(Nx,Ny),gb_yy_nm1(Nx,Ny)
+        real*8 psi_np1(Nx,Ny),psi_n(Nx,Ny),psi_nm1(Nx,Ny)
         real*8 phi1_np1(Nx,Ny),phi1_n(Nx,Ny),phi1_nm1(Nx,Ny)
+        real*8 Hb_t_np1(Nx,Ny),Hb_t_n(Nx,Ny),Hb_t_nm1(Nx,Ny)
+        real*8 Hb_x_np1(Nx,Ny),Hb_x_n(Nx,Ny),Hb_x_nm1(Nx,Ny)
+        real*8 Hb_y_np1(Nx,Ny),Hb_y_n(Nx,Ny),Hb_y_nm1(Nx,Ny)
         real*8 tfunction(Nx,Ny)
         real*8 L
         real*8 x(Nx),y(Ny),dt,chr(Nx,Ny),ex

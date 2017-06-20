@@ -258,7 +258,13 @@ void calc_gbu(void);
 void calc_gbu_nm1(void);
 
 /* prototypes for the various fortran functions we use: */
-void g_evo_opt_(real *gb_res, real *phi1_res, real *cl_res,
+void g_evo_opt_(real *eb_res, real *gb_res, real *phi1_res, real *cl_res,
+                real *eb_xx_np1, real *eb_xx_n, real *eb_xx_nm1,
+                real *eb_xy_np1, real *eb_xy_n, real *eb_xy_nm1,
+                real *eb_xz_np1, real *eb_xz_n, real *eb_xz_nm1,
+                real *eb_yy_np1, real *eb_yy_n, real *eb_yy_nm1,
+                real *eb_yz_np1, real *eb_yz_n, real *eb_yz_nm1,
+                real *eb_zz_np1, real *eb_zz_n, real *eb_zz_nm1,
                 real *gb_tt_np1, real *gb_tt_n, real *gb_tt_nm1,
                 real *gb_tx_np1, real *gb_tx_n, real *gb_tx_nm1,
                 real *gb_ty_np1, real *gb_ty_n, real *gb_ty_nm1,

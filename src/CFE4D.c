@@ -1679,7 +1679,13 @@ void CFE4D_evolve(int iter)
                 &gauge_i,&ct,&rho1_i,&rho2_i,&rho3_i,&rho4_i,&xi1_i,&xi2_i,
                 &c1_i,&c2_i,&c3_i,&cbulk_i);
 
-     g_evo_opt_(gb_res,phi1_res,cl_res,
+     g_evo_opt_(eb_res,gb_res,phi1_res,cl_res,
+                eb_xx_np1,eb_xx_n,eb_xx_nm1,
+                eb_xy_np1,eb_xy_n,eb_xy_nm1,
+                eb_xz_np1,eb_xz_n,eb_xz_nm1,
+                eb_yy_np1,eb_yy_n,eb_yy_nm1,
+                eb_yz_np1,eb_yz_n,eb_yz_nm1,
+                eb_zz_np1,eb_zz_n,eb_zz_nm1,
                 gb_tt_np1,gb_tt_n,gb_tt_nm1,
                 gb_tx_np1,gb_tx_n,gb_tx_nm1,
                 gb_ty_np1,gb_ty_n,gb_ty_nm1,
