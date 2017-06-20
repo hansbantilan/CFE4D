@@ -21,7 +21,6 @@ extern int diss_kmax,diss_eps_k_cutoff_n,diss_bdy_k,diss_all_past_k,diss_all;
 /* id parameters                                                                */
 /*============================================================================= */
 
-//TEST//
 #define MAX_BHS 4
 
 extern real phi1_amp_1,phi1_r0_1,phi1_delta_1,phi1_x0_1[2],phi1_ecc_1[2];
@@ -56,7 +55,6 @@ extern real rho1_i,rho2_i,xi1_i,xi2_i;
 
 
 
-/* TTEST */
 /* apph parameters  */
 extern int AH_Nchi[MAX_BHS],AH_Nphi[MAX_BHS],AH_Lmin[MAX_BHS],AH_Lmax[MAX_BHS],AH_find_best_fit[MAX_BHS];
 extern int AH_max_iter[MAX_BHS],AH_freq[MAX_BHS],AH_freq_aft[MAX_BHS],AH_rsteps[MAX_BHS],AH_maxinc[MAX_BHS];

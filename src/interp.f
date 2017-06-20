@@ -276,7 +276,6 @@ c----------------------------------------------------------------------
           j_shift2=j_shift2+1
         end if
 
-!TEST (shows up in tfunction/(1-rho)^2 diagnostic when initializing tfunction=(1-rho)^2)!
         ! ensure that rho1.ne.rho2
         if (abs(x0).gt.abs(y0) .and. i_shift1.eq.i_shift2) 
      &    i_shift1=i_shift1+1
@@ -339,7 +338,6 @@ c----------------------------------------------------------------------
         p23=(x30*y2+x02*y3)/x32
         f(i,j)=(x30*p12+x01*p23)/x31
 
-!TEST!
         if (rho1.eq.rho2) then
           write(*,*) '--------------------------------'
           write(*,*) 'x,y=',x0,y0

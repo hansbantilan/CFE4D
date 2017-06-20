@@ -1001,17 +1001,6 @@ c----------------------------------------------------------------------
      &            max(abs(c_l(1)),abs(c_l(2)),abs(c_l(3)),
      &                abs(c_l(4)),abs(c_l(5)))
 
-!TEST!
-!                  if (first_evolved_pt) then ! enforce -tt+xx+yy+2*psi=0 in band
-!                    gb_tt_np1(i,j)=gb_xx_np1(i,j)+gb_yy_np1(i,j)
-!     &                            +2*psi_np1(i,j)
-!                    gb_res(i,j) = 
-!     &                max(abs(efe(1,2)),abs(efe(1,3)),
-!     &                   abs(efe(2,2)),abs(efe(2,3)),abs(efe(3,3)),
-!     &                   abs(efe(4,4)))
-!                  end if
-!TEST!
-
                 if (dump.and.first_nan.or.
      &              (ltrace.and.abs(x(i)).lt.0.1.and.abs(y(j)).lt.0.1)
      &             ) then
