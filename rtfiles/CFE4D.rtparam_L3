@@ -214,7 +214,7 @@ num_save_1_vars := 0
 save_1_vars := [ ]
 
 num_save_2_vars := 1
-save_2_vars := [ "phi1" ]
+save_2_vars := [ "eb_xx" ]
 
 calc_global_var_norms := 1
 global_var_norm_floor := 1

@@ -73,6 +73,8 @@ c----------------------------------------------------------------------
 
         real*8 phi1_res,phi1_J
 
+        real*8 cfe(5,5),cfe_J(5,5)
+
         real*8 PI
         parameter (PI=3.141592653589793d0)
 
@@ -298,6 +300,8 @@ c----------------------------------------------------------------------
         data term3,term4/25*0.0,25*0.0/
         data term5,term6/25*0.0,25*0.0/
         data term7,term8/25*0.0,25*0.0/
+
+        data cfe,cfe_J/25*0.0,25*0.0/
 
         data efe,efe_J/25*0.0,25*0.0/
         data cd_ll,cd_J_ll/25*0.0,25*0.0/
@@ -771,6 +775,25 @@ c----------------------------------------------------------------------
      &                  set_ll(4,5)*g0_uu(4,5))
 
                 !--------------------------------------------------------------------------
+                ! cfe
+                !--------------------------------------------------------------------------
+                cfe(2,2)= phi10_xx(1,1)*g0_uu(1,1)+
+     &                    phi10_xx(2,2)*g0_uu(2,2)+
+     &                    phi10_xx(3,3)*g0_uu(3,3)+
+     &                    phi10_xx(4,4)*g0_uu(4,4)+
+     &                    phi10_xx(5,5)*g0_uu(5,5)+
+     &                 2*(phi10_xx(1,2)*g0_uu(1,2)+
+     &                    phi10_xx(1,3)*g0_uu(1,3)+
+     &                    phi10_xx(1,4)*g0_uu(1,4)+
+     &                    phi10_xx(1,5)*g0_uu(1,5)+
+     &                    phi10_xx(2,3)*g0_uu(2,3)+
+     &                    phi10_xx(2,4)*g0_uu(2,4)+
+     &                    phi10_xx(2,5)*g0_uu(2,5)+
+     &                    phi10_xx(3,4)*g0_uu(3,4)+
+     &                    phi10_xx(3,5)*g0_uu(3,5)+
+     &                    phi10_xx(4,5)*g0_uu(4,5))
+
+                !--------------------------------------------------------------------------
                 ! phi1_res = phi1,ab g^ab 
                 !--------------------------------------------------------------------------
                 phi1_res= phi10_xx(1,1)*g0_uu(1,1)+
@@ -893,6 +916,20 @@ c----------------------------------------------------------------------
                 end if
 
                 !----------------------------------------------------------------
+                ! computes diag. Jacobian of eb_np1->L.eb_np1 transformation
+                ! by differentiating L.eb wrt. eb_ij_np1 diag. entries
+                ! 
+                ! (re-use the dgb_J,ddgb_J,ddgb_J_tx,ddgb_J_ty defined above)
+                !----------------------------------------------------------------
+                cfe_J(2,2)=(
+     &                 g0_uu(1,1)*ddgb_J
+     &                 +2*x0*g0_uu(1,2)*dgb_J
+     &                 +2*g0_uu(1,2)*ddgb_J_tx
+     &                 +2*y0*g0_uu(1,3)*dgb_J
+     &                 +2*g0_uu(1,3)*ddgb_J_ty
+     &                     )
+
+                !----------------------------------------------------------------
                 ! computes diag. Jacobian of phi1_np1->L.phi1_np1 transformation
                 ! by differentiating L.phi1=box.phi1-dV/dphi1 wrt. phi1_np1
                 ! and remember: phi10=phi1*(1-rho0**2)**3 
@@ -991,13 +1028,29 @@ c----------------------------------------------------------------------
                   efe_J(5,5)=efe_J(5,5)+cd_J_ll(5,5)
                 end if
 
+                ! updates ebars
+                if (is_nan(cfe(2,2)).or.is_nan(cfe_J(2,2)).or.
+     &            cfe_J(2,2).eq.0) then
+                  dump=.true.
+                else
+                  eb_xx_np1(i,j)=eb_xx_np1(i,j)-cfe(2,2)/cfe_J(2,2)
+                end if
+
                 ! update phi1
-                if (is_nan(phi1_res).or.is_nan(phi1_J)) then
+                if (is_nan(phi1_res).or.is_nan(phi1_J).or.
+     &            phi1_J.eq.0) then
                   dump=.true.
                 else
                   phi1_np1(i,j)=phi1_np1(i,j)-phi1_res/phi1_J
                 end if
 
+                eb_res(i,j) =
+     &            max(abs(cfe(2,2)/cfe_J(2,2)),
+     &                abs(cfe(2,3)/cfe_J(2,3)),
+     &                abs(cfe(2,4)/cfe_J(2,4)),
+     &                abs(cfe(3,3)/cfe_J(3,3)),
+     &                abs(cfe(3,4)/cfe_J(3,4)),
+     &                abs(cfe(4,4)/cfe_J(4,4)))
                 kg_res(i,j)=abs(phi1_res/phi1_J)
 
                 ! save pointwise max of constraint violation
