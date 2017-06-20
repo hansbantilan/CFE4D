@@ -88,6 +88,13 @@ extern real *phi4_i,*phi4_i_n,*phi4_i_np1,*phi4_i_nm1;
 extern real *phi4_r,*phi4_r_n,*phi4_r_np1,*phi4_r_nm1,*phi4_r_t;
 extern real *phi4_i,*phi4_i_n,*phi4_i_np1,*phi4_i_nm1,*phi4_i_t;
 
+extern real *eb_xx,*eb_xx_n,*eb_xx_np1,*eb_xx_nm1; 
+extern real *eb_xy,*eb_xy_n,*eb_xy_np1,*eb_xy_nm1; 
+extern real *eb_xz,*eb_xz_n,*eb_xz_np1,*eb_xz_nm1; 
+extern real *eb_yy,*eb_yy_n,*eb_yy_np1,*eb_yy_nm1; 
+extern real *eb_yz,*eb_yz_n,*eb_yz_np1,*eb_yz_nm1; 
+extern real *eb_zz,*eb_zz_n,*eb_zz_np1,*eb_zz_nm1; 
+
 extern real *gb_tt,*gb_tt_n,*gb_tt_np1,*gb_tt_nm1; 
 extern real *gb_tx,*gb_tx_n,*gb_tx_np1,*gb_tx_nm1; 
 extern real *gb_ty,*gb_ty_n,*gb_ty_np1,*gb_ty_nm1; 
@@ -103,6 +110,14 @@ extern real *Hb_y,*Hb_y_n,*Hb_y_np1,*Hb_y_nm1;
 extern real *phi1_t,*phi1_t_n;
 extern real *phi4_r_t,*phi4_r_t_n;
 extern real *phi4_i_t,*phi4_i_t_n;
+
+extern real *eb_xx_t,*eb_xx_t_n;
+extern real *eb_xy_t,*eb_xy_t_n;
+extern real *eb_xz_t,*eb_xz_t_n;
+extern real *eb_yy_t,*eb_yy_t_n;
+extern real *eb_yz_t,*eb_yz_t_n;
+extern real *eb_zz_t,*eb_zz_t_n;
+
 extern real *gb_tt_t,*gb_tt_t_n;
 extern real *gb_tx_t,*gb_tx_t_n;
 extern real *gb_ty_t,*gb_ty_t_n;
@@ -172,6 +187,13 @@ extern int cl_res_gfn;
 extern int phi1_gfn,phi1_n_gfn,phi1_np1_gfn,phi1_nm1_gfn; 
 extern int phi4_r_gfn,phi4_r_n_gfn,phi4_r_np1_gfn,phi4_r_nm1_gfn; 
 extern int phi4_i_gfn,phi4_i_n_gfn,phi4_i_np1_gfn,phi4_i_nm1_gfn; 
+
+extern int eb_xx_gfn,eb_xx_n_gfn,eb_xx_np1_gfn,eb_xx_nm1_gfn; 
+extern int eb_xy_gfn,eb_xy_n_gfn,eb_xy_np1_gfn,eb_xy_nm1_gfn; 
+extern int eb_xz_gfn,eb_xz_n_gfn,eb_xz_np1_gfn,eb_xz_nm1_gfn; 
+extern int eb_yy_gfn,eb_yy_n_gfn,eb_yy_np1_gfn,eb_yy_nm1_gfn; 
+extern int eb_yz_gfn,eb_yz_n_gfn,eb_yz_np1_gfn,eb_yz_nm1_gfn; 
+extern int eb_zz_gfn,eb_zz_n_gfn,eb_zz_np1_gfn,eb_zz_nm1_gfn; 
 
 extern int gb_tt_gfn,gb_tt_n_gfn,gb_tt_np1_gfn,gb_tt_nm1_gfn; 
 extern int gb_tx_gfn,gb_tx_n_gfn,gb_tx_np1_gfn,gb_tx_nm1_gfn; 
