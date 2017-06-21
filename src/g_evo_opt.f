@@ -266,6 +266,8 @@ c----------------------------------------------------------------------
         ! variables for tensor manipulations 
         !(indices are t,x,w,y,z)
         !--------------------------------------------------------------
+        real*8 e0_ll(5,5),e0_ll_x(5,5,5),e0_ll_xx(5,5,5,5)
+
         real*8 g0_ll(5,5),g0_uu(5,5)
         real*8 g0_ll_x(5,5,5),g0_uu_x(5,5,5),g0_ll_xx(5,5,5,5)
         real*8 gads_ll(5,5),gads_uu(5,5)
@@ -375,6 +377,9 @@ c----------------------------------------------------------------------
         data grad_phi1_sq/1*0.0/
         data Hads_l,A_l,dphi1/5*0.0,5*0.0,5*0.0/
         data A_l_x/25*0.0/
+
+        data e0_ll,e0_ll_x,e0_ll_xx/25*0.0,125*0.0,625*0.0/
+
         data g0_ll,g0_uu,gads_ll/25*0.0,25*0.0,25*0.0/
         data gads_uu,h0_ll,h0_uu/25*0.0,25*0.0,25*0.0/
         data gammagg,gammahh/125*0.0,125*0.0/
@@ -520,6 +525,12 @@ c----------------------------------------------------------------------
 
               ! computes tensors at point i,j
               call tensor_init(
+     &                eb_xx_np1,eb_xx_n,eb_xx_nm1,
+     &                eb_xy_np1,eb_xy_n,eb_xy_nm1,
+     &                eb_xz_np1,eb_xz_n,eb_xz_nm1,
+     &                eb_yy_np1,eb_yy_n,eb_yy_nm1,
+     &                eb_yz_np1,eb_yz_n,eb_yz_nm1,
+     &                eb_zz_np1,eb_zz_n,eb_zz_nm1,
      &                gb_tt_np1,gb_tt_n,gb_tt_nm1,
      &                gb_tx_np1,gb_tx_n,gb_tx_nm1,
      &                gb_ty_np1,gb_ty_n,gb_ty_nm1,
@@ -531,6 +542,7 @@ c----------------------------------------------------------------------
      &                Hb_x_np1,Hb_x_n,Hb_x_nm1,
      &                Hb_y_np1,Hb_y_n,Hb_y_nm1,
      &                phi1_np1,phi1_n,phi1_nm1,
+     &                e0_ll,e0_ll_x,e0_ll_xx,
      &                g0_ll,g0_uu,g0_ll_x,g0_uu_x,g0_ll_xx,
      &                gads_ll,gads_uu,gads_ll_x,gads_uu_x,gads_ll_xx,
      &                h0_ll,h0_uu,h0_ll_x,h0_uu_x,h0_ll_xx,
@@ -775,23 +787,23 @@ c----------------------------------------------------------------------
      &                  set_ll(4,5)*g0_uu(4,5))
 
                 !--------------------------------------------------------------------------
-                ! cfe
+                ! cfe = 
                 !--------------------------------------------------------------------------
-                cfe(2,2)= phi10_xx(1,1)*g0_uu(1,1)+
-     &                    phi10_xx(2,2)*g0_uu(2,2)+
-     &                    phi10_xx(3,3)*g0_uu(3,3)+
-     &                    phi10_xx(4,4)*g0_uu(4,4)+
-     &                    phi10_xx(5,5)*g0_uu(5,5)+
-     &                 2*(phi10_xx(1,2)*g0_uu(1,2)+
-     &                    phi10_xx(1,3)*g0_uu(1,3)+
-     &                    phi10_xx(1,4)*g0_uu(1,4)+
-     &                    phi10_xx(1,5)*g0_uu(1,5)+
-     &                    phi10_xx(2,3)*g0_uu(2,3)+
-     &                    phi10_xx(2,4)*g0_uu(2,4)+
-     &                    phi10_xx(2,5)*g0_uu(2,5)+
-     &                    phi10_xx(3,4)*g0_uu(3,4)+
-     &                    phi10_xx(3,5)*g0_uu(3,5)+
-     &                    phi10_xx(4,5)*g0_uu(4,5))
+                cfe(2,2)= e0_ll_xx(2,2,1,1)*g0_uu(1,1)+
+     &                    e0_ll_xx(2,2,2,2)*g0_uu(2,2)+
+     &                    e0_ll_xx(2,2,3,3)*g0_uu(3,3)+
+     &                    e0_ll_xx(2,2,4,4)*g0_uu(4,4)+
+     &                    e0_ll_xx(2,2,5,5)*g0_uu(5,5)+
+     &                 2*(e0_ll_xx(2,2,1,2)*g0_uu(1,2)+
+     &                    e0_ll_xx(2,2,1,3)*g0_uu(1,3)+
+     &                    e0_ll_xx(2,2,1,4)*g0_uu(1,4)+
+     &                    e0_ll_xx(2,2,1,5)*g0_uu(1,5)+
+     &                    e0_ll_xx(2,2,2,3)*g0_uu(2,3)+
+     &                    e0_ll_xx(2,2,2,4)*g0_uu(2,4)+
+     &                    e0_ll_xx(2,2,2,5)*g0_uu(2,5)+
+     &                    e0_ll_xx(2,2,3,4)*g0_uu(3,4)+
+     &                    e0_ll_xx(2,2,3,5)*g0_uu(3,5)+
+     &                    e0_ll_xx(2,2,4,5)*g0_uu(4,5))
 
                 !--------------------------------------------------------------------------
                 ! phi1_res = phi1,ab g^ab 
@@ -916,16 +928,11 @@ c----------------------------------------------------------------------
                 end if
 
                 !----------------------------------------------------------------
-                ! computes diag. Jacobian of eb_np1->L.eb_np1 transformation
-                ! by differentiating L.eb wrt. eb_ij_np1 diag. entries
-                ! 
-                ! (re-use the dgb_J,ddgb_J,ddgb_J_tx,ddgb_J_ty defined above)
+                ! cfe_J = 
                 !----------------------------------------------------------------
                 cfe_J(2,2)=(
      &                 g0_uu(1,1)*ddgb_J
-     &                 +2*x0*g0_uu(1,2)*dgb_J
      &                 +2*g0_uu(1,2)*ddgb_J_tx
-     &                 +2*y0*g0_uu(1,3)*dgb_J
      &                 +2*g0_uu(1,3)*ddgb_J_ty
      &                     )
 

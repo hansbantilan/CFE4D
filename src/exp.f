@@ -224,28 +224,28 @@ c----------------------------------------------------------------------
                x0=x(i)
                y0=y(j)              
              
-               ! computes tensors at point i,j 
-               call tensor_init(
-     &                 gb_tt_np1,gb_tt_n,gb_tt_nm1,
-     &                 gb_tx_np1,gb_tx_n,gb_tx_nm1,
-     &                 gb_ty_np1,gb_ty_n,gb_ty_nm1,
-     &                 gb_xx_np1,gb_xx_n,gb_xx_nm1,
-     &                 gb_xy_np1,gb_xy_n,gb_xy_nm1,
-     &                 gb_yy_np1,gb_yy_n,gb_yy_nm1,
-     &                 psi_np1,psi_n,psi_nm1,
-     &                 zeros,zeros,zeros,
-     &                 zeros,zeros,zeros,
-     &                 zeros,zeros,zeros,
-     &                 zeros,zeros,zeros,
-     &                 g0_ll,g0_uu,g0_ll_x,g0_uu_x,g0_ll_xx,
-     &                 gads_ll,gads_uu,gads_ll_x,gads_uu_x,gads_ll_xx,
-     &                 h0_ll,h0_uu,h0_ll_x,h0_uu_x,h0_ll_xx,
-     &                 A_l,A_l_x,Hads_l,
-     &                 gamma_ull,gamma_ull_x,
-     &                 riemann_ulll,ricci_ll,ricci_lu,ricci,
-     &                 einstein_ll,set_ll,
-     &                 phi10_x,phi10_xx,
-     &                 x,y,dt,chr,L,ex,Nx,Ny,i,j)
+!               ! computes tensors at point i,j 
+!               call tensor_init(
+!     &                 gb_tt_np1,gb_tt_n,gb_tt_nm1,
+!     &                 gb_tx_np1,gb_tx_n,gb_tx_nm1,
+!     &                 gb_ty_np1,gb_ty_n,gb_ty_nm1,
+!     &                 gb_xx_np1,gb_xx_n,gb_xx_nm1,
+!     &                 gb_xy_np1,gb_xy_n,gb_xy_nm1,
+!     &                 gb_yy_np1,gb_yy_n,gb_yy_nm1,
+!     &                 psi_np1,psi_n,psi_nm1,
+!     &                 zeros,zeros,zeros,
+!     &                 zeros,zeros,zeros,
+!     &                 zeros,zeros,zeros,
+!     &                 zeros,zeros,zeros,
+!     &                 g0_ll,g0_uu,g0_ll_x,g0_uu_x,g0_ll_xx,
+!     &                 gads_ll,gads_uu,gads_ll_x,gads_uu_x,gads_ll_xx,
+!     &                 h0_ll,h0_uu,h0_ll_x,h0_uu_x,h0_ll_xx,
+!     &                 A_l,A_l_x,Hads_l,
+!     &                 gamma_ull,gamma_ull_x,
+!     &                 riemann_ulll,ricci_ll,ricci_lu,ricci,
+!     &                 einstein_ll,set_ll,
+!     &                 phi10_x,phi10_xx,
+!     &                 x,y,dt,chr,L,ex,Nx,Ny,i,j)
 
             end if
 

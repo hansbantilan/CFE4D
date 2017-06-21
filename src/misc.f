@@ -1341,6 +1341,12 @@ c----------------------------------------------------------------------
 c calculates all the tensorial objects in x,y coordinates, at point i,j
 c----------------------------------------------------------------------
         subroutine tensor_init(
+     &                  eb_xx_np1,eb_xx_n,eb_xx_nm1,
+     &                  eb_xy_np1,eb_xy_n,eb_xy_nm1,
+     &                  eb_xz_np1,eb_xz_n,eb_xz_nm1,
+     &                  eb_yy_np1,eb_yy_n,eb_yy_nm1,
+     &                  eb_yz_np1,eb_yz_n,eb_yz_nm1,
+     &                  eb_zz_np1,eb_zz_n,eb_zz_nm1,
      &                  gb_tt_np1,gb_tt_n,gb_tt_nm1,
      &                  gb_tx_np1,gb_tx_n,gb_tx_nm1,
      &                  gb_ty_np1,gb_ty_n,gb_ty_nm1,
@@ -1352,6 +1358,7 @@ c----------------------------------------------------------------------
      &                  Hb_x_np1,Hb_x_n,Hb_x_nm1,
      &                  Hb_y_np1,Hb_y_n,Hb_y_nm1,
      &                  phi1_np1,phi1_n,phi1_nm1,
+     &                  e0_ll,e0_ll_x,e0_ll_xx,
      &                  g0_ll,g0_uu,g0_ll_x,g0_uu_x,g0_ll_xx,
      &                  gads_ll,gads_uu,gads_ll_x,gads_uu_x,gads_ll_xx,
      &                  h0_ll,h0_uu,h0_ll_x,h0_uu_x,h0_ll_xx,
@@ -1369,6 +1376,12 @@ c----------------------------------------------------------------------
         real*8 chr(Nx,Ny),ex
         real*8 x(Nx),y(Ny),dt,L
 
+        real*8 eb_xx_np1(Nx,Ny),eb_xx_n(Nx,Ny),eb_xx_nm1(Nx,Ny)
+        real*8 eb_xy_np1(Nx,Ny),eb_xy_n(Nx,Ny),eb_xy_nm1(Nx,Ny)
+        real*8 eb_xz_np1(Nx,Ny),eb_xz_n(Nx,Ny),eb_xz_nm1(Nx,Ny)
+        real*8 eb_yy_np1(Nx,Ny),eb_yy_n(Nx,Ny),eb_yy_nm1(Nx,Ny)
+        real*8 eb_yz_np1(Nx,Ny),eb_yz_n(Nx,Ny),eb_yz_nm1(Nx,Ny)
+        real*8 eb_zz_np1(Nx,Ny),eb_zz_n(Nx,Ny),eb_zz_nm1(Nx,Ny)
         real*8 gb_tt_np1(Nx,Ny),gb_tt_n(Nx,Ny),gb_tt_nm1(Nx,Ny)
         real*8 gb_tx_np1(Nx,Ny),gb_tx_n(Nx,Ny),gb_tx_nm1(Nx,Ny)
         real*8 gb_ty_np1(Nx,Ny),gb_ty_n(Nx,Ny),gb_ty_nm1(Nx,Ny)
@@ -1396,6 +1409,8 @@ c----------------------------------------------------------------------
         ! variables for tensor manipulations 
         !(indices are t,x,w,y,z)
         !--------------------------------------------------------------
+        real*8 e0_ll(5,5),e0_ll_x(5,5,5),e0_ll_xx(5,5,5,5)
+
         real*8 g0_ll(5,5),g0_uu(5,5)
         real*8 g0_ll_x(5,5,5),g0_uu_x(5,5,5),g0_ll_xx(5,5,5,5)
         real*8 gads_ll(5,5),gads_uu(5,5)
@@ -1414,6 +1429,30 @@ c----------------------------------------------------------------------
         ! level variables, and as these are the only derivatives we
         ! use we drop any _n identifier
         !--------------------------------------------------------------
+        real*8 eb_xx_t, eb_xx_x, eb_xx_y
+        real*8 eb_xx_tt,eb_xx_tx,eb_xx_ty
+        real*8 eb_xx_xx,eb_xx_xy
+        real*8 eb_xx_yy
+        real*8 eb_xy_t, eb_xy_x, eb_xy_y
+        real*8 eb_xy_tt,eb_xy_tx,eb_xy_ty
+        real*8 eb_xy_xx,eb_xy_xy
+        real*8 eb_xy_yy
+        real*8 eb_xz_t, eb_xz_x, eb_xz_y
+        real*8 eb_xz_tt,eb_xz_tx,eb_xz_ty
+        real*8 eb_xz_xx,eb_xz_xy
+        real*8 eb_xz_yy
+        real*8 eb_yy_t, eb_yy_x, eb_yy_y
+        real*8 eb_yy_tt,eb_yy_tx,eb_yy_ty
+        real*8 eb_yy_xx,eb_yy_xy
+        real*8 eb_yy_yy
+        real*8 eb_yz_t, eb_yz_x, eb_yz_y
+        real*8 eb_yz_tt,eb_yz_tx,eb_yz_ty
+        real*8 eb_yz_xx,eb_yz_xy
+        real*8 eb_yz_yy
+        real*8 eb_zz_t, eb_zz_x, eb_zz_y
+        real*8 eb_zz_tt,eb_zz_tx,eb_zz_ty
+        real*8 eb_zz_xx,eb_zz_xy
+        real*8 eb_zz_yy
         real*8 gb_tt_t, gb_tt_x, gb_tt_y
         real*8 gb_tt_tt,gb_tt_tx,gb_tt_ty
         real*8 gb_tt_xx,gb_tt_xy
@@ -1446,6 +1485,10 @@ c----------------------------------------------------------------------
         real*8 phi1_tt,phi1_tx,phi1_ty
         real*8 phi1_xx,phi1_xy
         real*8 phi1_yy
+
+        real*8 eb_xx0,eb_xy0,eb_xz0
+        real*8 eb_yy0,eb_yz0
+        real*8 eb_zz0
 
         real*8 gb_tt0,gb_tx0,gb_ty0
         real*8 gb_xx0,gb_xy0
@@ -1505,6 +1548,14 @@ c----------------------------------------------------------------------
         g0u_yy_ads0 =g0_xx_ads0/(g0_xx_ads0*g0_yy_ads0-g0_xy_ads0**2)
         g0u_psi_ads0=1/g0_psi_ads0
 
+        ! set ebar values
+        eb_xx0=eb_xx_n(i,j)
+        eb_xy0=eb_xy_n(i,j)
+        eb_xz0=eb_xz_n(i,j)
+        eb_yy0=eb_yy_n(i,j)
+        eb_yz0=eb_yz_n(i,j)
+        eb_zz0=eb_zz_n(i,j)
+
         ! set gbar values
         gb_tt0=gb_tt_n(i,j)
         gb_tx0=gb_tx_n(i,j)
@@ -1553,6 +1604,32 @@ c----------------------------------------------------------------------
         g0_psi_ads_xy=0
         g0_psi_ads_yy=0
 
+        ! calculate ebar derivatives
+        call df2_int(eb_xx_np1,eb_xx_n,eb_xx_nm1,eb_xx_t,
+     &       eb_xx_x,eb_xx_y,eb_xx_tt,eb_xx_tx,eb_xx_ty,
+     &       eb_xx_xx,eb_xx_xy,eb_xx_yy,
+     &       x,y,dt,i,j,chr,ex,Nx,Ny,'eb_xx')
+        call df2_int(eb_xy_np1,eb_xy_n,eb_xy_nm1,eb_xy_t,
+     &       eb_xy_x,eb_xy_y,eb_xy_tt,eb_xy_tx,eb_xy_ty,
+     &       eb_xy_xx,eb_xy_xy,eb_xy_yy,
+     &       x,y,dt,i,j,chr,ex,Nx,Ny,'eb_xy')
+        call df2_int(eb_xz_np1,eb_xz_n,eb_xz_nm1,eb_xz_t,
+     &       eb_xz_x,eb_xz_y,eb_xz_tt,eb_xz_tx,eb_xz_ty,
+     &       eb_xz_xx,eb_xz_xy,eb_xz_yy,
+     &       x,y,dt,i,j,chr,ex,Nx,Ny,'eb_xz')
+        call df2_int(eb_yy_np1,eb_yy_n,eb_yy_nm1,eb_yy_t,
+     &       eb_yy_x,eb_yy_y,eb_yy_tt,eb_yy_tx,eb_yy_ty,
+     &       eb_yy_xx,eb_yy_xy,eb_yy_yy,
+     &       x,y,dt,i,j,chr,ex,Nx,Ny,'eb_yy')
+        call df2_int(eb_yz_np1,eb_yz_n,eb_yz_nm1,eb_yz_t,
+     &       eb_yz_x,eb_yz_y,eb_yz_tt,eb_yz_tx,eb_yz_ty,
+     &       eb_yz_xx,eb_yz_xy,eb_yz_yy,
+     &       x,y,dt,i,j,chr,ex,Nx,Ny,'eb_yz')
+        call df2_int(eb_zz_np1,eb_zz_n,eb_zz_nm1,eb_zz_t,
+     &       eb_zz_x,eb_zz_y,eb_zz_tt,eb_zz_tx,eb_zz_ty,
+     &       eb_zz_xx,eb_zz_xy,eb_zz_yy,
+     &       x,y,dt,i,j,chr,ex,Nx,Ny,'eb_zz')
+
         ! calculate gbar derivatives
         call df2_int(gb_tt_np1,gb_tt_n,gb_tt_nm1,gb_tt_t,
      &       gb_tt_x,gb_tt_y,gb_tt_tt,gb_tt_tx,gb_tt_ty,
@@ -1598,6 +1675,74 @@ c----------------------------------------------------------------------
      &       phi1_y,phi1_tt,phi1_tx,phi1_ty,phi1_xx,
      &       phi1_xy,phi1_yy,x,y,dt,i,j,
      &       chr,ex,Nx,Ny,'phi1')
+
+        ! give values to the electric components of the rescaled Weyl
+        e0_ll(2,2)=eb_xx0
+        e0_ll(2,3)=eb_xy0
+        e0_ll(2,4)=eb_xz0
+        e0_ll(3,3)=eb_yy0
+        e0_ll(3,4)=eb_yz0
+        e0_ll(4,4)=eb_zz0
+
+        e0_ll_x(2,2,1)   =eb_xx_t
+        e0_ll_x(2,2,2)   =eb_xx_x
+        e0_ll_x(2,2,3)   =eb_xx_y
+        e0_ll_xx(2,2,1,1)=eb_xx_tt
+        e0_ll_xx(2,2,1,2)=eb_xx_tx
+        e0_ll_xx(2,2,1,3)=eb_xx_ty
+        e0_ll_xx(2,2,2,2)=eb_xx_xx
+        e0_ll_xx(2,2,2,3)=eb_xx_xy
+        e0_ll_xx(2,2,3,3)=eb_xx_yy
+
+        e0_ll_x(2,3,1)   =eb_xy_t
+        e0_ll_x(2,3,2)   =eb_xy_x
+        e0_ll_x(2,3,3)   =eb_xy_y
+        e0_ll_xx(2,3,1,1)=eb_xy_tt
+        e0_ll_xx(2,3,1,2)=eb_xy_tx
+        e0_ll_xx(2,3,1,3)=eb_xy_ty
+        e0_ll_xx(2,3,2,2)=eb_xy_xx
+        e0_ll_xx(2,3,2,3)=eb_xy_xy
+        e0_ll_xx(2,3,3,3)=eb_xy_yy
+
+        e0_ll_x(2,4,1)   =eb_xz_t
+        e0_ll_x(2,4,2)   =eb_xz_x
+        e0_ll_x(2,4,3)   =eb_xz_y
+        e0_ll_xx(2,4,1,1)=eb_xz_tt
+        e0_ll_xx(2,4,1,2)=eb_xz_tx
+        e0_ll_xx(2,4,1,3)=eb_xz_ty
+        e0_ll_xx(2,4,2,2)=eb_xz_xx
+        e0_ll_xx(2,4,2,3)=eb_xz_xy
+        e0_ll_xx(2,4,3,3)=eb_xz_yy
+
+        e0_ll_x(3,3,1)   =eb_yy_t
+        e0_ll_x(3,3,2)   =eb_yy_x
+        e0_ll_x(3,3,3)   =eb_yy_y
+        e0_ll_xx(3,3,1,1)=eb_yy_tt
+        e0_ll_xx(3,3,1,2)=eb_yy_tx
+        e0_ll_xx(3,3,1,3)=eb_yy_ty
+        e0_ll_xx(3,3,2,2)=eb_yy_xx
+        e0_ll_xx(3,3,2,3)=eb_yy_xy
+        e0_ll_xx(3,3,3,3)=eb_yy_yy
+
+        e0_ll_x(3,4,1)   =eb_yz_t
+        e0_ll_x(3,4,2)   =eb_yz_x
+        e0_ll_x(3,4,3)   =eb_yz_y
+        e0_ll_xx(3,4,1,1)=eb_yz_tt
+        e0_ll_xx(3,4,1,2)=eb_yz_tx
+        e0_ll_xx(3,4,1,3)=eb_yz_ty
+        e0_ll_xx(3,4,2,2)=eb_yz_xx
+        e0_ll_xx(3,4,2,3)=eb_yz_xy
+        e0_ll_xx(3,4,3,3)=eb_yz_yy
+
+        e0_ll_x(4,4,1)   =eb_zz_t
+        e0_ll_x(4,4,2)   =eb_zz_x
+        e0_ll_x(4,4,3)   =eb_zz_y
+        e0_ll_xx(4,4,1,1)=eb_zz_tt
+        e0_ll_xx(4,4,1,2)=eb_zz_tx
+        e0_ll_xx(4,4,1,3)=eb_zz_ty
+        e0_ll_xx(4,4,2,2)=eb_zz_xx
+        e0_ll_xx(4,4,2,3)=eb_zz_xy
+        e0_ll_xx(4,4,3,3)=eb_zz_yy
 
         ! give values to the metric
         g0_ll(1,1)=g0_tt_ads0+gb_tt0*(1-rho0**2)

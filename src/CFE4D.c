@@ -1232,6 +1232,10 @@ void CFE4D_free_data(void)
 
    zero_f(phi1_t_n); // holds initial time derivatives for ID
 
+//TEMPORARY//
+   gauss2d_(eb_xx_n,&phi1_amp_1,&phi1_B_1,&phi1_r0_1,&phi1_delta_1,&phi1_x0_1[0],&phi1_x0_1[1],
+            &phi1_ecc_1[0],&phi1_ecc_1[1],&AdS_L,x,y,&Nx,&Ny,&stype);
+
    gauss2d_(phi1_n,&phi1_amp_1,&phi1_B_1,&phi1_r0_1,&phi1_delta_1,&phi1_x0_1[0],&phi1_x0_1[1],
             &phi1_ecc_1[0],&phi1_ecc_1[1],&AdS_L,x,y,&Nx,&Ny,&stype);
 
