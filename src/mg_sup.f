@@ -213,6 +213,47 @@ c-----------------------------------------------------------------------
         end
 
 c-----------------------------------------------------------------------
+c The following initializes the ebars
+c-----------------------------------------------------------------------
+        subroutine init_eb(eb_xx,eb_xy,eb_xz,eb_yy,eb_yz,eb_zz,
+     &                     L,cmask,phys_bdy,x,y,chr,ex,Nx,Ny,regtype)
+        implicit none
+        integer Nx,Ny
+        real*8 eb_xx(Nx,Ny),eb_xy(Nx,Ny),eb_xz(Nx,Ny)
+        real*8 eb_yy(Nx,Ny),eb_yz(Nx,Ny),eb_zz(Nx,Ny)
+        real*8 cmask(Nx,Ny),chr(Nx,Ny),ex,L
+        real*8 x(Nx),y(Ny)
+        integer phys_bdy(4),regtype
+
+        real*8 PI
+        parameter (PI=0.3141592653589793D1)
+        integer i,j
+        real*8 x0,y0
+        real*8 rho0
+
+        !--------------------------------------------------------------
+
+        ! initialize electric part of the Weyl tensor
+        do i=2,Nx-1
+          do j=2,Ny-1
+ 
+            x0=x(i)
+            y0=y(j)
+            rho0=sqrt(x0**2+y0**2)
+
+            if (chr(i,j).ne.ex) then 
+
+              eb_xx(i,j)=exp(-rho0**2)*(1-rho0**2)
+
+            endif
+
+          end do
+        end do
+
+        return
+        end
+
+c-----------------------------------------------------------------------
 c The following initializes the rest of the metric and Hb,
 c given zeta
 c

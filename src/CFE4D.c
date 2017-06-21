@@ -1232,10 +1232,6 @@ void CFE4D_free_data(void)
 
    zero_f(phi1_t_n); // holds initial time derivatives for ID
 
-//TEMPORARY//
-   gauss2d_(eb_xx_n,&phi1_amp_1,&phi1_B_1,&phi1_r0_1,&phi1_delta_1,&phi1_x0_1[0],&phi1_x0_1[1],
-            &phi1_ecc_1[0],&phi1_ecc_1[1],&AdS_L,x,y,&Nx,&Ny,&stype);
-
    gauss2d_(phi1_n,&phi1_amp_1,&phi1_B_1,&phi1_r0_1,&phi1_delta_1,&phi1_x0_1[0],&phi1_x0_1[1],
             &phi1_ecc_1[0],&phi1_ecc_1[1],&AdS_L,x,y,&Nx,&Ny,&stype);
 
@@ -1288,29 +1284,9 @@ void CFE4D_t0_cnst_data(void)
                   &AdS_L,phys_bdy,x,y,&dt,chr,&AMRD_ex,&Nx,&Ny,&regtype);
    }
 
-   // initialize gbars
-   if ((background || skip_constraints) && ief_bh_r0==0)
-   {
-     init_ghb_ads_(gb_tt,gb_tx,gb_ty,gb_xx,gb_xy,gb_yy,psi,
-                   Hb_t,Hb_x,Hb_y,&AdS_L,x,y,chr_mg,&AMRD_ex,&Nx,&Ny,&regtype);
-   }
-   else if (background || skip_constraints)
-   {
-     if (gb_xx_nm1) //"np1,n,nm1" variables only allocated on finest MG level
-     {
-       init_ads5d_bh_(&ief_bh_r0,&AdS_L,gb_tt,gb_tx,gb_ty,gb_xx,gb_xy,gb_yy,psi,
-                      gb_tt_t_n,gb_tx_t_n,gb_ty_t_n,gb_xx_t_n,gb_xy_t_n,gb_yy_t_n,psi_t_n,
-                      Hb_t,Hb_x,Hb_y,Hb_t_t_n,Hb_x_t_n,Hb_y_t_n,
-                      phys_bdy,x,y,&dt,chr_mg,&AMRD_ex,&Nx,&Ny,&regtype);
-     }
-   }
-   else
-   {
-     init_ghb_(zeta,
-               gb_tt,gb_tx,gb_ty,gb_xx,gb_xy,gb_yy,psi,
-               Hb_t,Hb_x,Hb_y,
-               &AdS_L,mask_mg,phys_bdy,x,y,chr_mg,&AMRD_ex,&Nx,&Ny,&regtype,&rhoa,&rhob);
-   }
+   // initialize ebars
+   init_eb_(eb_xx,eb_xy,eb_xz,eb_yy,eb_yz,eb_zz,
+            &AdS_L,mask_mg,phys_bdy,x,y,chr_mg,&AMRD_ex,&Nx,&Ny,&regtype);
 
    // initialize hbars and nm1, np1 time levels
    if (AMRD_id_pl_method==3 && gb_xx_nm1)
@@ -1342,6 +1318,12 @@ void CFE4D_t0_cnst_data(void)
 
      for (i=0; i<size; i++)
      {
+       eb_xx_np1[i]=eb_xx_nm1[i]=eb_xx[i];
+       eb_xy_np1[i]=eb_xy_nm1[i]=eb_xy[i];
+       eb_xz_np1[i]=eb_xz_nm1[i]=eb_xz[i];
+       eb_yy_np1[i]=eb_yy_nm1[i]=eb_yy[i];
+       eb_yz_np1[i]=eb_yz_nm1[i]=eb_yz[i];
+       eb_zz_np1[i]=eb_zz_nm1[i]=eb_zz[i];
        gb_tt_np1[i]=gb_tt_nm1[i]=gb_tt[i];
        gb_tx_np1[i]=gb_tx_nm1[i]=gb_tx[i];
        gb_ty_np1[i]=gb_ty_nm1[i]=gb_ty[i];
@@ -1349,6 +1331,7 @@ void CFE4D_t0_cnst_data(void)
        gb_xy_np1[i]=gb_xy_nm1[i]=gb_xy[i];
        gb_yy_np1[i]=gb_yy_nm1[i]=gb_yy[i];
        psi_np1[i]=psi_nm1[i]=psi[i];
+       phi1_np1[i]=phi1_nm1[i]=phi1[i];
      }
 
    }

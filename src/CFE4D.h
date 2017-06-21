@@ -361,6 +361,11 @@ void mg_sup_(int *action, real *zeta, real *zeta_rhs, real *zeta_lop, real *zeta
              real *AdS_L, real *cmask, int *phys_bdy, real *chr, real *ex, 
              real *x, real *y, real *norm, int *Nx, int *Ny);
 
+void init_eb_(real *eb_xx, real *eb_xy, real *eb_xz,
+              real *eb_yy, real *eb_yz, real *eb_zz,
+              real *AdS_L, real *cmask, int *phys_bdy, real *x, real *y,
+              real *chr, real *ex, int *Nx, int *Ny, int *regtype);
+
 void init_ghb_(real *zeta,
                real *gb_tt, real *gb_tx, real *gb_ty, real *gb_xy,
                real *gb_xx, real *gb_yy, real *psi, 
