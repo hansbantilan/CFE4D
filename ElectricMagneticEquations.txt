@@ -1,0 +1,167 @@
+%%%%%%%% The wave equation for the electric part %%%%%%%%%%
+
+Gamma[e,d,f]*Gamma[f,c,b]*Electric[a,e]*ginv[d,c]
++Gamma[e,d,f]*Gamma[f,c, a]*Electric[e,b]*ginv[d,c]
++Gamma[e,c,a]*Gamma[f,d,b]*Electric[e,f]*ginv[d,c]
++Gamma[e,d, a]*Gamma[f,c,b]*Electric[e,f]*ginv[d,c]
++Gamma[d,e,f]*Gamma[m,d,b]*Electric[a,m]*ginv[f,e]
++Gamma[d,e,f]*Gamma[m,d, a]*Electric[m,b]*ginv[f,e]
+-(Normal[d]*Normal[e]*Weyl[a,f,b,m]*RicciScalar*ginv[f,d]*ginv[m,e])/2
+-Gamma[c,d,e]*Gamma[e,f,m]*Normal[c]*Normal[n]*Weyl[a,p,b,q]*ginv[p,n]*ginv[q,m]*ginv[f,d]
+-Gamma[b,c,d]*Gamma[c,e,f]*Normal[b]*Normal[m]*Weyl[a,f,b,p]*ginv[n,m]*ginv[p,d]*ginv[e,n]
+-Gamma[c,d,e]*Gamma[e,m,f]*Normal[c]*Normal[n]*Weyl[a,p,b,q]*ginv[q,n]*ginv[p,f]*ginv[m,d]
+-Gamma[c,d,e]*Gamma[d,m,f]*Normal[c]*Normal[n]*Weyl[a,p,b,q]*ginv[q,n]*ginv[p,e]*ginv[m,f]
+-2*Gamma[c,d,e]*Gamma[f,m,n]*Normal[f]*Normal[p]* Weyl[a,c,b,q]*ginv[e,p]*ginv[q,n]*ginv[d,m]
+-2*Gamma[c,d,e]*Gamma[f,m,n]*Normal[f]*Normal[p]*Weyl[a,q,b,c]*ginv[q,p]*ginv[e,n]*ginv[d,m]
+-2*Gamma[c,d,e]*Gamma[f,m,b]*Normal[c]*Normal[n]*Weyl[a,p,f,q]*ginv[p,n]*ginv[q,e]*ginv[m,d]
+-2*Gamma[c,d,e]*Gamma[f,m, a]*Normal[c]*Normal[n]*Weyl[f,p,b,q]*ginv[p,n]*ginv[q,e]*ginv[m,d]
+-2*Gamma[c,d,e]*Gamma[f,m,n]*Normal[f]*Normal[p]*Weyl[a,q,b,c]*ginv[e,p]*ginv[q,n]*ginv[d,m]
+-2*Gamma[c,d,e]*Gamma[f,m,n]*Normal[f]*Normal[p]*Weyl[a,c,b,q]*ginv[q,p]*ginv[e,n]*ginv[d,m]
+-2*Gamma[c,d,e]*Gamma[f,m,b]*Normal[c]*Normal[n]*Weyl[a,p,f,q]*ginv[q,n]*ginv[p,e]*ginv[m,d]
+-2*Gamma[c,d,e]*Gamma[f,m, a]*Normal[c]*Normal[n]*Weyl[f,p,b,q]*ginv[q,n]*ginv[p, e]*ginv[m,d]
+-2*Gamma[c,d,e]*Gamma[f,m,n]*Normal[c]*Normal[f]*Weyl[a,p,b,q]*ginv[p,n]*ginv[d,m]*ginv[q,e]
++2*ConformalFactor*Normal[c]*Normal[d]*Weyl[a,e,b,f]*Weyl[m,n,p,q]*ginv[m,c]*ginv[p,d]*ginv[e,n]*ginv[f,q]
++2*ConformalFactor*Normal[c]*Normal[d]*Weyl[a,e,f,m]*Weyl[b,n,p,q]*ginv[f,c]*ginv[n,d]*ginv[e,p]*ginv[m,q]
+- 2*ConformalFactor*Normal[c]*Normal[d]*Weyl[a,f,m,n]*Weyl[b,e,p,q]*ginv[m,f]*ginv[p,d]*ginv[c,q]*ginv[n,e]
+- Gamma[d,m,n]*ginv[n,m]*Electric[a,b]_[d]
+-Gamma[e,c,b]*ginv[d,c]*Electric[a,e]_[d]
+- Gamma[f,c,a]*ginv[d,c]*Electric[f,b]_[d]
+-Electric[m,b]*ginv[d,c]*Gamma[m,d, a]_[c]
+-Electric[a,m]*ginv[d,c]*Gamma[m,d,b]_[c]
+-Gamma[m,d,b]*ginv[d,c]*Electric[a,m]_[c]
+-Gamma[m,d,a]*ginv[d,c]*Electric[m,b]_[c]
++ ginv[d,c]*Electric[a,b]_[c,d]
++ 2*Gamma[c,d,e]*Normal[c]*Weyl[a,f,b,m]*ginv[f,e]*ginv[n,d]*ginv[m,p]*Normal[p]_[n]
++ Normal[c]*Normal[d]*Weyl[a,e,b,f]*ginv[e,d]*ginv[f,m]*ginv[n,p]*Gamma[c,p,m]_[n]
++ Gamma[b,c,d]*Normal[e]*Weyl[a,f,b,m]*ginv[f,e]*ginv[m,d]*ginv[n,c]*Normal[b]_[n]
+- Normal[c]*Weyl[a,d,b,e]*ginv[d,c]*ginv[e,f]*ginv[m,n]*Normal[f]_[m,n]
++ Normal[c]*Normal[d]*Weyl[a,e,b,f]*ginv[f,d]*ginv[e,n]*ginv[m,p]*Gamma[c,p,n]_[m]
++ Gamma[c,d,e]*Normal[f]*Weyl[a,n,b,p]*ginv[p,f]*ginv[n,e]*ginv[m,d]*Normal[c]_[m]
+- Normal[c]*Weyl[a,d,b,e]*ginv[e,c]*ginv[d,f]*ginv[m,n]*Normal[f]_[m,n]
++ 2*Gamma[c,d,e]*Normal[c]*Normal[f]*ginv[m,f]*ginv[n,e]*ginv[p,d]*Weyl[a,m,b,n]_[p]
++ 2*Gamma[c,d,e]*Normal[c]*Normal[f]*ginv[m,f]*ginv[n,e]*ginv[p,d]*Weyl[a,n,b,m]_[p]
++ 2*Gamma[c,d,e]*Normal[c]*Weyl[a,f,b,m]*ginv[f,n]*ginv[d,p]*ginv[m,e]*Normal[n]_[p]
+- 2*Weyl[a,c,b,e]*ginv[c,d]*ginv[f,m]*ginv[e,n]*Normal[n]_[f]*Normal[d]_[m]
++ Gamma[c,d,e]*Normal[f]*Weyl[a,m,b,n]*ginv[m,f]*ginv[n,e]*ginv[d,p]*Normal[c]_[p]
++ Gamma[c,d,e]*Normal[f]*Weyl[a,m,b,n]*ginv[m,f]*ginv[n,p]*ginv[d,e]*Normal[p]_[c]
++ Gamma[c, m,d]*Normal[e]*Weyl[a,f,b,n]*ginv[n,e]*ginv[f,d]*ginv[m,p]*Normal[c]_[p]
++ Gamma[c,m,d]*Normal[e]*Weyl[a,f,b,n]*ginv[n,e]*ginv[f,p]*ginv[m,d]*Normal[p]_[c]
++ 2*Gamma[c,d,e]*Normal[f]*Weyl[a,c,b,m]*ginv[e,f]*ginv[m,n]*ginv[d,p]*PD[p][Normal[n]]
++ 2*Gamma[c,d,e]*Normal[f]*Weyl[a,m,b,c]*ginv[m,f]*ginv[e,n]*ginv[d,p]*Normal[n]_[p]
++ 2*Gamma[c,d,b]*Normal[e]*Weyl[a,f,c,m]*ginv[f,e]*ginv[m,n]*ginv[d,p]*Normal[n]_[p]
++ 2*Gamma[c,d,a]*Normal[e]*Weyl[c,f,b,m]*ginv[f,e]*ginv[m,n]*ginv[d,p]*Normal[n]_[p]
+- 2*Normal[c]*ginv[d,c]*ginv[e,f]*ginv[m,n]*Weyl[a,d,b,e]_[m]*Normal[f]_[n]
++ 2*Gamma[c,d,e]*Normal[f]*Weyl[a,m,b,c]*ginv[e,f]*ginv[m,n]*ginv[d,p]*Normal[n]_[p]
++ 2*Gamma[c,d,e]*Normal[f]*Weyl[a,c,b,m]*ginv[m,f]*ginv[e,n]*ginv[d,p]*Normal[n]_[p]
++ 2*Gamma[c,d,b]*Normal[e]*Weyl[a,f,c,m]*ginv[m,e]*ginv[n,p]*ginv[d,f]*Normal[p]_[n]
++ 2*Gamma[c,d, a]*Normal[e]*Weyl[c,f,b,m]*ginv[m,e]*ginv[f,n]*ginv[d,p]*Normal[n]_[p]
+- 2*Normal[c]*ginv[d,c]*ginv[e,f]*ginv[m,n]*Weyl[a,e,b,d]_[m]*Normal[f]_[n] == 0
+
+%%%%%%%%%%% The wave equation for the magnetic part %%%%%%%%%%%%%%%%%%%
+
+Gamma[e, d,f]*Gamma[f,c, b]*Magnetic[a,e]*ginv[c, d]
++ Gamma[e,d,f]*Gamma[f,c, a]*Magnetic[e, b]*ginv[c, d]
++ Gamma[e, d, a]*Gamma[f,c,b]*Magnetic[e,f]*ginv[c, d]
++ Gamma[e,c,a]*Gamma[f,d,b]*Magnetic[e,f]*ginv[c, d]
++ Gamma[d,c,e]*Gamma[f, d, b]*Magnetic[a,f]*ginv[c,e]
++ Gamma[d,c,e]*Gamma[f,d,a]*Magnetic[f,b]*ginv[c,e]
+- (epsilon[b,c,d,e]*Normal[f]*Normal[m]*Weyl[a,n,p,q]*RicciScalar*ginv[n,f]*ginv[c,m]*ginv[d,p]*ginv[e,q])/4
+- Gamma[c,d,e]*Gamma[f,m,n]*epsilon[b,p,q,r]*Normal[f]*Normal[l]*Weyl[a,c,g,h]*ginv[e,l]*ginv[p,n]*ginv[d,m]*ginv[q,g]*ginv[r,h]
+- Gamma[c,d,e]*Gamma[f,g,h]*epsilon[b,p,q,r]*Normal[f]*Normal[l]*Weyl[a,c,m,n]*ginv[p,l]*ginv[e,h]*ginv[d,g]*ginv[q,m]*ginv[r,n]
+- Gamma[c,d,e]*Gamma[f,g,h]*epsilon[b,p,q,r]*Normal[c]*Normal[f]*Weyl[a,l,m,n]*ginv[l,h]*ginv[d,g]*ginv[p,e]*ginv[q,m]*ginv[r,n]
+- (Gamma[c,d,e]*Gamma[e,f,g]*epsilon[b,h,l,m]*Normal[c]*Normal[n]*Weyl[a,p,q,r]*ginv[p,n]*ginv[h,g]*ginv[f,d]*ginv[l,q]*ginv[m,r])/2
+- (Gamma[c,d,e]*Gamma[d,f,g]*epsilon[b,h,l,m]*Normal[c]*Normal[n]*Weyl[a,p,q,r]*ginv[p,n]*ginv[h,e]*ginv[f,g]*ginv[l,q]*ginv[m,r])/2
+- (Gamma[c,d,e]*Gamma[e,f,g]*epsilon[b,h,l,m]*Normal[c]*Normal[n]*Weyl[a,p,q,r]*ginv[h,n]*ginv[p,g]*ginv[f,d]*ginv[l,q]*ginv[m,r])/2
+- (Gamma[c,d,e]*Gamma[d,f,g]*epsilon[b,h,l,m]*Normal[c]*Normal[n]*Weyl[a,p,q,r]*ginv[h,n]*ginv[p,e]*ginv[f,g]*ginv[l,q]*ginv[m,r])/2
+- Gamma[c,d,e]*Gamma[f,g,h]*epsilon[b,l,m,n]*Normal[f]*Normal[p]*Weyl[a,q,c,r]*ginv[q,p]*ginv[l,h]*ginv[d,g]*ginv[m,e]*ginv[n,r]
+- Gamma[c,d,e]*Gamma[f,g,a]*epsilon[b,h,l,m]*Normal[c]*Normal[n]*Weyl[f,p,q,r]*ginv[p,n]*ginv[h,e]*ginv[g,d]*ginv[l,q]*ginv[m,r]
+- Gamma[c,d,e]*Gamma[f,g,h]*epsilon[b,l,m,n]*Normal[f]*Normal[p]*Weyl[a,q,r,c]*ginv[q,p]*ginv[l,h]*ginv[d,g]*ginv[m,r]*ginv[n,e]
+- Gamma[c,d,e]*Gamma[f,g,h]*epsilon[b,l,m,n]*Normal[f]*Normal[p]*Weyl[a,q,c,r]*ginv[l,p]*ginv[q,h]*ginv[d,g]*ginv[m,e]*ginv[n,r]
+- Gamma[c,d,e]*Gamma[f,g,a]*epsilon[b,h,l,m]*Normal[c]*Normal[n]*Weyl[f,p,q,r]*ginv[h,n]*ginv[p,e]*ginv[g,d]*ginv[l,q]*ginv[m,r]
+- Gamma[c,d,e]*Gamma[f,g,h]*epsilon[b,l,m,n]*Normal[f]*Normal[p]*Weyl[a,q,r,c]*ginv[l,p]*ginv[q,h]*ginv[d,g]*ginv[m,r]*ginv[n,e]
++ ConformalFactor*epsilon[b,c,d,e]*Normal[f]*Normal[g]*Weyl[a,h,l,m]*Weyl[n,p,q,r]*ginv[q,f]*ginv[c,g]*ginv[d,l]*ginv[e,n]*ginv[r,h]*ginv[p,m]
+- ConformalFactor*epsilon[b,c,d,e]*Normal[f]*Normal[g]*Weyl[a,h,l,m]*Weyl[n,p,q,r]*ginv[q,f]*ginv[c,g]*ginv[d,n]*ginv[e,l]*ginv[r,h]*ginv[p,m]
++ ConformalFactor*epsilon[b,c,d,e]*Normal[f]*Normal[g]*Weyl[a,h,l,m]*Weyl[n,p,q,r]*ginv[l,f]*ginv[c,g]*ginv[d,n]*ginv[e,p]*ginv[q,h]*ginv[r,m]
+- Magnetic[e,b]*ginv[c,d]*Gamma[e,d,a]_[c]
+- Magnetic[a,e]*ginv[c,d]*Gamma[e,d,b]_[c]
+- Gamma[e,d,b]*ginv[c,d]*Magnetic[a,e]_[c]
+- Gamma[e,d,a]*ginv[c,d]*Magnetic[e,b]_[c]
++ ginv[c, d]*Magnetic[a, b]_[c,d]
++ Gamma[c,d,e]*epsilon[b,f,g,h]*Normal[c]*Weyl[a,l,m,p]*ginv[l,e]*ginv[q,d]*ginv[f,r]*ginv[g,m]*ginv[h,p]*Normal[r]_[q]
+- Gamma[d,c,e]*ginv[c,e]*Magnetic[a,b]_[d]
+- Gamma[e,c,b]*ginv[c, d]*Magnetic[a,e]_[d]
+- Gamma[e,c,a]*ginv[c,d]*Magnetic[e, b]_[d]
++ epsilon[b,c,d,e]*Normal[f]*Normal[g]*Weyl[a,h,l,m]*ginv[h,g]*ginv[c,n]*ginv[p,q]*ginv[d,l]*ginv[e,m]*Gamma[f,q,n]_[p]/2
++ Gamma[c,d,e]*epsilon[b,f,g,h]*Normal[l]*Weyl[a,m,n,p]*ginv[m,l]*ginv[f,e]*ginv[q,d]*ginv[g,n]*ginv[h,p]*Normal[c]_[q]/2
+- epsilon[b,c,d,e]*Normal[f]*Weyl[a,g,h,l]*ginv[g,f]*ginv[c,m]*ginv[n,p]*ginv[d,h]*ginv[e,l]*Normal[m]_[n,p]/2
++ epsilon[b,c,d,e]*Normal[f]*Normal[g]*Weyl[a,h,l,m]*ginv[c,g]*ginv[h,n]*ginv[p,q]*ginv[d,l]*ginv[e,m]*Gamma[f,q,n]_[p]/2
++ Gamma[c,d,e]*epsilon[b,f,g,h]*Normal[m]*Weyl[a,n,p,q]*ginv[f,m]*ginv[n,e]*ginv[r,d]*ginv[g,p]*ginv[h,q]*Normal[c]_[r]/2
+- epsilon[b,c,d,e]*Normal[f]*Weyl[a,g,h,m]*ginv[c,f]*ginv[g,n]*ginv[p,q]*ginv[d,h]*ginv[e,m]*Normal[n]_[p,q]/2
++ Gamma[c,d,e]*epsilon[b,f,g,h]*Normal[c]*Normal[l]*ginv[m,l]*ginv[f,e]*ginv[n,d]*ginv[g,p]*ginv[h,q]*Weyl[a,m,p,q]_[n]
++ Gamma[c,d,e]*epsilon[b,f,g,h]*Normal[c]*Normal[l]*ginv[f,l]*ginv[m,e]*ginv[n,d]*ginv[g,p]*ginv[h,q]*Weyl[a,m,p,q]_[n]
++ Gamma[c,d,e]*epsilon[b,f,g,h]*Normal[l]*Weyl[a,c,m,n]*ginv[e,l]*ginv[f,p]*ginv[d,q]*ginv[g,m]*ginv[h,n]*Normal[p]_[q]
++ Gamma[c,d,e]*epsilon[b,f,g,h]*Normal[l]*Weyl[a,c,m,n]*ginv[f,l]*ginv[e,p]*ginv[d,q]*ginv[g,m]*ginv[h,n]*Normal[p]_[q]
++ Gamma[c,d,e]*epsilon[b,f,g,h]*Normal[l]*Weyl[a,m,c,n]*ginv[m,l]*ginv[f,p]*ginv[d,q]*ginv[g,e]*ginv[h,n]*Normal[p]_[q]
++ Gamma[c,d,e]*epsilon[b,f,g,h]*Normal[l]*Weyl[a,m,n,c]*ginv[m,l]*ginv[f,p]*ginv[d,q]*ginv[g,n]*ginv[h,e]*Normal[p]_[q]
++ Gamma[c,d,e]*epsilon[b,f,h,l]*Normal[m]*Weyl[a,n,c,p]*ginv[f,m]*ginv[n,q]*ginv[d,g]*ginv[h,e]*ginv[l,p]*Normal[q]_[g]
++ Gamma[c,d,e]*epsilon[b,f,g,h]*Normal[l]*Weyl[a,m,n,c]*ginv[f,l]*ginv[m,p]*ginv[d,q]*ginv[g,n]*ginv[h,e]*Normal[p]_[q]
++ Gamma[c,d,e]*epsilon[b,f,g,h]*Normal[l]*Weyl[a,m,n,p]*ginv[m,l]*ginv[f,e]*ginv[d,q]*ginv[g,n]*ginv[h,p]*Normal[c]_[q]/2
++ Gamma[c,d,e]*epsilon[b,f,g,h]*Normal[l]*Weyl[a,m,n,p]*ginv[f,l]*ginv[m,e]*ginv[d,q]*ginv[g,n]*ginv[h,p]*Normal[c]_[q]/2
++ Gamma[c,d,e]*epsilon[b,f,g,h]*Normal[l]*Weyl[a,m,n,p]*ginv[m,l]*ginv[f,q]*ginv[d,e]*ginv[g,n]*ginv[h,p]*Normal[q]_[c]/2
++ Gamma[c,d,e]*epsilon[b,f, g,h]*Normal[l]*Weyl[a,m,n,p]*ginv[f,l]*ginv[m,q]*ginv[d,e]*ginv[g,n]*ginv[h,p]*Normal[q]_[c]/2
++ Gamma[c,d,a]*epsilon[b,e,f,g]*Normal[h]*Weyl[c,m,n,p]*ginv[m,h]*ginv[e,q]*ginv[d,r]*ginv[f,n]*ginv[g,p]*Normal[q]_[r]
+- epsilon[b,c,d,e]*Normal[f]*ginv[g,f]*ginv[c,h]*ginv[l,m]*ginv[d,n]*ginv[e,p]*Weyl[a,g,n,p]_[l]*Normal[h]_[m]
++ Gamma[c,d,a]*epsilon[b,e,f,g]*Normal[h]*Weyl[c,l,m,p]*ginv[e,h]*ginv[l,n]*ginv[d,q]*ginv[f,m]*ginv[g,p]*Normal[n]_[q]
+- epsilon[b,c,d,e]*Normal[f]*ginv[c,f]*ginv[g,h]*ginv[l,m]*ginv[d,n]*ginv[e,p]*Weyl[a,g,n,p]_[l]*Normal[h]_[m]
++ Gamma[c,d,e]*epsilon[b,f,g,h]*Normal[c]*Weyl[a,l,m,n]*ginv[l,p]*ginv[d,q]*ginv[f,e]*ginv[g,m]*ginv[h,n]*Normal[p]_[q]
+- epsilon[b,c,d,e]*Weyl[a,f,g,h]*ginv[f,l]*ginv[m,n]*ginv[c,p]*ginv[d,g]*ginv[e,h]*Normal[p]_[m]*Normal[l]_[n] == 0
+
+
+%%%%%%%%%%% Expression for the Weyl tensor in terms of the electric and magnetic parts %%%%%%%%
+
+Weyl[a,b,c,d] == 
+ 2*Electric[b,d]*Normal[a]*Normal[c]
+-2*Electric[a,d]*Normal[b]*Normal[c]
+-2*Electric[b, c]*Normal[a]*Normal[d]
++2*Electric[a, c]*Normal[b]*Normal[d]
++Electric[b,d]*g[a, c]
+-Electric[b,c]*g[a,d]
+-Electric[a,d]*g[b,c]
++Electric[a,c]*g[b,d]
+-epsilon[c,d,e,f]*Magnetic[b,m]*Normal[-a]*Normal[n]*ginv[e,n]*ginv[f,m]
++ epsilon[c,d,e,f]*Magnetic[a,m]*Normal[b]*Normal[n]*ginv[e,n]*ginv[f,m]
+- epsilon[a,b,e,f]*Magnetic[d,m]*Normal[c]*Normal[n]*ginv[e,n]*ginv[f,m]
++ epsilon[a,b,e,f]*Magnetic[c,m]*Normal[d]*Normal[n]*ginv[e,n]*ginv[f,m]
+
+%%%%%%%%%%%%%%%% Replacement table
+
+Independent components
+
+Electric[1,1], Electric[1,2], Electric[1,3], Electric[2,2], Electric[2,3], Electric[3,3]
+
+Dependent components
+
+Electric[0,0]==0
+Electric[0,1]==0
+Electric[0,2]==0
+Electric[0,3]==0
+Electric[2,1]==Electric[1,2]
+Electric[3,1]==Electric[1,3]
+Electric[3,2]==Electric[2,3]
+
+%%%%%%%%%%%%%%% Exact initial data for the electric part
+
+Electric[1,1]==0
+Electric[1,2]==0
+Electric[1,3]== -4y
+Electric[2,2]==0
+Electric[2,3]== 4x
+Electric[3,3]== 0
+
+Electric[0,0]==0
+Electric[0,1]==0
+Electric[0,2]==0
+Electric[0,3]==0
+Electric[2,1]==0
+Electric[3,1]== -4y
+Electric[3,2]== 4x
