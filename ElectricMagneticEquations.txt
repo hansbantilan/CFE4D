@@ -1,11 +1,13 @@
 %%%%%%%% The wave equation for the electric part %%%%%%%%%%
 
-Gamma[e,d,f]*Gamma[f,c,b]*Electric[a,e]*ginv[d,c]
-+Gamma[e,d,f]*Gamma[f,c, a]*Electric[e,b]*ginv[d,c]
++ ginv[d,c]*Electric[a,b]_[c,d]
++Gamma[e,d,f]*Gamma[f,c,b]*Electric[a,e]*ginv[d,c] !run4
++Gamma[e,d,f]*Gamma[f,c,a]*Electric[e,b]*ginv[d,c]
 +Gamma[e,c,a]*Gamma[f,d,b]*Electric[e,f]*ginv[d,c]
-+Gamma[e,d, a]*Gamma[f,c,b]*Electric[e,f]*ginv[d,c]
-+Gamma[d,e,f]*Gamma[m,d,b]*Electric[a,m]*ginv[f,e]
-+Gamma[d,e,f]*Gamma[m,d, a]*Electric[m,b]*ginv[f,e]
++Gamma[e,d,a]*Gamma[f,c,b]*Electric[e,f]*ginv[d,c]
++Gamma[d,e,f]*Gamma[c,d,b]*Electric[a,c]*ginv[f,e]
++Gamma[d,e,f]*Gamma[c,d,a]*Electric[c,b]*ginv[f,e] !run5  
+
 -(Normal[d]*Normal[e]*Weyl[a,f,b,m]*RicciScalar*ginv[f,d]*ginv[m,e])/2
 -Gamma[c,d,e]*Gamma[e,f,m]*Normal[c]*Normal[n]*Weyl[a,p,b,q]*ginv[p,n]*ginv[q,m]*ginv[f,d]
 -Gamma[b,c,d]*Gamma[c,e,f]*Normal[b]*Normal[m]*Weyl[a,f,b,p]*ginv[n,m]*ginv[p,d]*ginv[e,n]
@@ -30,7 +32,6 @@ Gamma[e,d,f]*Gamma[f,c,b]*Electric[a,e]*ginv[d,c]
 -Electric[a,m]*ginv[d,c]*Gamma[m,d,b]_[c]
 -Gamma[m,d,b]*ginv[d,c]*Electric[a,m]_[c]
 -Gamma[m,d,a]*ginv[d,c]*Electric[m,b]_[c]
-+ ginv[d,c]*Electric[a,b]_[c,d]
 + 2*Gamma[c,d,e]*Normal[c]*Weyl[a,f,b,m]*ginv[f,e]*ginv[n,d]*ginv[m,p]*Normal[p]_[n]
 + Normal[c]*Normal[d]*Weyl[a,e,b,f]*ginv[e,d]*ginv[f,m]*ginv[n,p]*Gamma[c,p,m]_[n]
 + Gamma[b,c,d]*Normal[e]*Weyl[a,f,b,m]*ginv[f,e]*ginv[m,d]*ginv[n,c]*Normal[b]_[n]

@@ -800,15 +800,25 @@ c----------------------------------------------------------------------
                         cfe(a,b)=cfe(a,b)
      &                  +g0_uu(d,c)*e0_ll_xx(a,b,c,d)
 
-!                        do e=1,4
-!                          do f=1,4
-!
-!                            cfe(a,b)=cfe(a,b)
-!                            +gamma_ull(e,d,f)*gamma_ull(f,c,b)
-!     &                                  *e0_ll(a,e)*g0_uu(d,c)
-!
-!                          end do
-!                        end do
+                        do e=1,4
+                          do f=1,4
+
+                            cfe(a,b)=cfe(a,b)
+     &                      +gamma_ull(e,d,f)*gamma_ull(f,c,b)
+     &                                  *e0_ll(a,e)*g0_uu(d,c) !run4
+     &                      +gamma_ull(e,d,f)*gamma_ull(f,c,a)
+     &                                  *e0_ll(e,b)*g0_uu(d,c)
+     &                      +gamma_ull(e,c,a)*gamma_ull(f,d,b)
+     &                                  *e0_ll(e,f)*g0_uu(d,c)
+     &                      +gamma_ull(e,d,a)*gamma_ull(f,c,b)
+     &                                  *e0_ll(e,f)*g0_uu(d,c)
+     &                      +gamma_ull(d,e,f)*gamma_ull(c,d,b)
+     &                                  *e0_ll(a,c)*g0_uu(f,e)
+     &                      +gamma_ull(d,e,f)*gamma_ull(c,d,a)
+     &                                  *e0_ll(c,b)*g0_uu(f,e) !run5
+
+                          end do
+                        end do
 
                       end do
                     end do
