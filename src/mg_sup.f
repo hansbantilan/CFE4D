@@ -25,12 +25,12 @@ c-----------------------------------------------------------------------
         real*8 cmask(Nx,Ny),chr(Nx,Ny)
         real*8 x(Nx),y(Ny),norm,ex,L
         real*8 trhoE_grad,trhoE_ptl,alphasq
-        real*8 zeta_x(5),ddzeta,ddzeta_Jac,grad_zeta_sq
-        real*8 phi1_x(5),ddphi1,ddphi1_Jac,grad_phi1_sq
+        real*8 zeta_x(4),ddzeta,ddzeta_Jac,grad_zeta_sq
+        real*8 phi1_x(4),ddphi1,ddphi1_Jac,grad_phi1_sq
 
         real*8 phi10(Nx,Ny)
 
-        real*8 g_ll(5,5)
+        real*8 g_ll(4,4)
 
         integer relax,lop,residual,cdiff_method
         parameter (relax=1,lop=3,residual=2)
@@ -41,7 +41,7 @@ c-----------------------------------------------------------------------
         real*8 phi10_0
 
         real*8 Jac,res,rhs,new_rhs
-        real*8 lambda5
+        real*8 lambda4
         real*8 PI
         parameter (PI=0.3141592653589793D1)
 
@@ -60,7 +60,7 @@ c-----------------------------------------------------------------------
         data i,j,pass,sum,ii,jj/0,0,0,0,0,0/
         data is/0/
 
-        data g_ll/25*0.0/
+        data g_ll/16*0.0/
 
         data csr,snr,x0,y0,rho0/0.0,0.0,0.0,0.0,0.0/
         data x2,y2,x3,y3,x4,y4/0.0,0.0,0.0,0.0,0.0,0.0/
@@ -70,7 +70,7 @@ c-----------------------------------------------------------------------
         data phi10_0/0.0/
 
         data Jac,res,rhs,new_rhs/0.0,0.0,0.0,0.0/
-        data lambda5/0.0/
+        data lambda4/0.0/
 
         data ddzeta_J_xx,ddzeta_J_yy/0.0,0.0/
 
@@ -94,7 +94,7 @@ c-----------------------------------------------------------------------
         rhs=0
 
         ! sets CFE4D cosmological constant
-        lambda5=-6/L/L
+        lambda4=-3/L/L
 
         ! manually reconstruct phi10=phi1*(1-rho^2)^3 
         do i=1,Nx
@@ -150,16 +150,16 @@ c-----------------------------------------------------------------------
      &                      grad_zeta_sq,
      &                      x,y,i,j,chr,L,ex,Nx,Ny)
                 res=ddzeta
-     &              -lambda5*zeta0/3
-     &              +(lambda5+8*PI*trhoE_ptl)*(zeta0**3)/3
+     &              -lambda4*zeta0/3
+     &              +(lambda4+8*PI*trhoE_ptl)*(zeta0**3)/3
      &              +8*PI*trhoE_grad*zeta0/3
             
                 ! computes MG residual L.zeta-R
                 rhs=res-zeta_rhs(i,j)
 
                 Jac=ddzeta_Jac
-     &              -( lambda5/3 )
-     &              +(lambda5+8*PI*trhoE_ptl)*(zeta0**2)
+     &              -( lambda4/3 )
+     &              +(lambda4+8*PI*trhoE_ptl)*(zeta0**2)
      &              +8*PI*trhoE_grad/3
 
                 ! performs action
@@ -375,7 +375,7 @@ c----------------------------------------------------------------------
         real*8 chr(Nx,Ny),ex
         real*8 x(Nx),y(Ny),L
 
-        real*8 f0(Nx,Ny),f0_x(5),f0_xx(5,5),ddf,ddf_Jac,grad_f_sq
+        real*8 f0(Nx,Ny),f0_x(4),f0_xx(4,4),ddf,ddf_Jac,grad_f_sq
 
         real*8 PI
         parameter (PI=0.3141592653589793D1)
@@ -409,27 +409,21 @@ c----------------------------------------------------------------------
         f0_x(2)=(f0(i+1,j)-f0(i-1,j))/2/dx!f_x
         f0_x(3)=(f0(i,j+1)-f0(i,j-1))/2/dy!f_y
         f0_x(4)=0
-        f0_x(5)=0
 
         f0_xx(1,1)=0
         f0_xx(1,2)=0
         f0_xx(1,3)=0
         f0_xx(1,4)=0
-        f0_xx(1,5)=0
         f0_xx(2,2)=(f0(i+1,j)-2*f0(i,j)+f0(i-1,j))/dx/dx
         f0_xx(2,3)=( (f0(i+1,j+1)-f0(i+1,j-1))/2/dy
      &              -(f0(i-1,j+1)-f0(i-1,j-1))/2/dy )/2/dx
         f0_xx(2,4)=0
-        f0_xx(2,5)=0
         f0_xx(3,3)=(f0(i,j+1)-2*f0(i,j)+f0(i,j-1))/dy/dy 
         f0_xx(3,4)=0
-        f0_xx(3,5)=0
         f0_xx(4,4)=0
-        f0_xx(4,5)=0
-        f0_xx(5,5)=0
 
-        do a=1,4
-          do b=a+1,5
+        do a=1,3
+          do b=a+1,4
             f0_xx(b,a)=f0_xx(a,b)
           end do
         end do

@@ -1108,234 +1108,93 @@ c----------------------------------------------------------------------
         end
 
 c----------------------------------------------------------------------
-c calculates inverse of a 5x5 matrix with components g11,...,g55
+c calculates inverse of a 4x4 matrix with components g11,...,g44
 c----------------------------------------------------------------------
-        subroutine calc_g0uu(g11,g12,g13,g14,g15,g22,g23,g24,g25,
-     &                       g33,g34,g35,g44,g45,g55,g0_uu)
+        subroutine calc_g0uu(g11,g12,g13,g14,g22,g23,g24,
+     &                       g33,g34,g44,g0_uu)
         implicit none
-        real*8 g11,g12,g13,g14,g15
-        real*8 g22,g23,g24,g25
-        real*8 g33,g34,g35
-        real*8 g44,g45
-        real*8 g55
-        real*8 g0_uu(5,5)                        
+        real*8 g11,g12,g13,g14
+        real*8 g22,g23,g24
+        real*8 g33,g34
+        real*8 g44
+        real*8 g0_uu(4,4)
 
         real*8 invdenominator
 
         !--------------------------------------------------------------
 
         invdenominator=
-     &      g15**2*g24**2*g33 - 2*g14*g15*g24*g25*g33 + 
-     &      g14**2*g25**2*g33 - 2*g15**2*g23*g24*g34 + 
-     &      2*g14*g15*g23*g25*g34 + 2*g13*g15*g24*g25*g34 - 
-     &      2*g13*g14*g25**2*g34 + g15**2*g22*g34**2 - 
-     &      2*g12*g15*g25*g34**2 + g11*g25**2*g34**2 + 
-     &      2*g14*g15*g23*g24*g35 - 2*g13*g15*g24**2*g35 - 
-     &      2*g14**2*g23*g25*g35 + 2*g13*g14*g24*g25*g35 - 
-     &      2*g14*g15*g22*g34*g35 + 2*g12*g15*g24*g34*g35 + 
-     &      2*g12*g14*g25*g34*g35 - 2*g11*g24*g25*g34*g35 + 
-     &      g14**2*g22*g35**2 - 2*g12*g14*g24*g35**2 + 
-     &      g11*g24**2*g35**2 + g15**2*g23**2*g44 - 
-     &      2*g13*g15*g23*g25*g44 + g13**2*g25**2*g44 - 
-     &      g15**2*g22*g33*g44 + 2*g12*g15*g25*g33*g44 - 
-     &      g11*g25**2*g33*g44 + 2*g13*g15*g22*g35*g44 - 
-     &      2*g12*g15*g23*g35*g44 - 2*g12*g13*g25*g35*g44 + 
-     &      2*g11*g23*g25*g35*g44 + g12**2*g35**2*g44 - 
-     &      g11*g22*g35**2*g44 - 2*g14*g15*g23**2*g45 + 
-     &      2*g13*g15*g23*g24*g45 + 2*g13*g14*g23*g25*g45 - 
-     &      2*g13**2*g24*g25*g45 + 2*g14*g15*g22*g33*g45 - 
-     &      2*g12*g15*g24*g33*g45 - 2*g12*g14*g25*g33*g45 + 
-     &      2*g11*g24*g25*g33*g45 - 2*g13*g15*g22*g34*g45 + 
-     &      2*g12*g15*g23*g34*g45 + 2*g12*g13*g25*g34*g45 - 
-     &      2*g11*g23*g25*g34*g45 - 2*g13*g14*g22*g35*g45 + 
-     &      2*g12*g14*g23*g35*g45 + 2*g12*g13*g24*g35*g45 - 
-     &      2*g11*g23*g24*g35*g45 - 2*g12**2*g34*g35*g45 + 
-     &      2*g11*g22*g34*g35*g45 + g13**2*g22*g45**2 - 
-     &      2*g12*g13*g23*g45**2 + g11*g23**2*g45**2 + 
-     &      g12**2*g33*g45**2 - g11*g22*g33*g45**2 + g14**2*g23**2*g55 -
-     &      2*g13*g14*g23*g24*g55 + g13**2*g24**2*g55 - 
-     &      g14**2*g22*g33*g55 + 2*g12*g14*g24*g33*g55 - 
-     &      g11*g24**2*g33*g55 + 2*g13*g14*g22*g34*g55 - 
-     &      2*g12*g14*g23*g34*g55 - 2*g12*g13*g24*g34*g55 + 
-     &      2*g11*g23*g24*g34*g55 + g12**2*g34**2*g55 - 
-     &      g11*g22*g34**2*g55 - g13**2*g22*g44*g55 + 
-     &      2*g12*g13*g23*g44*g55 - g11*g23**2*g44*g55 - 
-     &      g12**2*g33*g44*g55 + g11*g22*g33*g44*g55
+     &    g14**2*g23**2 - 2*g13*g14*g23*g24 + g13**2*g24**2 -
+     &    g14**2*g22*g33 + 2*g12*g14*g24*g33 - g11*g24**2*g33 +
+     &    2*g13*g14*g22*g34 - 2*g12*g14*g23*g34 -
+     &    2*g12*g13*g24*g34 + 2*g11*g23*g24*g34 + g12**2*g34**2 -
+     &    g11*g22*g34**2 - g13**2*g22*g44 + 2*g12*g13*g23*g44 -
+     &    g11*g23**2*g44 - g12**2*g33*g44 + g11*g22*g33*g44
 
         g0_uu(1,1)=
      &      (
-     &      g25**2*g34**2 - 2*g24*g25*g34*g35 + g24**2*g35**2 - 
-     &      g25**2*g33*g44 + 2*g23*g25*g35*g44 - g22*g35**2*g44 + 
-     &      2*g24*g25*g33*g45 - 2*g23*g25*g34*g45 - 2*g23*g24*g35*g45 + 
-     &      2*g22*g34*g35*g45 + g23**2*g45**2 - g22*g33*g45**2 - 
-     &      g24**2*g33*g55 + 2*g23*g24*g34*g55 - g22*g34**2*g55 - 
-     &      g23**2*g44*g55 + g22*g33*g44*g55 
+     &      -(g24**2*g33) + 2*g23*g24*g34 - g22*g34**2 - g23**2*g44 +
+     &      g22*g33*g44
      &      )
      &      /invdenominator
         g0_uu(1,2)=
      &      (
-     &      -(g15*g25*g34**2) + g15*g24*g34*g35 + g14*g25*g34*g35 - 
-     &      g14*g24*g35**2 + g15*g25*g33*g44 - g15*g23*g35*g44 - 
-     &      g13*g25*g35*g44 + g12*g35**2*g44 - g15*g24*g33*g45 - 
-     &      g14*g25*g33*g45 + g15*g23*g34*g45 + g13*g25*g34*g45 + 
-     &      g14*g23*g35*g45 + g13*g24*g35*g45 - 2*g12*g34*g35*g45 - 
-     &      g13*g23*g45**2 + g12*g33*g45**2 + g14*g24*g33*g55 - 
-     &      g14*g23*g34*g55 - g13*g24*g34*g55 + g12*g34**2*g55 + 
-     &      g13*g23*g44*g55 - g12*g33*g44*g55
+     &      g14*g24*g33 - g14*g23*g34 - g13*g24*g34 + g12*g34**2 +
+     &      g13*g23*g44 - g12*g33*g44
      &      )
      &      /invdenominator
         g0_uu(1,3)=
      &      (
-     &      g15*g24*g25*g34 - g14*g25**2*g34 - g15*g24**2*g35 + 
-     &      g14*g24*g25*g35 - g15*g23*g25*g44 + g13*g25**2*g44 + 
-     &      g15*g22*g35*g44 - g12*g25*g35*g44 + g15*g23*g24*g45 + 
-     &      g14*g23*g25*g45 - 2*g13*g24*g25*g45 - g15*g22*g34*g45 + 
-     &      g12*g25*g34*g45 - g14*g22*g35*g45 + g12*g24*g35*g45 + 
-     &      g13*g22*g45**2 - g12*g23*g45**2 - g14*g23*g24*g55 + 
-     &      g13*g24**2*g55 + g14*g22*g34*g55 - g12*g24*g34*g55 - 
-     &      g13*g22*g44*g55 + g12*g23*g44*g55
+     &      -(g14*g23*g24) + g13*g24**2 + g14*g22*g34 - g12*g24*g34 -
+     &      g13*g22*g44 + g12*g23*g44
      &      )
      &      /invdenominator
         g0_uu(1,4)=
      &      (
-     &      -(g15*g24*g25*g33) + g14*g25**2*g33 + g15*g23*g25*g34 - 
-     &      g13*g25**2*g34 + g15*g23*g24*g35 - 2*g14*g23*g25*g35 + 
-     &      g13*g24*g25*g35 - g15*g22*g34*g35 + g12*g25*g34*g35 + 
-     &      g14*g22*g35**2 - g12*g24*g35**2 - g15*g23**2*g45 + 
-     &      g13*g23*g25*g45 + g15*g22*g33*g45 - g12*g25*g33*g45 - 
-     &      g13*g22*g35*g45 + g12*g23*g35*g45 + g14*g23**2*g55 - 
-     &      g13*g23*g24*g55 - g14*g22*g33*g55 + g12*g24*g33*g55 + 
-     &      g13*g22*g34*g55 - g12*g23*g34*g55
-     &      )
-     &      /invdenominator
-        g0_uu(1,5)=
-     &      (
-     &      g15*g24**2*g33 - g14*g24*g25*g33 - 2*g15*g23*g24*g34 + 
-     &      g14*g23*g25*g34 + g13*g24*g25*g34 + g15*g22*g34**2 - 
-     &      g12*g25*g34**2 + g14*g23*g24*g35 - g13*g24**2*g35 - 
-     &      g14*g22*g34*g35 + g12*g24*g34*g35 + g15*g23**2*g44 - 
-     &      g13*g23*g25*g44 - g15*g22*g33*g44 + g12*g25*g33*g44 + 
-     &      g13*g22*g35*g44 - g12*g23*g35*g44 - g14*g23**2*g45 + 
-     &      g13*g23*g24*g45 + g14*g22*g33*g45 - g12*g24*g33*g45 - 
-     &      g13*g22*g34*g45 + g12*g23*g34*g45
+     &      g14*g23**2 - g13*g23*g24 - g14*g22*g33 + g12*g24*g33 +
+     &      g13*g22*g34 - g12*g23*g34
      &      )
      &      /invdenominator
         g0_uu(2,2)=
      &      (
-     &      g15**2*g34**2 - 2*g14*g15*g34*g35 + g14**2*g35**2 - 
-     &      g15**2*g33*g44 + 2*g13*g15*g35*g44 - g11*g35**2*g44 + 
-     &      2*g14*g15*g33*g45 - 2*g13*g15*g34*g45 - 2*g13*g14*g35*g45 + 
-     &      2*g11*g34*g35*g45 + g13**2*g45**2 - g11*g33*g45**2 - 
-     &      g14**2*g33*g55 + 2*g13*g14*g34*g55 - g11*g34**2*g55 - 
-     &      g13**2*g44*g55 + g11*g33*g44*g55
+     &      -(g14**2*g33) + 2*g13*g14*g34 - g11*g34**2 - g13**2*g44 +
+     &      g11*g33*g44
      &      )
      &      /invdenominator
         g0_uu(2,3)=
      &      (
-     &      -(g15**2*g24*g34) + g14*g15*g25*g34 + g14*g15*g24*g35 - 
-     &      g14**2*g25*g35 + g15**2*g23*g44 - g13*g15*g25*g44 - 
-     &      g12*g15*g35*g44 + g11*g25*g35*g44 - 2*g14*g15*g23*g45 + 
-     &      g13*g15*g24*g45 + g13*g14*g25*g45 + g12*g15*g34*g45 - 
-     &      g11*g25*g34*g45 + g12*g14*g35*g45 - g11*g24*g35*g45 - 
-     &      g12*g13*g45**2 + g11*g23*g45**2 + g14**2*g23*g55 - 
-     &      g13*g14*g24*g55 - g12*g14*g34*g55 + g11*g24*g34*g55 + 
-     &      g12*g13*g44*g55 - g11*g23*g44*g55
+     &      g14**2*g23 - g13*g14*g24 - g12*g14*g34 + g11*g24*g34 +
+     &      g12*g13*g44 - g11*g23*g44
      &      )
      &      /invdenominator
         g0_uu(2,4)=
      &      (
-     &      g15**2*g24*g33 - g14*g15*g25*g33 - g15**2*g23*g34 + 
-     &      g13*g15*g25*g34 + g14*g15*g23*g35 - 2*g13*g15*g24*g35 + 
-     &      g13*g14*g25*g35 + g12*g15*g34*g35 - g11*g25*g34*g35 - 
-     &      g12*g14*g35**2 + g11*g24*g35**2 + g13*g15*g23*g45 - 
-     &      g13**2*g25*g45 - g12*g15*g33*g45 + g11*g25*g33*g45 + 
-     &      g12*g13*g35*g45 - g11*g23*g35*g45 - g13*g14*g23*g55 + 
-     &      g13**2*g24*g55 + g12*g14*g33*g55 - g11*g24*g33*g55 - 
-     &      g12*g13*g34*g55 + g11*g23*g34*g55
-     &      )
-     &      /invdenominator
-        g0_uu(2,5)=
-     &      (
-     &      -(g14*g15*g24*g33) + g14**2*g25*g33 + g14*g15*g23*g34 + 
-     &      g13*g15*g24*g34 - 2*g13*g14*g25*g34 - g12*g15*g34**2 + 
-     &      g11*g25*g34**2 - g14**2*g23*g35 + g13*g14*g24*g35 + 
-     &      g12*g14*g34*g35 - g11*g24*g34*g35 - g13*g15*g23*g44 + 
-     &      g13**2*g25*g44 + g12*g15*g33*g44 - g11*g25*g33*g44 - 
-     &      g12*g13*g35*g44 + g11*g23*g35*g44 + g13*g14*g23*g45 - 
-     &      g13**2*g24*g45 - g12*g14*g33*g45 + g11*g24*g33*g45 + 
-     &      g12*g13*g34*g45 - g11*g23*g34*g45
+     &      -(g13*g14*g23) + g13**2*g24 + g12*g14*g33 - g11*g24*g33 -
+     &      g12*g13*g34 + g11*g23*g34
      &      )
      &      /invdenominator
         g0_uu(3,3)=
      &      (
-     &      g15**2*g24**2 - 2*g14*g15*g24*g25 + g14**2*g25**2 - 
-     &      g15**2*g22*g44 + 2*g12*g15*g25*g44 - g11*g25**2*g44 + 
-     &      2*g14*g15*g22*g45 - 2*g12*g15*g24*g45 - 2*g12*g14*g25*g45 + 
-     &      2*g11*g24*g25*g45 + g12**2*g45**2 - g11*g22*g45**2 - 
-     &      g14**2*g22*g55 + 2*g12*g14*g24*g55 - g11*g24**2*g55 - 
-     &      g12**2*g44*g55 + g11*g22*g44*g55
+     &      -(g14**2*g22) + 2*g12*g14*g24 - g11*g24**2 - g12**2*g44 +
+     &      g11*g22*g44
      &      )
      &      /invdenominator
         g0_uu(3,4)=
      &      (
-     &      -(g15**2*g23*g24) + g14*g15*g23*g25 + g13*g15*g24*g25 - 
-     &      g13*g14*g25**2 + g15**2*g22*g34 - 2*g12*g15*g25*g34 + 
-     &      g11*g25**2*g34 - g14*g15*g22*g35 + g12*g15*g24*g35 + 
-     &      g12*g14*g25*g35 - g11*g24*g25*g35 - g13*g15*g22*g45 + 
-     &      g12*g15*g23*g45 + g12*g13*g25*g45 - g11*g23*g25*g45 - 
-     &      g12**2*g35*g45 + g11*g22*g35*g45 + g13*g14*g22*g55 - 
-     &      g12*g14*g23*g55 - g12*g13*g24*g55 + g11*g23*g24*g55 + 
-     &      g12**2*g34*g55 - g11*g22*g34*g55
-     &      )
-     &      /invdenominator
-        g0_uu(3,5)=
-     &      (
-     &      g14*g15*g23*g24 - g13*g15*g24**2 - g14**2*g23*g25 + 
-     &      g13*g14*g24*g25 - g14*g15*g22*g34 + g12*g15*g24*g34 + 
-     &      g12*g14*g25*g34 - g11*g24*g25*g34 + g14**2*g22*g35 - 
-     &      2*g12*g14*g24*g35 + g11*g24**2*g35 + g13*g15*g22*g44 - 
-     &      g12*g15*g23*g44 - g12*g13*g25*g44 + g11*g23*g25*g44 + 
-     &      g12**2*g35*g44 - g11*g22*g35*g44 - g13*g14*g22*g45 + 
-     &      g12*g14*g23*g45 + g12*g13*g24*g45 - g11*g23*g24*g45 - 
-     &      g12**2*g34*g45 + g11*g22*g34*g45
+     &      g13*g14*g22 - g12*g14*g23 - g12*g13*g24 + g11*g23*g24 +
+     &      g12**2*g34 - g11*g22*g34
      &      )
      &      /invdenominator
         g0_uu(4,4)=
      &      (
-     &      g15**2*g23**2 - 2*g13*g15*g23*g25 + g13**2*g25**2 - 
-     &      g15**2*g22*g33 + 2*g12*g15*g25*g33 - g11*g25**2*g33 + 
-     &      2*g13*g15*g22*g35 - 2*g12*g15*g23*g35 - 2*g12*g13*g25*g35 + 
-     &      2*g11*g23*g25*g35 + g12**2*g35**2 - g11*g22*g35**2 - 
-     &      g13**2*g22*g55 + 2*g12*g13*g23*g55 - g11*g23**2*g55 - 
-     &      g12**2*g33*g55 + g11*g22*g33*g55
+     &      -(g13**2*g22) + 2*g12*g13*g23 - g11*g23**2 - g12**2*g33 +
+     &      g11*g22*g33
      &      )
      &      /invdenominator
-        g0_uu(4,5)=
-     &      (
-     &      -(g14*g15*g23**2) + g13*g15*g23*g24 + g13*g14*g23*g25 - 
-     &      g13**2*g24*g25 + g14*g15*g22*g33 - g12*g15*g24*g33 - 
-     &      g12*g14*g25*g33 + g11*g24*g25*g33 - g13*g15*g22*g34 + 
-     &      g12*g15*g23*g34 + g12*g13*g25*g34 - g11*g23*g25*g34 - 
-     &      g13*g14*g22*g35 + g12*g14*g23*g35 + g12*g13*g24*g35 - 
-     &      g11*g23*g24*g35 - g12**2*g34*g35 + g11*g22*g34*g35 + 
-     &      g13**2*g22*g45 - 2*g12*g13*g23*g45 + g11*g23**2*g45 + 
-     &      g12**2*g33*g45 - g11*g22*g33*g45
-     &      )
-     &      /invdenominator
-        g0_uu(5,5)=
-     &      (
-     &      g14**2*g23**2 - 2*g13*g14*g23*g24 + g13**2*g24**2 - 
-     &      g14**2*g22*g33 + 2*g12*g14*g24*g33 - g11*g24**2*g33 + 
-     &      2*g13*g14*g22*g34 - 2*g12*g14*g23*g34 - 2*g12*g13*g24*g34 + 
-     &      2*g11*g23*g24*g34 + g12**2*g34**2 - g11*g22*g34**2 - 
-     &      g13**2*g22*g44 + 2*g12*g13*g23*g44 - g11*g23**2*g44 - 
-     &      g12**2*g33*g44 + g11*g22*g33*g44
-     &      )
-     &      /invdenominator
-        
+
 
         return
-        end  
+        end
 
 c----------------------------------------------------------------------
 c calculates all the tensorial objects in x,y coordinates, at point i,j
@@ -1407,22 +1266,22 @@ c----------------------------------------------------------------------
 
         !--------------------------------------------------------------
         ! variables for tensor manipulations 
-        !(indices are t,x,w,y,z)
+        !(indices are t,x,y,z)
         !--------------------------------------------------------------
-        real*8 e0_ll(5,5),e0_ll_x(5,5,5),e0_ll_xx(5,5,5,5)
+        real*8 e0_ll(4,4),e0_ll_x(4,4,4),e0_ll_xx(4,4,4,4)
 
-        real*8 g0_ll(5,5),g0_uu(5,5)
-        real*8 g0_ll_x(5,5,5),g0_uu_x(5,5,5),g0_ll_xx(5,5,5,5)
-        real*8 gads_ll(5,5),gads_uu(5,5)
-        real*8 gads_ll_x(5,5,5),gads_uu_x(5,5,5),gads_ll_xx(5,5,5,5)
-        real*8 h0_ll(5,5),h0_uu(5,5)
-        real*8 h0_ll_x(5,5,5),h0_uu_x(5,5,5),h0_ll_xx(5,5,5,5)
-        real*8 gamma_ull(5,5,5),gamma_ull_x(5,5,5,5)
-        real*8 riemann_ulll(5,5,5,5)
-        real*8 ricci_ll(5,5),ricci_lu(5,5),ricci
-        real*8 einstein_ll(5,5),set_ll(5,5)
-        real*8 Hads_l(5),A_l(5),A_l_x(5,5)
-        real*8 phi10_x(5),phi10_xx(5,5)
+        real*8 g0_ll(4,4),g0_uu(4,4)
+        real*8 g0_ll_x(4,4,4),g0_uu_x(4,4,4),g0_ll_xx(4,4,4,4)
+        real*8 gads_ll(4,4),gads_uu(4,4)
+        real*8 gads_ll_x(4,4,4),gads_uu_x(4,4,4),gads_ll_xx(4,4,4,4)
+        real*8 h0_ll(4,4),h0_uu(4,4)
+        real*8 h0_ll_x(4,4,4),h0_uu_x(4,4,4),h0_ll_xx(4,4,4,4)
+        real*8 gamma_ull(4,4,4),gamma_ull_x(4,4,4,4)
+        real*8 riemann_ulll(4,4,4,4)
+        real*8 ricci_ll(4,4),ricci_lu(4,4),ricci
+        real*8 einstein_ll(4,4),set_ll(4,4)
+        real*8 Hads_l(4),A_l(4),A_l_x(4,4)
+        real*8 phi10_x(4),phi10_xx(4,4)
 
         !--------------------------------------------------------------
         ! the following are first and second time derivatives of *n*
@@ -1752,7 +1611,6 @@ c----------------------------------------------------------------------
         g0_ll(2,3)=g0_xy_ads0+gb_xy0*(1-rho0**2)
         g0_ll(3,3)=g0_yy_ads0+gb_yy0*(1-rho0**2) 
         g0_ll(4,4)=g0_psi_ads0+psi0*(1-rho0**2)*y0**2
-        g0_ll(5,5)=g0_psi_ads0+psi0*(1-rho0**2)*y0**2
 
         g0_ll_x(1,1,1)   =0
      &                   +gb_tt_t*(1-rho0**2)
@@ -1980,69 +1838,27 @@ c----------------------------------------------------------------------
      &                   +psi0*(-2*y0)*(2*y0)
      &                   +psi0*(1-rho0**2)*(2)
 
-        g0_ll_x(5,5,1)   =0
-     &                   +psi_t*(1-rho0**2)*y0**2
-        g0_ll_x(5,5,2)   =g0_psi_ads_x
-     &                   +psi_x*(1-rho0**2)*y0**2
-     &                   +psi0*(-2*x0)*y0**2
-        g0_ll_x(5,5,3)   =g0_psi_ads_y
-     &                   +psi_y*(1-rho0**2)*y0**2
-     &                   +psi0*(-2*y0)*y0**2
-     &                   +psi0*(1-rho0**2)*(2*y0)
-        g0_ll_xx(5,5,1,1)=0
-     &                   +psi_tt*(1-rho0**2)*y0**2
-        g0_ll_xx(5,5,1,2)=0
-     &                   +psi_tx*(1-rho0**2)*y0**2
-     &                   +psi_t*(-2*x0)*y0**2
-        g0_ll_xx(5,5,1,3)=0
-     &                   +psi_ty*(1-rho0**2)*y0**2
-     &                   +psi_t*(-2*y0)*y0**2
-     &                   +psi_t*(1-rho0**2)*(2*y0)
-        g0_ll_xx(5,5,2,2)=g0_psi_ads_xx
-     &                   +psi_xx*(1-rho0**2)*y0**2
-     &                   +psi_x*(-2*x0)*y0**2
-     &                   +psi_x*(-2*x0)*y0**2
-     &                   +psi0*(-2)*y0**2
-        g0_ll_xx(5,5,2,3)=g0_psi_ads_xy
-     &                   +psi_xy*(1-rho0**2)*y0**2
-     &                   +psi_x*(-2*y0)*y0**2
-     &                   +psi_x*(1-rho0**2)*(2*y0)
-     &                   +psi_y*(-2*x0)*y0**2
-     &                   +psi0*(-2*x0)*(2*y0)
-        g0_ll_xx(5,5,3,3)=g0_psi_ads_yy
-     &                   +psi_yy*(1-rho0**2)*y0**2
-     &                   +psi_y*(-2*y0)*y0**2
-     &                   +psi_y*(1-rho0**2)*(2*y0)
-     &                   +psi_y*(-2*y0)*y0**2
-     &                   +psi0*(-2)*y0**2
-     &                   +psi0*(-2*y0)*(2*y0)
-     &                   +psi_y*(1-rho0**2)*(2*y0)
-     &                   +psi0*(-2*y0)*(2*y0)
-     &                   +psi0*(1-rho0**2)*(2)
-        g0_ll_xx(5,5,4,4)=-2*(g0_psi_ads0+psi0*(1-rho0**2)*y0**2)   ! WARNING: from sin^2theta factor 
-
         ! give values to the metric inverse
         call calc_g0uu(g0_ll(1,1),g0_ll(1,2),g0_ll(1,3),g0_ll(1,4),
-     &         g0_ll(1,5),g0_ll(2,2),g0_ll(2,3),g0_ll(2,4),g0_ll(2,5),
-     &         g0_ll(3,3),g0_ll(3,4),g0_ll(3,5),g0_ll(4,4),g0_ll(4,5),
-     &         g0_ll(5,5),g0_uu)
+     &         g0_ll(2,2),g0_ll(2,3),g0_ll(2,4),g0_ll(3,3),g0_ll(3,4),
+     &         g0_ll(4,4),g0_uu)
 
-        do a=1,4
-          do b=a+1,5
+        do a=1,3
+          do b=a+1,4
             g0_ll(b,a)=g0_ll(a,b)
             g0_uu(b,a)=g0_uu(a,b) 
-            do c=1,5
+            do c=1,4
               g0_ll_x(b,a,c)=g0_ll_x(a,b,c)
             end do
           end do
         end do
 
-        do a=1,5
-          do b=1,5
-            do c=1,5
+        do a=1,4
+          do b=1,4
+            do c=1,4
               g0_uu_x(a,b,c)=0
-              do d=1,5
-                do e=1,5
+              do d=1,4
+                do e=1,4
                   g0_uu_x(a,b,c)=g0_uu_x(a,b,c)
      &                          -g0_ll_x(d,e,c)
      &                           *g0_uu(a,d)*g0_uu(b,e)
@@ -2053,10 +1869,10 @@ c----------------------------------------------------------------------
           end do
         end do
 
-        do a=1,5
-          do b=1,5
-            do c=1,5
-              do d=1,5
+        do a=1,4
+          do b=1,4
+            do c=1,4
+              do d=1,4
                 g0_ll_xx(a,b,c,d)=
      &             g0_ll_xx(min(a,b),max(a,b),min(c,d),max(c,d))
               end do
@@ -2065,11 +1881,11 @@ c----------------------------------------------------------------------
         end do
 
         ! give values to the Christoffel symbols
-        do a=1,5
-          do b=1,5
-            do c=1,5
+        do a=1,4
+          do b=1,4
+            do c=1,4
               gamma_ull(a,b,c)=0
-              do d=1,5
+              do d=1,4
                 gamma_ull(a,b,c)=gamma_ull(a,b,c)
      &                          +0.5d0*g0_uu(a,d)
      &                                *(g0_ll_x(c,d,b)
@@ -2083,12 +1899,12 @@ c----------------------------------------------------------------------
         ! calculate Christoffel symbol derivatives at point i,j
         !(gamma^a_bc,e = 1/2 g^ad_,e(g_bd,c  + g_cd,b  - g_bc,d)
         !              +   1/2 g^ad(g_bd,ce + g_cd,be - g_bc,de))
-        do a=1,5
-          do b=1,5
-            do c=1,5
-              do e=1,5
+        do a=1,4
+          do b=1,4
+            do c=1,4
+              do e=1,4
                 gamma_ull_x(a,b,c,e)=0
-                do d=1,5
+                do d=1,4
                   gamma_ull_x(a,b,c,e)=gamma_ull_x(a,b,c,e)
      &              +0.5d0*g0_uu_x(a,d,e)*(g0_ll_x(b,d,c)+
      &                     g0_ll_x(c,d,b)-g0_ll_x(b,c,d))
@@ -2106,14 +1922,12 @@ c----------------------------------------------------------------------
         gads_ll(2,3)=g0_xy_ads0
         gads_ll(3,3)=g0_yy_ads0
         gads_ll(4,4)=g0_psi_ads0
-        gads_ll(5,5)=g0_psi_ads0
 
         gads_uu(1,1)=g0u_tt_ads0
         gads_uu(2,2)=g0u_xx_ads0
         gads_uu(2,3)=g0u_xy_ads0
         gads_uu(3,3)=g0u_yy_ads0
         gads_uu(4,4)=g0u_psi_ads0
-        gads_uu(5,5)=g0u_psi_ads0
 
         gads_ll_x(1,1,2)   =g0_tt_ads_x
         gads_ll_x(1,1,3)   =g0_tt_ads_y
@@ -2140,26 +1954,20 @@ c----------------------------------------------------------------------
         gads_ll_xx(4,4,2,2)=g0_psi_ads_xx
         gads_ll_xx(4,4,2,3)=g0_psi_ads_xy
         gads_ll_xx(4,4,3,3)=g0_psi_ads_yy
-        gads_ll_x(5,5,2)   =g0_psi_ads_x
-        gads_ll_x(5,5,3)   =g0_psi_ads_y
-        gads_ll_xx(5,5,2,2)=g0_psi_ads_xx
-        gads_ll_xx(5,5,2,3)=g0_psi_ads_xy
-        gads_ll_xx(5,5,3,3)=g0_psi_ads_yy
-        gads_ll_xx(5,5,4,4)=-2*g0_psi_ads0   ! WARNING: from sin^2theta factor 
 
-        do a=1,4
-          do b=a+1,5
+        do a=1,3
+          do b=a+1,4
             gads_ll(b,a)=gads_ll(a,b)
             gads_uu(b,a)=gads_uu(a,b)
-            do c=1,5
+            do c=1,4
               gads_ll_x(b,a,c)=gads_ll_x(a,b,c)
             end do
           end do
         end do
 
-        do a=1,5
-          do b=1,5
-            do c=1,5
+        do a=1,4
+          do b=1,4
+            do c=1,4
               gads_uu_x(a,b,c)=
      &              -gads_ll_x(1,1,c)*gads_uu(a,1)*gads_uu(b,1)
      &              -gads_ll_x(1,2,c)*(gads_uu(a,1)*gads_uu(b,2)
@@ -2168,24 +1976,15 @@ c----------------------------------------------------------------------
      &                               +gads_uu(a,3)*gads_uu(b,1))
      &              -gads_ll_x(1,4,c)*(gads_uu(a,1)*gads_uu(b,4)
      &                               +gads_uu(a,4)*gads_uu(b,1))
-     &              -gads_ll_x(1,5,c)*(gads_uu(a,1)*gads_uu(b,5)
-     &                               +gads_uu(a,5)*gads_uu(b,1))
      &              -gads_ll_x(2,2,c)*gads_uu(a,2)*gads_uu(b,2)
      &              -gads_ll_x(2,3,c)*(gads_uu(a,2)*gads_uu(b,3)
      &                               +gads_uu(a,3)*gads_uu(b,2))
      &              -gads_ll_x(2,4,c)*(gads_uu(a,2)*gads_uu(b,4)
      &                               +gads_uu(a,4)*gads_uu(b,2))
-     &              -gads_ll_x(2,5,c)*(gads_uu(a,2)*gads_uu(b,5)
-     &                               +gads_uu(a,5)*gads_uu(b,2))
      &              -gads_ll_x(3,3,c)*gads_uu(a,3)*gads_uu(b,3)
      &              -gads_ll_x(3,4,c)*(gads_uu(a,3)*gads_uu(b,4)
      &                               +gads_uu(a,4)*gads_uu(b,3))
-     &              -gads_ll_x(3,5,c)*(gads_uu(a,3)*gads_uu(b,5)
-     &                               +gads_uu(a,5)*gads_uu(b,3))
      &              -gads_ll_x(4,4,c)*gads_uu(a,4)*gads_uu(b,4)
-     &              -gads_ll_x(4,5,c)*(gads_uu(a,4)*gads_uu(b,5)
-     &                               +gads_uu(a,5)*gads_uu(b,4))
-     &              -gads_ll_x(5,5,c)*gads_uu(a,5)*gads_uu(b,5)
             end do
           end do
         end do
@@ -2198,7 +1997,6 @@ c----------------------------------------------------------------------
         h0_ll(2,3)=gb_xy0*(1-rho0**2)
         h0_ll(3,3)=gb_yy0*(1-rho0**2)
         h0_ll(4,4)=psi0*(1-rho0**2)*y0**2
-        h0_ll(5,5)=psi0*(1-rho0**2)*y0**2
   
         h0_uu(1,1)=g0_uu(1,1)-gads_uu(1,1)
         h0_uu(1,2)=g0_uu(1,2)
@@ -2207,7 +2005,6 @@ c----------------------------------------------------------------------
         h0_uu(2,3)=g0_uu(2,3)-gads_uu(2,3)
         h0_uu(3,3)=g0_uu(3,3)-gads_uu(3,3)
         h0_uu(4,4)=g0_uu(4,4)-gads_uu(4,4)
-        h0_uu(5,5)=g0_uu(5,5)-gads_uu(5,5)
 
         h0_ll_x(1,1,1)   =g0_ll_x(1,1,1)
         h0_ll_x(1,1,2)   =g0_ll_x(1,1,2)-gads_ll_x(1,1,2)
@@ -2279,17 +2076,6 @@ c----------------------------------------------------------------------
         h0_ll_xx(4,4,2,3)=g0_ll_xx(4,4,2,3)-gads_ll_xx(4,4,2,3)
         h0_ll_xx(4,4,3,3)=g0_ll_xx(4,4,3,3)-gads_ll_xx(4,4,3,3)
 
-        h0_ll_x(5,5,1)   =g0_ll_x(5,5,1)
-        h0_ll_x(5,5,2)   =g0_ll_x(5,5,2)-gads_ll_x(5,5,2)
-        h0_ll_x(5,5,3)   =g0_ll_x(5,5,3)-gads_ll_x(5,5,3)
-        h0_ll_xx(5,5,1,1)=g0_ll_xx(5,5,1,1)
-        h0_ll_xx(5,5,1,2)=g0_ll_xx(5,5,1,2)
-        h0_ll_xx(5,5,1,3)=g0_ll_xx(5,5,1,3)
-        h0_ll_xx(5,5,2,2)=g0_ll_xx(5,5,2,2)-gads_ll_xx(5,5,2,2)
-        h0_ll_xx(5,5,2,3)=g0_ll_xx(5,5,2,3)-gads_ll_xx(5,5,2,3)
-        h0_ll_xx(5,5,3,3)=g0_ll_xx(5,5,3,3)-gads_ll_xx(5,5,3,3)
-        h0_ll_xx(5,5,4,4)=g0_ll_xx(5,5,4,4)-gads_ll_xx(5,5,4,4)   !WARNING: from sin^2theta factor 
-
         h0_uu_x(1,1,1)=g0_uu_x(1,1,1)
         h0_uu_x(1,1,2)=g0_uu_x(1,1,2)-gads_uu_x(1,1,2)
         h0_uu_x(1,1,3)=g0_uu_x(1,1,3)-gads_uu_x(1,1,3)
@@ -2318,15 +2104,11 @@ c----------------------------------------------------------------------
         h0_uu_x(4,4,2)=g0_uu_x(4,4,2)-gads_uu_x(4,4,2)
         h0_uu_x(4,4,3)=g0_uu_x(4,4,3)-gads_uu_x(4,4,3)
 
-        h0_uu_x(5,5,1)=g0_uu_x(5,5,1)
-        h0_uu_x(5,5,2)=g0_uu_x(5,5,2)-gads_uu_x(5,5,2)
-        h0_uu_x(5,5,3)=g0_uu_x(5,5,3)-gads_uu_x(5,5,3)
- 
-        do a=1,4
-          do b=a+1,5
+        do a=1,3
+          do b=a+1,4
             h0_ll(b,a)=h0_ll(a,b)
             h0_uu(b,a)=h0_uu(a,b)
-            do c=1,5
+            do c=1,4
               h0_ll_x(b,a,c)=h0_ll_x(a,b,c)
               h0_uu_x(b,a,c)=h0_uu_x(a,b,c)
             end do
@@ -2361,7 +2143,6 @@ c----------------------------------------------------------------------
         Hads_l(2)=(-4*x0*(2 + rho0**2))/(-1 + (rho0**2)**2)
         Hads_l(3)=2/y0 - (4*y0*(2 + rho0**2))/(-1 + (rho0**2)**2)
         Hads_l(4)=0
-        Hads_l(5)=0
 
         ! give values to the scalar field
         phi10_x(1)=phi1_t
@@ -2375,8 +2156,8 @@ c----------------------------------------------------------------------
         phi10_xx(2,3)=phi1_xy
         phi10_xx(3,3)=phi1_yy
 
-        do a=1,4
-          do b=a+1,5
+        do a=1,3
+          do b=a+1,4
             phi10_xx(b,a)=phi10_xx(a,b)
           end do
         end do
@@ -2384,13 +2165,13 @@ c----------------------------------------------------------------------
         ! calculate Riemann tensor at point i,j
         !(R^a_bcd =gamma^a_bd,c - gamma^a_bc,d
         !          +gamma^a_ce gamma^e_bd - gamma^a_de gamma^e_bc)
-        do a=1,5
-          do b=1,5
-            do c=1,5
-              do d=1,5
+        do a=1,4
+          do b=1,4
+            do c=1,4
+              do d=1,4
                 riemann_ulll(a,b,c,d)=
      &                gamma_ull_x(a,b,d,c)-gamma_ull_x(a,b,c,d)
-                do e=1,5
+                do e=1,4
                    riemann_ulll(a,b,c,d)=riemann_ulll(a,b,c,d)
      &               +gamma_ull(a,c,e)*gamma_ull(e,b,d)
      &               -gamma_ull(a,d,e)*gamma_ull(e,b,c)
@@ -2402,10 +2183,10 @@ c----------------------------------------------------------------------
 
         ! calculate Ricci tensor at point i,j
         !(R_bd = R^a_bad)
-        do b=1,5
-          do d=1,5
+        do b=1,4
+          do d=1,4
             ricci_ll(b,d)=0
-            do a=1,5
+            do a=1,4
               ricci_ll(b,d)=ricci_ll(b,d)+riemann_ulll(a,b,a,d)
             end do
           end do
@@ -2413,10 +2194,10 @@ c----------------------------------------------------------------------
 
         ! calculate raised Ricci tensor at point i,j
         !(R_a^b = R_ad g^db)
-        do a=1,5
-          do b=1,5
+        do a=1,4
+          do b=1,4
             ricci_lu(a,b)=0
-            do d=1,5
+            do d=1,4
               ricci_lu(a,b)=ricci_lu(a,b)+ricci_ll(a,d)*g0_uu(d,b)
             end do
           end do
@@ -2425,14 +2206,14 @@ c----------------------------------------------------------------------
         ! calculate Ricci scalar
         !(R = R_a^a)
         ricci=0
-        do a=1,5
+        do a=1,4
           ricci=ricci+ricci_lu(a,a)
         end do
   
         ! calculates Einstein tensor at point i,j
         !(G_ab = R_ab - 1/2 R g_ab)
-        do a=1,5
-          do b=1,5
+        do a=1,4
+          do b=1,4
             einstein_ll(a,b)=ricci_ll(a,b)-0.5d0*ricci*g0_ll(a,b)
           end do
         end do
@@ -2440,15 +2221,15 @@ c----------------------------------------------------------------------
         ! calculates stress-energy tensor at point i,j 
         !(T_ab = 2*phi1,a phi1,b - (phi1,c phi1,d) g^cd g_ab + ...)
         grad_phi1_sq=0
-        do a=1,5
-          do b=1,5
+        do a=1,4
+          do b=1,4
             grad_phi1_sq=grad_phi1_sq
      &                  +phi10_x(a)*phi10_x(b)*g0_uu(a,b)
           end do
         end do
 
-        do a=1,5
-          do b=1,5
+        do a=1,4
+          do b=1,4
             set_ll(a,b)=
      &            phi10_x(a)*phi10_x(b)
      &           -g0_ll(a,b)*(grad_phi1_sq/2)

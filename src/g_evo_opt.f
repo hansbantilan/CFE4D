@@ -73,7 +73,7 @@ c----------------------------------------------------------------------
 
         real*8 phi1_res,phi1_J
 
-        real*8 cfe(5,5),cfe_J(5,5)
+        real*8 cfe(4,4),cfe_J(4,4)
 
         real*8 PI
         parameter (PI=3.141592653589793d0)
@@ -203,16 +203,16 @@ c----------------------------------------------------------------------
         !       do *NOT* symmetric components filled in
         !
         !--------------------------------------------------------------
-        real*8 efe(5,5),efe_J(5,5)
-        real*8 term1(5,5),term2(5,5),term3(5,5),term4(5,5)
-        real*8 term5(5,5),term6(5,5),term7(5,5),term8(5,5)
-        real*8 gammagg(5,5,5),gammahh(5,5,5)
-        real*8 gammagh(5,5,5),gammahg(5,5,5) 
-        real*8 cuuuu(5,5,5,5),dlll(5,5,5)
-        real*8 dphi1(5)
+        real*8 efe(4,4),efe_J(4,4)
+        real*8 term1(4,4),term2(4,4),term3(4,4),term4(4,4)
+        real*8 term5(4,4),term6(4,4),term7(4,4),term8(4,4)
+        real*8 gammagg(4,4,4),gammahh(4,4,4)
+        real*8 gammagh(4,4,4),gammahg(4,4,4) 
+        real*8 cuuuu(4,4,4,4),dlll(4,4,4)
+        real*8 dphi1(4)
 
-        real*8 ndotc,n_l(5),n_u(5),c_l(5),c_J_l(5)
-        real*8 cd_ll(5,5),cd_J_ll(5,5)
+        real*8 ndotc,n_l(4),n_u(4),c_l(4),c_J_l(4)
+        real*8 cd_ll(4,4),cd_J_ll(4,4)
  
         real*8 tr_set,grad_phi1_sq
         
@@ -224,7 +224,7 @@ c----------------------------------------------------------------------
         real*8 dgb_J,ddgb_J,ddgb_J_tx,ddgb_J_ty
         real*8 dc_J
 
-        real*8 lambda5
+        real*8 lambda4
 
         real*8 h0_tt0
         real*8 h0_tx0
@@ -266,25 +266,25 @@ c----------------------------------------------------------------------
         ! variables for tensor manipulations 
         !(indices are t,x,w,y,z)
         !--------------------------------------------------------------
-        real*8 e0_ll(5,5),e0_ll_x(5,5,5),e0_ll_xx(5,5,5,5)
+        real*8 e0_ll(4,4),e0_ll_x(4,4,4),e0_ll_xx(4,4,4,4)
 
-        real*8 g0_ll(5,5),g0_uu(5,5)
-        real*8 g0_ll_x(5,5,5),g0_uu_x(5,5,5),g0_ll_xx(5,5,5,5)
-        real*8 gads_ll(5,5),gads_uu(5,5)
-        real*8 gads_ll_x(5,5,5),gads_uu_x(5,5,5),gads_ll_xx(5,5,5,5)
-        real*8 h0_ll(5,5),h0_uu(5,5)
-        real*8 h0_ll_x(5,5,5),h0_uu_x(5,5,5),h0_ll_xx(5,5,5,5)
-        real*8 gamma_ull(5,5,5),gamma_ull_x(5,5,5,5)
-        real*8 riemann_ulll(5,5,5,5)
-        real*8 ricci_ll(5,5),ricci_lu(5,5),ricci
-        real*8 einstein_ll(5,5),set_ll(5,5)
-        real*8 Hads_l(5),A_l(5),A_l_x(5,5)
-        real*8 phi10_x(5),phi10_xx(5,5)
+        real*8 g0_ll(4,4),g0_uu(4,4)
+        real*8 g0_ll_x(4,4,4),g0_uu_x(4,4,4),g0_ll_xx(4,4,4,4)
+        real*8 gads_ll(4,4),gads_uu(4,4)
+        real*8 gads_ll_x(4,4,4),gads_uu_x(4,4,4),gads_ll_xx(4,4,4,4)
+        real*8 h0_ll(4,4),h0_uu(4,4)
+        real*8 h0_ll_x(4,4,4),h0_uu_x(4,4,4),h0_ll_xx(4,4,4,4)
+        real*8 gamma_ull(4,4,4),gamma_ull_x(4,4,4,4)
+        real*8 riemann_ulll(4,4,4,4)
+        real*8 ricci_ll(4,4),ricci_lu(4,4),ricci
+        real*8 einstein_ll(4,4),set_ll(4,4)
+        real*8 Hads_l(4),A_l(4),A_l_x(4,4)
+        real*8 phi10_x(4),phi10_xx(4,4)
 
         !--------------------------------------------------------------
         ! initialize fixed-size variables 
         !--------------------------------------------------------------
-        data lambda5/0.0/
+        data lambda4/0.0/
 
         data g0u_tt_ads0,g0u_xx_ads0/0.0,0.0/
         data g0u_xy_ads0,g0u_yy_ads0/0.0,0.0/
@@ -295,20 +295,20 @@ c----------------------------------------------------------------------
         data dgb_J,ddgb_J,ddgb_J_tx,ddgb_J_ty/0.0,0.0,0.0,0.0/
         data dc_J/0.0/
 
-        data dlll/125*0.0/
-        data cuuuu/625*0.0/
+        data dlll/64*0.0/
+        data cuuuu/256*0.0/
 
-        data term1,term2/25*0.0,25*0.0/
-        data term3,term4/25*0.0,25*0.0/
-        data term5,term6/25*0.0,25*0.0/
-        data term7,term8/25*0.0,25*0.0/
+        data term1,term2/16*0.0,16*0.0/
+        data term3,term4/16*0.0,16*0.0/
+        data term5,term6/16*0.0,16*0.0/
+        data term7,term8/16*0.0,16*0.0/
 
-        data cfe,cfe_J/25*0.0,25*0.0/
+        data cfe,cfe_J/16*0.0,16*0.0/
 
-        data efe,efe_J/25*0.0,25*0.0/
-        data cd_ll,cd_J_ll/25*0.0,25*0.0/
+        data efe,efe_J/16*0.0,16*0.0/
+        data cd_ll,cd_J_ll/16*0.0,16*0.0/
 
-        data n_l,n_u,c_l,c_J_l/5*0.0,5*0.0,5*0.0,5*0.0/
+        data n_l,n_u,c_l,c_J_l/4*0.0,4*0.0,4*0.0,4*0.0/
 
 
 
@@ -375,30 +375,30 @@ c----------------------------------------------------------------------
         data d_psi_J/0.0/
 
         data grad_phi1_sq/1*0.0/
-        data Hads_l,A_l,dphi1/5*0.0,5*0.0,5*0.0/
-        data A_l_x/25*0.0/
+        data Hads_l,A_l,dphi1/4*0.0,4*0.0,4*0.0/
+        data A_l_x/16*0.0/
 
-        data e0_ll,e0_ll_x,e0_ll_xx/25*0.0,125*0.0,625*0.0/
+        data e0_ll,e0_ll_x,e0_ll_xx/16*0.0,64*0.0,256*0.0/
 
-        data g0_ll,g0_uu,gads_ll/25*0.0,25*0.0,25*0.0/
-        data gads_uu,h0_ll,h0_uu/25*0.0,25*0.0,25*0.0/
-        data gammagg,gammahh/125*0.0,125*0.0/
-        data gammagh,gammahg/125*0.0,125*0.0/
-        data g0_ll_x,g0_uu_x/125*0.0,125*0.0/
-        data gads_ll_x,gads_uu_x/125*0.0,125*0.0/
-        data h0_ll_x,h0_uu_x/125*0.0,125*0.0/
-        data g0_ll_xx/625*0.0/
-        data gads_ll_xx,h0_ll_xx/625*0.0,625*0.0/
+        data g0_ll,g0_uu,gads_ll/16*0.0,16*0.0,16*0.0/
+        data gads_uu,h0_ll,h0_uu/16*0.0,16*0.0,16*0.0/
+        data gammagg,gammahh/64*0.0,64*0.0/
+        data gammagh,gammahg/64*0.0,64*0.0/
+        data g0_ll_x,g0_uu_x/64*0.0,64*0.0/
+        data gads_ll_x,gads_uu_x/64*0.0,64*0.0/
+        data h0_ll_x,h0_uu_x/64*0.0,64*0.0/
+        data g0_ll_xx/256*0.0/
+        data gads_ll_xx,h0_ll_xx/256*0.0,256*0.0/
 
-        data gamma_ull/125*0.0/
-        data gamma_ull_x/625*0.0/
-        data riemann_ulll/625*0.0/
+        data gamma_ull/64*0.0/
+        data gamma_ull_x/256*0.0/
+        data riemann_ulll/256*0.0/
         data ricci/0.0/
-        data ricci_ll,ricci_lu/25*0.0,25*0.0/
-        data einstein_ll,set_ll/25*0.0,25*0.0/
+        data ricci_ll,ricci_lu/16*0.0,16*0.0/
+        data einstein_ll,set_ll/16*0.0,16*0.0/
 
-        data phi10_x/5*0.0/
-        data phi10_xx/25*0.0/
+        data phi10_x/4*0.0/
+        data phi10_xx/16*0.0/
 
         !--------------------------------------------------------------
         if (ltrace) write(*,*) 'gb_psi_evo ... N=',Nx,Ny
@@ -412,8 +412,8 @@ c----------------------------------------------------------------------
         end if
 
         ! CFE4D cosmological constant
-        !(lambda5=-(n-1)(n-2)/L^2) for n=5 dimensional AdS)
-        lambda5=-6/L/L
+        !(lambda4=-(n-1)(n-2)/2/L^2) for n=4 dimensional AdS)
+        lambda4=-3/L/L
 
         ! set index bounds for main loop
         is=2
@@ -553,16 +553,16 @@ c----------------------------------------------------------------------
      &                phi10_x,phi10_xx,
      &                x,y,dt,chr,L,ex,Nx,Ny,i,j)
 
-                do a=1,5
-                  do b=1,5
-                    do c=1,5
+                do a=1,4
+                  do b=1,4
+                    do c=1,4
                       dlll(a,b,c)=
      &                    g0_ll_x(b,c,a)-g0_ll_x(a,b,c)+g0_ll_x(c,a,b)
                       gammagg(a,b,c)=0
                       gammahh(a,b,c)=0
                       gammagh(a,b,c)=0
                       gammahg(a,b,c)=0
-                      do d=1,5
+                      do d=1,4
                         gammagg(a,b,c)=gammagg(a,b,c)
      &                                 +0.5d0*gads_uu(a,d)
      &                                      *(gads_ll_x(c,d,b)
@@ -608,163 +608,114 @@ c----------------------------------------------------------------------
                 !                   -(1/2 h^cd gads_cd,a - h^cd
                 !                   gads_ca,d )
                 !----------------------------------------------------------------
-                do a=1,5
+                do a=1,4
                   c_l(a)=A_l(a)
      &                   -( 0.5d0*( h0_uu(1,1)*h0_ll_x(1,1,a)+
      &                              h0_uu(2,2)*h0_ll_x(2,2,a)+
      &                              h0_uu(3,3)*h0_ll_x(3,3,a)+
      &                              h0_uu(4,4)*h0_ll_x(4,4,a)+
-     &                              h0_uu(5,5)*h0_ll_x(5,5,a)+
      &                           2*(h0_uu(1,2)*h0_ll_x(1,2,a)+
      &                              h0_uu(1,3)*h0_ll_x(1,3,a)+
      &                              h0_uu(1,4)*h0_ll_x(1,4,a)+
-     &                              h0_uu(1,5)*h0_ll_x(1,5,a)+
      &                              h0_uu(2,3)*h0_ll_x(2,3,a)+
      &                              h0_uu(2,4)*h0_ll_x(2,4,a)+
-     &                              h0_uu(2,5)*h0_ll_x(2,5,a)+
-     &                              h0_uu(3,4)*h0_ll_x(3,4,a)+
-     &                              h0_uu(3,5)*h0_ll_x(3,5,a)+
-     &                              h0_uu(4,5)*h0_ll_x(4,5,a)) )
+     &                              h0_uu(3,4)*h0_ll_x(3,4,a)) )
      &                     -1.0d0*( h0_uu(1,1)*h0_ll_x(1,a,1)+
      &                              h0_uu(2,2)*h0_ll_x(2,a,2)+
      &                              h0_uu(3,3)*h0_ll_x(3,a,3)+
      &                              h0_uu(4,4)*h0_ll_x(4,a,4)+
-     &                              h0_uu(5,5)*h0_ll_x(5,a,5)+
      &                             (h0_uu(1,2)*h0_ll_x(1,a,2)+
      &                              h0_uu(2,1)*h0_ll_x(2,a,1)+
      &                              h0_uu(1,3)*h0_ll_x(1,a,3)+
      &                              h0_uu(3,1)*h0_ll_x(3,a,1)+
      &                              h0_uu(1,4)*h0_ll_x(1,a,4)+
      &                              h0_uu(4,1)*h0_ll_x(4,a,1)+
-     &                              h0_uu(1,5)*h0_ll_x(1,a,5)+
-     &                              h0_uu(5,1)*h0_ll_x(5,a,1)+
      &                              h0_uu(2,3)*h0_ll_x(2,a,3)+
      &                              h0_uu(3,2)*h0_ll_x(3,a,2)+
      &                              h0_uu(2,4)*h0_ll_x(2,a,4)+
      &                              h0_uu(4,2)*h0_ll_x(4,a,2)+
-     &                              h0_uu(2,5)*h0_ll_x(2,a,5)+
-     &                              h0_uu(5,2)*h0_ll_x(5,a,2)+
      &                              h0_uu(3,4)*h0_ll_x(3,a,4)+
-     &                              h0_uu(4,3)*h0_ll_x(4,a,3)+
-     &                              h0_uu(3,5)*h0_ll_x(3,a,5)+
-     &                              h0_uu(5,3)*h0_ll_x(5,a,3)+
-     &                              h0_uu(4,5)*h0_ll_x(4,a,5)+
-     &                              h0_uu(5,4)*h0_ll_x(5,a,4)) ) )
+     &                              h0_uu(4,3)*h0_ll_x(4,a,3)) ) )
      &                   -( 0.5d0*( gads_uu(1,1)*h0_ll_x(1,1,a)+
      &                              gads_uu(2,2)*h0_ll_x(2,2,a)+
      &                              gads_uu(3,3)*h0_ll_x(3,3,a)+
      &                              gads_uu(4,4)*h0_ll_x(4,4,a)+
-     &                              gads_uu(5,5)*h0_ll_x(5,5,a)+
      &                           2*(gads_uu(1,2)*h0_ll_x(1,2,a)+
      &                              gads_uu(1,3)*h0_ll_x(1,3,a)+
      &                              gads_uu(1,4)*h0_ll_x(1,4,a)+
-     &                              gads_uu(1,5)*h0_ll_x(1,5,a)+
      &                              gads_uu(2,3)*h0_ll_x(2,3,a)+
      &                              gads_uu(2,4)*h0_ll_x(2,4,a)+
-     &                              gads_uu(2,5)*h0_ll_x(2,5,a)+
-     &                              gads_uu(3,4)*h0_ll_x(3,4,a)+
-     &                              gads_uu(3,5)*h0_ll_x(3,5,a)+
-     &                              gads_uu(4,5)*h0_ll_x(4,5,a)) )
+     &                              gads_uu(3,4)*h0_ll_x(3,4,a)) )
      &                     -1.0d0*( gads_uu(1,1)*h0_ll_x(1,a,1)+
      &                              gads_uu(2,2)*h0_ll_x(2,a,2)+
      &                              gads_uu(3,3)*h0_ll_x(3,a,3)+
      &                              gads_uu(4,4)*h0_ll_x(4,a,4)+
-     &                              gads_uu(5,5)*h0_ll_x(5,a,5)+
      &                             (gads_uu(1,2)*h0_ll_x(1,a,2)+
      &                              gads_uu(2,1)*h0_ll_x(2,a,1)+
      &                              gads_uu(1,3)*h0_ll_x(1,a,3)+
      &                              gads_uu(3,1)*h0_ll_x(3,a,1)+
      &                              gads_uu(1,4)*h0_ll_x(1,a,4)+
      &                              gads_uu(4,1)*h0_ll_x(4,a,1)+
-     &                              gads_uu(1,5)*h0_ll_x(1,a,5)+
-     &                              gads_uu(5,1)*h0_ll_x(5,a,1)+
      &                              gads_uu(2,3)*h0_ll_x(2,a,3)+
      &                              gads_uu(3,2)*h0_ll_x(3,a,2)+
      &                              gads_uu(2,4)*h0_ll_x(2,a,4)+
      &                              gads_uu(4,2)*h0_ll_x(4,a,2)+
-     &                              gads_uu(2,5)*h0_ll_x(2,a,5)+
-     &                              gads_uu(5,2)*h0_ll_x(5,a,2)+
      &                              gads_uu(3,4)*h0_ll_x(3,a,4)+
-     &                              gads_uu(4,3)*h0_ll_x(4,a,3)+
-     &                              gads_uu(3,5)*h0_ll_x(3,a,5)+
-     &                              gads_uu(5,3)*h0_ll_x(5,a,3)+
-     &                              gads_uu(4,5)*h0_ll_x(4,a,5)+
-     &                              gads_uu(5,4)*h0_ll_x(5,a,4)) ) )
+     &                              gads_uu(4,3)*h0_ll_x(4,a,3)) ) )
      &                   -( 0.5d0*( h0_uu(1,1)*gads_ll_x(1,1,a)+
      &                              h0_uu(2,2)*gads_ll_x(2,2,a)+
      &                              h0_uu(3,3)*gads_ll_x(3,3,a)+
      &                              h0_uu(4,4)*gads_ll_x(4,4,a)+
-     &                              h0_uu(5,5)*gads_ll_x(5,5,a)+
      &                           2*(h0_uu(1,2)*gads_ll_x(1,2,a)+
      &                              h0_uu(1,3)*gads_ll_x(1,3,a)+
      &                              h0_uu(1,4)*gads_ll_x(1,4,a)+
-     &                              h0_uu(1,5)*gads_ll_x(1,5,a)+
      &                              h0_uu(2,3)*gads_ll_x(2,3,a)+
      &                              h0_uu(2,4)*gads_ll_x(2,4,a)+
-     &                              h0_uu(2,5)*gads_ll_x(2,5,a)+
-     &                              h0_uu(3,4)*gads_ll_x(3,4,a)+
-     &                              h0_uu(3,5)*gads_ll_x(3,5,a)+
-     &                              h0_uu(4,5)*gads_ll_x(4,5,a)) )
+     &                              h0_uu(3,4)*gads_ll_x(3,4,a)) )
      &                     -1.0d0*( h0_uu(1,1)*gads_ll_x(1,a,1)+
      &                              h0_uu(2,2)*gads_ll_x(2,a,2)+
      &                              h0_uu(3,3)*gads_ll_x(3,a,3)+
      &                              h0_uu(4,4)*gads_ll_x(4,a,4)+
-     &                              h0_uu(5,5)*gads_ll_x(5,a,5)+
      &                             (h0_uu(1,2)*gads_ll_x(1,a,2)+
      &                              h0_uu(2,1)*gads_ll_x(2,a,1)+
      &                              h0_uu(1,3)*gads_ll_x(1,a,3)+
      &                              h0_uu(3,1)*gads_ll_x(3,a,1)+
      &                              h0_uu(1,4)*gads_ll_x(1,a,4)+
      &                              h0_uu(4,1)*gads_ll_x(4,a,1)+
-     &                              h0_uu(1,5)*gads_ll_x(1,a,5)+
-     &                              h0_uu(5,1)*gads_ll_x(5,a,1)+
      &                              h0_uu(2,3)*gads_ll_x(2,a,3)+
      &                              h0_uu(3,2)*gads_ll_x(3,a,2)+
      &                              h0_uu(2,4)*gads_ll_x(2,a,4)+
      &                              h0_uu(4,2)*gads_ll_x(4,a,2)+
-     &                              h0_uu(2,5)*gads_ll_x(2,a,5)+
-     &                              h0_uu(5,2)*gads_ll_x(5,a,2)+
      &                              h0_uu(3,4)*gads_ll_x(3,a,4)+
-     &                              h0_uu(4,3)*gads_ll_x(4,a,3)+
-     &                              h0_uu(3,5)*gads_ll_x(3,a,5)+
-     &                              h0_uu(5,3)*gads_ll_x(5,a,3)+
-     &                              h0_uu(4,5)*gads_ll_x(4,a,5)+
-     &                              h0_uu(5,4)*gads_ll_x(5,a,4)) ) )
+     &                              h0_uu(4,3)*gads_ll_x(4,a,3)) ) )
                 end do
 
                 n_l(1)=-1/sqrt(-g0_uu(1,1))
-                do a=1,5
+                do a=1,4
                   n_u(a)=n_l(1)*g0_uu(a,1)+
      &                   n_l(2)*g0_uu(a,2)+
      &                   n_l(3)*g0_uu(a,3)+
-     &                   n_l(4)*g0_uu(a,4)+
-     &                   n_l(5)*g0_uu(a,5)
+     &                   n_l(4)*g0_uu(a,4)
                 end do
 
                 ndotc  =n_u(1)*c_l(1)+
      &                  n_u(2)*c_l(2)+
      &                  n_u(3)*c_l(3)+
-     &                  n_u(4)*c_l(4)+
-     &                  n_u(5)*c_l(5)
+     &                  n_u(4)*c_l(4)
  
                 grad_phi1_sq=phi10_x(1)*phi10_x(1)*g0_uu(1,1)+
      &                       phi10_x(2)*phi10_x(2)*g0_uu(2,2)+
      &                       phi10_x(3)*phi10_x(3)*g0_uu(3,3)+
      &                       phi10_x(4)*phi10_x(4)*g0_uu(4,4)+
-     &                       phi10_x(5)*phi10_x(5)*g0_uu(5,5)+
      &                    2*(phi10_x(1)*phi10_x(2)*g0_uu(1,2)+
      &                       phi10_x(1)*phi10_x(3)*g0_uu(1,3)+
      &                       phi10_x(1)*phi10_x(4)*g0_uu(1,4)+
-     &                       phi10_x(1)*phi10_x(5)*g0_uu(1,5)+
      &                       phi10_x(2)*phi10_x(3)*g0_uu(2,3)+
      &                       phi10_x(2)*phi10_x(4)*g0_uu(2,4)+
-     &                       phi10_x(2)*phi10_x(5)*g0_uu(2,5)+
-     &                       phi10_x(3)*phi10_x(4)*g0_uu(3,4)+
-     &                       phi10_x(3)*phi10_x(5)*g0_uu(3,5)+
-     &                       phi10_x(4)*phi10_x(5)*g0_uu(4,5))
+     &                       phi10_x(3)*phi10_x(4)*g0_uu(3,4))
 
-                do a=1,5
-                  do b=1,5
+                do a=1,4
+                  do b=1,4
                     set_ll(a,b)=phi10_x(a)*phi10_x(b)
      &                         -g0_ll(a,b)*(grad_phi1_sq/2)
                   end do
@@ -774,17 +725,12 @@ c----------------------------------------------------------------------
      &                  set_ll(2,2)*g0_uu(2,2)+
      &                  set_ll(3,3)*g0_uu(3,3)+
      &                  set_ll(4,4)*g0_uu(4,4)+
-     &                  set_ll(5,5)*g0_uu(5,5)+
      &               2*(set_ll(1,2)*g0_uu(1,2)+
      &                  set_ll(1,3)*g0_uu(1,3)+
      &                  set_ll(1,4)*g0_uu(1,4)+
-     &                  set_ll(1,5)*g0_uu(1,5)+
      &                  set_ll(2,3)*g0_uu(2,3)+
      &                  set_ll(2,4)*g0_uu(2,4)+
-     &                  set_ll(2,5)*g0_uu(2,5)+
-     &                  set_ll(3,4)*g0_uu(3,4)+
-     &                  set_ll(3,5)*g0_uu(3,5)+
-     &                  set_ll(4,5)*g0_uu(4,5))
+     &                  set_ll(3,4)*g0_uu(3,4))
 
                 !--------------------------------------------------------------------------
                 ! cfe = 
@@ -833,17 +779,12 @@ c----------------------------------------------------------------------
      &                    phi10_xx(2,2)*g0_uu(2,2)+
      &                    phi10_xx(3,3)*g0_uu(3,3)+
      &                    phi10_xx(4,4)*g0_uu(4,4)+
-     &                    phi10_xx(5,5)*g0_uu(5,5)+
      &                 2*(phi10_xx(1,2)*g0_uu(1,2)+
      &                    phi10_xx(1,3)*g0_uu(1,3)+
      &                    phi10_xx(1,4)*g0_uu(1,4)+
-     &                    phi10_xx(1,5)*g0_uu(1,5)+
      &                    phi10_xx(2,3)*g0_uu(2,3)+
      &                    phi10_xx(2,4)*g0_uu(2,4)+
-     &                    phi10_xx(2,5)*g0_uu(2,5)+
-     &                    phi10_xx(3,4)*g0_uu(3,4)+
-     &                    phi10_xx(3,5)*g0_uu(3,5)+
-     &                    phi10_xx(4,5)*g0_uu(4,5))
+     &                    phi10_xx(3,4)*g0_uu(3,4))
 
                 !---------------------------------------------------------------- 
                 ! computes diag. Jacobian of g_np1->L.g_np1 transformation
@@ -978,8 +919,8 @@ c----------------------------------------------------------------------
      &                     )
 
                 ! constraint damping terms added to efe,efe_J
-                do a=1,5
-                  do b=1,5
+                do a=1,4
+                  do b=1,4
                     cd_ll(a,b)=-kappa_cd*
      &                 (
      &                  n_l(a)*c_l(b)+n_l(b)*c_l(a)
@@ -1036,11 +977,6 @@ c----------------------------------------------------------------------
      &              -(1+rho_cd)*g0_ll(4,4)*n_u(1)*
      &                    (0.5d0*g0_uu(4,4)*dc_J*(1-rho0**2)*y0**2)
      &              )
-                cd_J_ll(5,5)=-kappa_cd*
-     &              (
-     &              -(1+rho_cd)*g0_ll(5,5)*n_u(1)*
-     &                    (0.5d0*g0_uu(5,5)*dc_J*(1-rho0**2)*y0**2)
-     &              )
 
                 if (kappa_cd.ne.0) then
                   efe(1,1)=efe(1,1)+cd_ll(1,1)
@@ -1050,7 +986,6 @@ c----------------------------------------------------------------------
                   efe(2,3)=efe(2,3)+cd_ll(2,3)
                   efe(3,3)=efe(3,3)+cd_ll(3,3)
                   efe(4,4)=efe(4,4)+cd_ll(4,4)
-                  efe(5,5)=efe(5,5)+cd_ll(5,5)
                   efe_J(1,1)=efe_J(1,1)+cd_J_ll(1,1)
                   efe_J(1,2)=efe_J(1,2)+cd_J_ll(1,2)
                   efe_J(1,3)=efe_J(1,3)+cd_J_ll(1,3)
@@ -1058,7 +993,6 @@ c----------------------------------------------------------------------
                   efe_J(2,3)=efe_J(2,3)+cd_J_ll(2,3)
                   efe_J(3,3)=efe_J(3,3)+cd_J_ll(3,3)
                   efe_J(4,4)=efe_J(4,4)+cd_J_ll(4,4)
-                  efe_J(5,5)=efe_J(5,5)+cd_J_ll(5,5)
                 end if
 
                 ! updates ebars
@@ -1088,8 +1022,7 @@ c----------------------------------------------------------------------
 
                 ! save pointwise max of constraint violation
                 cl_res(i,j)=
-     &            max(abs(c_l(1)),abs(c_l(2)),abs(c_l(3)),
-     &                abs(c_l(4)),abs(c_l(5)))
+     &            max(abs(c_l(1)),abs(c_l(2)),abs(c_l(3)),abs(c_l(4)))
 
                 if (dump.and.first_nan.or.
      &              (ltrace.and.abs(x(i)).lt.0.1.and.abs(y(j)).lt.0.1)

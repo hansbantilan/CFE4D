@@ -87,17 +87,17 @@ c----------------------------------------------------------------------
         real*8 f_x,f_y,f_xx,f_xy,f_yy
         real*8 tmp1,tmp2,tmp3,tmp4,tmp5
 
-        real*8 n_l(5),s_l(5)
-        real*8 n_u(5),s_u(5)
-        real*8 n_l_x(5,5),n_u_x(5,5),s_l_x(5,5)
-        real*8 f0_x(5) 
-        real*8 f0_xx(5,5)
-        real*8 gam_uu(5,5),sig_uu(5,5)
-        real*8 gam_uu_x(5,5,5)
+        real*8 n_l(4),s_l(4)
+        real*8 n_u(4),s_u(4)
+        real*8 n_l_x(4,4),n_u_x(4,4),s_l_x(4,4)
+        real*8 f0_x(4) 
+        real*8 f0_xx(4,4)
+        real*8 gam_uu(4,4),sig_uu(4,4)
+        real*8 gam_uu_x(4,4,4)
         real*8 normsusq
 
-        real*8 g0gamfx(5)
-        real*8 nufx,nuxfx(5),gamxfxfx(5)
+        real*8 g0gamfx(4)
+        real*8 nufx,nuxfx(4),gamxfxfx(4)
 
         real*8 theta_ads
 
@@ -109,18 +109,18 @@ c----------------------------------------------------------------------
         ! variables for tensor manipulations 
         !(indices are t,x,w,y,z)
         !--------------------------------------------------------------
-        real*8 g0_ll(5,5),g0_uu(5,5)
-        real*8 g0_ll_x(5,5,5),g0_uu_x(5,5,5),g0_ll_xx(5,5,5,5)
-        real*8 gads_ll(5,5),gads_uu(5,5)
-        real*8 gads_ll_x(5,5,5),gads_uu_x(5,5,5),gads_ll_xx(5,5,5,5)
-        real*8 h0_ll(5,5),h0_uu(5,5)
-        real*8 h0_ll_x(5,5,5),h0_uu_x(5,5,5),h0_ll_xx(5,5,5,5)
-        real*8 gamma_ull(5,5,5),gamma_ull_x(5,5,5,5)
-        real*8 riemann_ulll(5,5,5,5)
-        real*8 ricci_ll(5,5),ricci_lu(5,5),ricci
-        real*8 einstein_ll(5,5),set_ll(5,5)
-        real*8 Hads_l(5),A_l(5),A_l_x(5,5)
-        real*8 phi10_x(5),phi10_xx(5,5)
+        real*8 g0_ll(4,4),g0_uu(4,4)
+        real*8 g0_ll_x(4,4,4),g0_uu_x(4,4,4),g0_ll_xx(4,4,4,4)
+        real*8 gads_ll(4,4),gads_uu(4,4)
+        real*8 gads_ll_x(4,4,4),gads_uu_x(4,4,4),gads_ll_xx(4,4,4,4)
+        real*8 h0_ll(4,4),h0_uu(4,4)
+        real*8 h0_ll_x(4,4,4),h0_uu_x(4,4,4),h0_ll_xx(4,4,4,4)
+        real*8 gamma_ull(4,4,4),gamma_ull_x(4,4,4,4)
+        real*8 riemann_ulll(4,4,4,4)
+        real*8 ricci_ll(4,4),ricci_lu(4,4),ricci
+        real*8 einstein_ll(4,4),set_ll(4,4)
+        real*8 Hads_l(4),A_l(4),A_l_x(4,4)
+        real*8 phi10_x(4),phi10_xx(4,4)
 
         !--------------------------------------------------------------
         ! initialize fixed-size variables 
@@ -136,42 +136,42 @@ c----------------------------------------------------------------------
         data f_yy/0.0/
         data tmp1,tmp2,tmp3,tmp4,tmp5/0.0,0.0,0.0,0.0,0.0/
 
-        data n_l,s_l/5*0.0,5*0.0/
-        data n_u,s_u/5*0.0,5*0.0/
-        data n_l_x,n_u_x,s_l_x/25*0.0,25*0.0,25*0.0/
-        data f0_x/5*0.0/
-        data f0_xx/25*0.0/
-        data gam_uu,sig_uu/25*0.0,25*0.0/
-        data gam_uu_x/125*0.0/
+        data n_l,s_l/4*0.0,4*0.0/
+        data n_u,s_u/4*0.0,4*0.0/
+        data n_l_x,n_u_x,s_l_x/16*0.0,16*0.0,16*0.0/
+        data f0_x/4*0.0/
+        data f0_xx/16*0.0/
+        data gam_uu,sig_uu/16*0.0,16*0.0/
+        data gam_uu_x/64*0.0/
         data normsusq/0.0/
 
-        data g0gamfx/5*0.0/
-        data nufx,nuxfx,gamxfxfx/0.0,5*0.0,5*0.0/
+        data g0gamfx/4*0.0/
+        data nufx,nuxfx,gamxfxfx/0.0,4*0.0,4*0.0/
 
-        data g0_ll,g0_uu/25*0.0,25*0.0/
-        data gads_ll,gads_uu/25*0.0,25*0.0/
-        data h0_ll,h0_uu/25*0.0,25*0.0/
-        data gamma_ull/125*0.0/
-        data gamma_ull_x/625*0.0/
+        data g0_ll,g0_uu/16*0.0,16*0.0/
+        data gads_ll,gads_uu/16*0.0,16*0.0/
+        data h0_ll,h0_uu/16*0.0,16*0.0/
+        data gamma_ull/64*0.0/
+        data gamma_ull_x/256*0.0/
 
-        data g0_ll_x,g0_uu_x/125*0.0,125*0.0/
-        data gads_ll_x,gads_uu_x/125*0.0,125*0.0/
-        data h0_ll_x,h0_uu_x/125*0.0,125*0.0/
+        data g0_ll_x,g0_uu_x/64*0.0,64*0.0/
+        data gads_ll_x,gads_uu_x/64*0.0,64*0.0/
+        data h0_ll_x,h0_uu_x/64*0.0,64*0.0/
 
-        data g0_ll_xx/625*0.0/
-        data gads_ll_xx/625*0.0/
-        data h0_ll_xx/625*0.0/
+        data g0_ll_xx/256*0.0/
+        data gads_ll_xx/256*0.0/
+        data h0_ll_xx/256*0.0/
 
         data ricci/0.0/
-        data ricci_ll,ricci_lu/25*0.0,25*0.0/
-        data einstein_ll,set_ll/25*0.0,25*0.0/
-        data riemann_ulll/625*0.0/
+        data ricci_ll,ricci_lu/16*0.0,16*0.0/
+        data einstein_ll,set_ll/16*0.0,16*0.0/
+        data riemann_ulll/256*0.0/
 
-        data A_l,Hads_l/5*0.0,5*0.0/
-        data A_l_x/25*0.0/
+        data A_l,Hads_l/4*0.0,4*0.0/
+        data A_l_x/16*0.0/
 
-        data phi10_x/5*0.0/
-        data phi10_xx/25*0.0/
+        data phi10_x/4*0.0/
+        data phi10_xx/16*0.0/
 
 !----------------------------------------------------------------------
 
@@ -261,28 +261,25 @@ c----------------------------------------------------------------------
               ! define unit time-like vector n, normal to t=const
               ! surfaces
               n_l(1)=-1/sqrt(-g0_uu(1,1))
-              do a=1,5
+              do a=1,4
                 n_u(a)=n_l(1)*g0_uu(a,1)+
      &                 n_l(2)*g0_uu(a,2)+
      &                 n_l(3)*g0_uu(a,3)+
-     &                 n_l(4)*g0_uu(a,4)+
-     &                 n_l(5)*g0_uu(a,5)
+     &                 n_l(4)*g0_uu(a,4)
               end do
-              do b=1,5
+              do b=1,4
                 n_l_x(1,b)=-1/2.0d0/sqrt(-g0_uu(1,1))**3*g0_uu_x(1,1,b)
               end do
-              do a=1,5
-                do b=1,5
+              do a=1,4
+                do b=1,4
                   n_u_x(a,b)=n_l_x(1,b)*g0_uu(a,1)+
      &                       n_l_x(2,b)*g0_uu(a,2)+
      &                       n_l_x(3,b)*g0_uu(a,3)+
      &                       n_l_x(4,b)*g0_uu(a,4)+
-     &                       n_l_x(5,b)*g0_uu(a,5)+
      &                       n_l(1)*g0_uu_x(a,1,b)+
      &                       n_l(2)*g0_uu_x(a,2,b)+
      &                       n_l(3)*g0_uu_x(a,3,b)+
-     &                       n_l(4)*g0_uu_x(a,4,b)+
-     &                       n_l(5)*g0_uu_x(a,5,b)
+     &                       n_l(4)*g0_uu_x(a,4,b)
                 end do
               end do
 
@@ -291,38 +288,32 @@ c----------------------------------------------------------------------
               f0_x(2)=f_x
               f0_x(3)=f_y
               f0_x(4)=0
-              f0_x(5)=0
               f0_xx(1,1)=0
               f0_xx(1,2)=0
               f0_xx(1,3)=0
               f0_xx(1,4)=0
-              f0_xx(1,5)=0
               f0_xx(2,2)=f_xx
               f0_xx(2,3)=f_xy
               f0_xx(2,4)=0
-              f0_xx(2,5)=0
               f0_xx(3,3)=f_yy
               f0_xx(3,4)=0
-              f0_xx(3,5)=0
               f0_xx(4,4)=0
-              f0_xx(4,5)=0
-              f0_xx(5,5)=0
 
-              do a=1,4
-                do b=a+1,5
+              do a=1,3
+                do b=a+1,4
                   f0_xx(b,a)=f0_xx(a,b)
                 end do
               end do
 
               ! define metric on codimension-1 surfaces 
-              do a=1,5
-                do b=1,5
+              do a=1,4
+                do b=1,4
                   gam_uu(a,b)=g0_uu(a,b)+n_u(a)*n_u(b)
                 end do
               end do
-              do a=1,5
-                do b=1,5
-                  do c=1,5
+              do a=1,4
+                do b=1,4
+                  do c=1,4
                     gam_uu_x(a,b,c)=g0_uu_x(a,b,c)
      &                             +n_u_x(a,c)*n_u(b)
      &                             +n_u(a)*n_u_x(b,c)
@@ -332,39 +323,38 @@ c----------------------------------------------------------------------
 
               ! define unit space-like vector s, orthogonal to n and
               ! projected gradient of the flow field f
-              do a=1,5
+              do a=1,4
                 s_u(a)=0.0d0
-                do b=1,5
+                do b=1,4
                   s_u(a)=s_u(a)+gam_uu(a,b)*f0_x(b)
                 end do
               end do
               normsusq=0.0d0
-              do a=1,5
-                do b=1,5
+              do a=1,4
+                do b=1,4
                   normsusq=normsusq+gam_uu(a,b)*f0_x(a)*f0_x(b)
                 end do
               end do
-              do a=1,5
+              do a=1,4
                 s_u(a)=s_u(a)/sqrt(normsusq)
               end do
-              do a=1,5
+              do a=1,4
                 s_l(a)=s_u(1)*g0_ll(a,1)+
      &                 s_u(2)*g0_ll(a,2)+
      &                 s_u(3)*g0_ll(a,3)+
-     &                 s_u(4)*g0_ll(a,4)+
-     &                 s_u(5)*g0_ll(a,5)
+     &                 s_u(4)*g0_ll(a,4)
               end do
 
               nufx=0
-              do a=1,5
+              do a=1,4
                 nufx=nufx
      &              +n_u(a)*f0_x(a)
                 nuxfx(a)=0
                 gamxfxfx(a)=0
-                do c=1,5
+                do c=1,4
                   nuxfx(a)=nuxfx(a)
      &                    +n_u_x(c,a)*f0_x(c)
-                  do d=1,5
+                  do d=1,4
                     gamxfxfx(a)=gamxfxfx(a)
      &                        +gam_uu_x(c,d,a)*f0_x(c)*f0_x(d)
      &                        +gam_uu(c,d)*f0_xx(c,a)*f0_x(d)
@@ -372,8 +362,8 @@ c----------------------------------------------------------------------
                   end do
                 end do
               end do
-              do a=1,5
-                do b=1,5
+              do a=1,4
+                do b=1,4
                   s_l_x(a,b)=
      &                     (f0_xx(a,b)+n_l_x(a,b)*nufx+n_l(a)*nuxfx(b))
      &                     /sqrt(normsusq)
@@ -383,19 +373,19 @@ c----------------------------------------------------------------------
               end do
 
               ! define metric on codimension-2 surfaces 
-              do a=1,5
-                do b=1,5
+              do a=1,4
+                do b=1,4
                   sig_uu(a,b)=g0_uu(a,b)+n_u(a)*n_u(b)-s_u(a)*s_u(b)
                 end do
               end do
 
               ! for theta: outward null expansion 
               theta(i,j)=0.0d0
-              do c=1,5
-                do d=1,5
+              do c=1,4
+                do d=1,4
                   theta(i,j)=theta(i,j)
      &                   +sig_uu(c,d)*(n_l_x(c,d)+s_l_x(c,d))
-                  do e=1,5
+                  do e=1,4
                     theta(i,j)=theta(i,j)
      &                   -sig_uu(c,d)*gamma_ull(e,c,d)*(n_l(e)+s_l(e))
                   end do
