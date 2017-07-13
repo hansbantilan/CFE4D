@@ -64,7 +64,7 @@ c----------------------------------------------------------------------
         real*8 x(Nx),y(Ny),dt,chr(Nx,Ny),ex
         real*8 chr2(Nx,Ny)
 
-        integer a,b,c,d,e,f
+        integer a,b,c,d,e,f,m,n,p,q
         integer rb,i,j
         integer is,ie,js,je,is_a_nan
 
@@ -788,6 +788,15 @@ c----------------------------------------------------------------------
      &                  +g0_uu(d,c)*e0_ll_xx(a,b,c,d)
 
                         do e=1,4
+                          cfe(a,b)=cfe(a,b)
+     &                    -gamma_ull(d,c,e)*g0_uu(e,c)*e0_ll_x(a,b,d)
+     &                    -gamma_ull(e,c,b)*g0_uu(d,c)*e0_ll_x(a,e,d)
+     &                    -gamma_ull(e,c,a)*g0_uu(d,c)*e0_ll_x(e,b,d)
+     &                    -e0_ll(e,b)*g0_uu(d,c)*gamma_ull_x(e,d,a,c)
+     &                    -e0_ll(a,e)*g0_uu(d,c)*gamma_ull_x(e,d,b,c)
+     &                    -gamma_ull(e,d,b)*g0_uu(d,c)*e0_ll_x(a,e,c)
+     &                    -gamma_ull(e,d,a)*g0_uu(d,c)*e0_ll_x(e,b,c) !run10
+
                           do f=1,4
 
                             cfe(a,b)=cfe(a,b)
@@ -803,6 +812,21 @@ c----------------------------------------------------------------------
      &                                  *e0_ll(a,c)*g0_uu(f,e)
      &                      +gamma_ull(d,e,f)*gamma_ull(c,d,a)
      &                                  *e0_ll(c,b)*g0_uu(f,e) !run5
+     &                      -(n_l(d)*n_l(e)*weyl(a,f,b,c)*ricci
+     &                        *g0_uu(f,d)*g0_uu(c,e)           )/2 !run9
+
+!                            do m=1,4
+!                              do n=1,4
+!                                do p=1,4
+!                                  do q=1,4
+!                                    cfe(a,b)=cfe(a,b)
+!     &                              -gamma_ull(c,d,e)*gamma_ull(e,f,m)
+!     &                               *n_l(c)*n_l(n)*weyl(a,p,b,q)
+!     &                               *g0_uu(p,n)*g0_uu(q,m)*g0_uu(f,d)
+!                                  end do
+!                                end do  
+!                              end do
+!                            end do  
 
                           end do
                         end do
