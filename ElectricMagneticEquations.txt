@@ -8,9 +8,9 @@
 +Gamma[d,e,f]*Gamma[c,d,b]*Electric[a,c]*ginv[f,e]
 +Gamma[d,e,f]*Gamma[c,d,a]*Electric[c,b]*ginv[f,e] !run5  
 -(Normal[d]*Normal[e]*Weyl[a,f,b,c]*RicciScalar*ginv[f,d]*ginv[c,e])/2 !run9
-- Gamma[d,c,e]*ginv[e,c]*Electric[a,b]_[d]
-- Gamma[e,c,b]*ginv[d,c]*Electric[a,e]_[d]
-- Gamma[e,c,a]*ginv[d,c]*Electric[e,b]_[d] 
+-Gamma[d,c,e]*ginv[e,c]*Electric[a,b]_[d]
+-Gamma[e,c,b]*ginv[d,c]*Electric[a,e]_[d]
+-Gamma[e,c,a]*ginv[d,c]*Electric[e,b]_[d] 
 -Electric[e,b]*ginv[d,c]*Gamma[e,d,a]_[c]
 -Electric[a,e]*ginv[d,c]*Gamma[e,d,b]_[c]
 -Gamma[e,d,b]*ginv[d,c]*Electric[a,e]_[c]

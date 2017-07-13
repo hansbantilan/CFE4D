@@ -211,9 +211,11 @@ c----------------------------------------------------------------------
         real*8 cuuuu(4,4,4,4),dlll(4,4,4)
         real*8 dphi1(4)
 
-        real*8 ndotc,n_l(4),n_u(4),c_l(4),c_J_l(4)
         real*8 cd_ll(4,4),cd_J_ll(4,4)
- 
+
+        real*8 ndotc,n_l(4),n_u(4),c_l(4),c_J_l(4)
+        real*8 n_l_x(4,4) 
+
         real*8 tr_set,grad_phi1_sq
         
         real*8 g0u_tt_ads0,g0u_xx_ads0,g0u_xy_ads0,g0u_yy_ads0
@@ -284,7 +286,7 @@ c----------------------------------------------------------------------
         !--------------------------------------------------------------
         ! local variables for tensor manipulations 
         !--------------------------------------------------------------
-        real*8 weyl(4,4,4,4) 
+        real*8 weyl(4,4,4,4),weyl_x(4,4,4,4,4)
         !TEMPORARY
         real*8 b0_ll(4,4),b0_ll_x(4,4,4),b0_ll_xx(4,4,4,4) !move to tensor_init()
         real*8 omega !move to tensor_init()
@@ -317,8 +319,7 @@ c----------------------------------------------------------------------
         data cd_ll,cd_J_ll/16*0.0,16*0.0/
 
         data n_l,n_u,c_l,c_J_l/4*0.0,4*0.0,4*0.0,4*0.0/
-
-
+        data n_l_x/16*0.0/
 
         data rb,i,j/0,0,0/
         data i2,j2/0,0/
@@ -389,7 +390,7 @@ c----------------------------------------------------------------------
         data e0_ll,e0_ll_x,e0_ll_xx/16*0.0,64*0.0,256*0.0/
         data b0_ll,b0_ll_x,b0_ll_xx/16*0.0,64*0.0,256*0.0/
 
-        data weyl/256*0.0/
+        data weyl,weyl_x/256*0.0,1024*0/
         data omega/0.0/
 
         data g0_ll,g0_uu,gads_ll/16*0.0,16*0.0,16*0.0/
@@ -709,6 +710,10 @@ c----------------------------------------------------------------------
      &                   n_l(3)*g0_uu(a,3)+
      &                   n_l(4)*g0_uu(a,4)
                 end do
+                do b=1,4
+                  n_l_x(1,b)=-1/2.0d0/sqrt(-g0_uu(1,1))**3
+     &                        *g0_uu_x(1,1,b)
+                end do
 
                 ndotc  =n_u(1)*c_l(1)+
      &                  n_u(2)*c_l(2)+
@@ -757,12 +762,33 @@ c----------------------------------------------------------------------
      &                  -e0_ll(b,c)*g0_ll(a,d)
      &                  -e0_ll(a,d)*g0_ll(b,c)
      &                  +e0_ll(a,c)*g0_ll(b,d)
+                        do e=1,4
+                          weyl_x(a,b,c,d,e)=
+     &                     2*e0_ll_x(b,d,e)*n_l(a)*n_l(c)
+     &                    +2*e0_ll(b,d)*n_l_x(a,e)*n_l(c)
+     &                    +2*e0_ll(b,d)*n_l(a)*n_l_x(c,e)
+     &                    -2*e0_ll_x(a,d,e)*n_l(b)*n_l(c)
+     &                    -2*e0_ll(a,d)*n_l_x(b,e)*n_l(c)
+     &                    -2*e0_ll(a,d)*n_l(b)*n_l_x(c,e)
+     &                    -2*e0_ll_x(b,c,e)*n_l(a)*n_l(d)
+     &                    -2*e0_ll(b,c)*n_l_x(a,e)*n_l(d)
+     &                    -2*e0_ll(b,c)*n_l(a)*n_l_x(d,e)
+     &                    +2*e0_ll_x(a,c,e)*n_l(b)*n_l(d)
+     &                    +2*e0_ll(a,c)*n_l_x(b,e)*n_l(d)
+     &                    +2*e0_ll(a,c)*n_l(b)*n_l_x(d,e)
+     &                    +e0_ll_x(b,d,e)*g0_ll(a,c)
+     &                    +e0_ll(b,d)*g0_ll_x(a,c,e)
+     &                    -e0_ll_x(b,c,e)*g0_ll(a,d)
+     &                    -e0_ll(b,c)*g0_ll_x(a,d,e)
+     &                    -e0_ll_x(a,d,e)*g0_ll(b,c)
+     &                    -e0_ll(a,d)*g0_ll_x(b,c,e)
+     &                    +e0_ll_x(a,c,e)*g0_ll(b,d)
+     &                    +e0_ll(a,c)*g0_ll_x(b,d,e)
                         !TEMPoRARY: eventually add magnetic terms with levi-civita symbols
-                        !do e=1,4
                         !  do f=1,4
                         !
                         !  end do
-                        !end do        
+                        end do        
                       end do
                     end do
                   end do
@@ -771,7 +797,7 @@ c----------------------------------------------------------------------
                 !TEMPORARY: move this to tensor_init()
                 ! check that ricci = -12/L^2
                 ! conformal factor from between (14d) and (15a) in ConformalWaveEqnsSummary.pdf
-                omega=sqrt(-3d0/lambda4)*(1-rho0**2)/(1+rho0**2)
+                omega=(1-rho0**2)/2
  
                 !--------------------------------------------------------------------------
                 ! cfe = 
@@ -815,8 +841,13 @@ c----------------------------------------------------------------------
      &                      -(n_l(d)*n_l(e)*weyl(a,f,b,c)*ricci
      &                        *g0_uu(f,d)*g0_uu(c,e)           )/2 !run9
 
-!                            do m=1,4
-!                              do n=1,4
+                            do m=1,4
+                              do n=1,4
+
+                                cfe(a,b)=cfe(a,b)
+     &                          -2*n_l(c)*g0_uu(d,c)*g0_uu(e,f)
+     *                           *g0_uu(m,n)*weyl(a,d,b,e)
+
 !                                do p=1,4
 !                                  do q=1,4
 !                                    cfe(a,b)=cfe(a,b)
@@ -825,8 +856,9 @@ c----------------------------------------------------------------------
 !     &                               *g0_uu(p,n)*g0_uu(q,m)*g0_uu(f,d)
 !                                  end do
 !                                end do  
-!                              end do
-!                            end do  
+
+                              end do
+                            end do  
 
                           end do
                         end do
