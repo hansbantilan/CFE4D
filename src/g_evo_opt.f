@@ -282,6 +282,14 @@ c----------------------------------------------------------------------
         real*8 phi10_x(4),phi10_xx(4,4)
 
         !--------------------------------------------------------------
+        ! local variables for tensor manipulations 
+        !--------------------------------------------------------------
+        real*8 weyl(4,4,4,4) 
+        !TEMPORARY
+        real*8 b0_ll(4,4),b0_ll_x(4,4,4),b0_ll_xx(4,4,4,4) !move to tensor_init()
+        real*8 omega !move to tensor_init()
+
+        !--------------------------------------------------------------
         ! initialize fixed-size variables 
         !--------------------------------------------------------------
         data lambda4/0.0/
@@ -379,6 +387,10 @@ c----------------------------------------------------------------------
         data A_l_x/16*0.0/
 
         data e0_ll,e0_ll_x,e0_ll_xx/16*0.0,64*0.0,256*0.0/
+        data b0_ll,b0_ll_x,b0_ll_xx/16*0.0,64*0.0,256*0.0/
+
+        data weyl/256*0.0/
+        data omega/0.0/
 
         data g0_ll,g0_uu,gads_ll/16*0.0,16*0.0,16*0.0/
         data gads_uu,h0_ll,h0_uu/16*0.0,16*0.0,16*0.0/
@@ -732,6 +744,35 @@ c----------------------------------------------------------------------
      &                  set_ll(2,4)*g0_uu(2,4)+
      &                  set_ll(3,4)*g0_uu(3,4))
 
+                do a=1,4
+                  do b=1,4
+                    do c=1,4
+                      do d=1,4
+                        weyl(a,b,c,d)=
+     &                   2*e0_ll(b,d)*n_l(a)*n_l(c)
+     &                  -2*e0_ll(a,d)*n_l(b)*n_l(c)
+     &                  -2*e0_ll(b,c)*n_l(a)*n_l(d)
+     &                  +2*e0_ll(a,c)*n_l(b)*n_l(d)
+     &                  +e0_ll(b,d)*g0_ll(a,c)
+     &                  -e0_ll(b,c)*g0_ll(a,d)
+     &                  -e0_ll(a,d)*g0_ll(b,c)
+     &                  +e0_ll(a,c)*g0_ll(b,d)
+                        !TEMPoRARY: eventually add magnetic terms with levi-civita symbols
+                        !do e=1,4
+                        !  do f=1,4
+                        !
+                        !  end do
+                        !end do        
+                      end do
+                    end do
+                  end do
+                end do
+
+                !TEMPORARY: move this to tensor_init()
+                ! check that ricci = -12/L^2
+                ! conformal factor from between (14d) and (15a) in ConformalWaveEqnsSummary.pdf
+                omega=sqrt(-3d0/lambda4)*(1-rho0**2)/(1+rho0**2)
+ 
                 !--------------------------------------------------------------------------
                 ! cfe = 
                 !--------------------------------------------------------------------------

@@ -1394,7 +1394,7 @@ c----------------------------------------------------------------------
        
         f0=(1-rho0**2)**2+4*rho0**2/L**2
 
-        ! set gads values
+        ! set gads values according to (15a) in ConformalWaveEqnsSummary.pdf
         g0_tt_ads0 =-(1+x0**2+y0**2+z0**2)**2/4
         g0_xx_ads0 =1
         g0_xy_ads0 =0
