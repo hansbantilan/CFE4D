@@ -214,7 +214,7 @@ c----------------------------------------------------------------------
         real*8 cd_ll(4,4),cd_J_ll(4,4)
 
         real*8 ndotc,n_l(4),n_u(4),c_l(4),c_J_l(4)
-        real*8 n_l_x(4,4) 
+        real*8 n_l_x(4,4),n_l_xx(4,4,4)
 
         real*8 tr_set,grad_phi1_sq
         
@@ -287,6 +287,7 @@ c----------------------------------------------------------------------
         ! local variables for tensor manipulations 
         !--------------------------------------------------------------
         real*8 weyl(4,4,4,4),weyl_x(4,4,4,4,4)
+        real*8 g0_uu_xx(4,4,4,4)
         !TEMPORARY
         real*8 b0_ll(4,4),b0_ll_x(4,4,4),b0_ll_xx(4,4,4,4) !move to tensor_init()
         real*8 omega !move to tensor_init()
@@ -319,7 +320,7 @@ c----------------------------------------------------------------------
         data cd_ll,cd_J_ll/16*0.0,16*0.0/
 
         data n_l,n_u,c_l,c_J_l/4*0.0,4*0.0,4*0.0,4*0.0/
-        data n_l_x/16*0.0/
+        data n_l_x,n_l_xx/16*0.0,64*0.0/
 
         data rb,i,j/0,0,0/
         data i2,j2/0,0/
@@ -391,7 +392,7 @@ c----------------------------------------------------------------------
         data b0_ll,b0_ll_x,b0_ll_xx/16*0.0,64*0.0,256*0.0/
 
         data weyl,weyl_x/256*0.0,1024*0/
-        data omega/0.0/
+        data g0_uu_xx/256*0.0/
 
         data g0_ll,g0_uu,gads_ll/16*0.0,16*0.0,16*0.0/
         data gads_uu,h0_ll,h0_uu/16*0.0,16*0.0,16*0.0/
@@ -703,6 +704,28 @@ c----------------------------------------------------------------------
      &                              h0_uu(4,3)*gads_ll_x(4,a,3)) ) )
                 end do
 
+                do a=1,4
+                  do b=1,4
+                    do c=1,4
+                      do d=1,4
+                        g0_uu_xx(a,b,c,d)=0
+                        do e=1,4
+                          do f=1,4
+                            g0_uu_xx(a,b,c,d)=g0_uu_xx(a,b,c,d)
+     &                                       -g0_ll_xx(e,f,c,d)
+     &                                        *g0_uu(a,e)*g0_uu(b,f)
+     &                                       -g0_ll_x(e,f,c)
+     &                                        *g0_uu_x(a,e,d)*g0_uu(b,f)
+     &                                       -g0_ll_x(e,f,c)
+     &                                        *g0_uu(a,e)*g0_uu_x(b,f,d)
+                          end do
+     &
+                        end do
+                      end do
+                    end do
+                  end do
+                end do
+
                 n_l(1)=-1/sqrt(-g0_uu(1,1))
                 do a=1,4
                   n_u(a)=n_l(1)*g0_uu(a,1)+
@@ -712,7 +735,15 @@ c----------------------------------------------------------------------
                 end do
                 do b=1,4
                   n_l_x(1,b)=-1/2.0d0/sqrt(-g0_uu(1,1))**3
-     &                        *g0_uu_x(1,1,b)
+     &                                     *g0_uu_x(1,1,b)
+                end do
+                do b=1,4
+                  do c=1,4
+                    n_l_xx(1,b,c)=-3.0d0/4.0d0/sqrt(-g0_uu(1,1))**5
+     &                               *g0_uu_x(1,1,b)*g0_uu_x(1,1,c)
+     &                            -1/2.0d0/sqrt(-g0_uu(1,1))**3
+     &                               *g0_uu_xx(1,1,b,c)
+                  end do
                 end do
 
                 ndotc  =n_u(1)*c_l(1)+
@@ -841,21 +872,160 @@ c----------------------------------------------------------------------
      &                      -(n_l(d)*n_l(e)*weyl(a,f,b,c)*ricci
      &                        *g0_uu(f,d)*g0_uu(c,e)           )/2 !run9
 
+                            ! THIS CAUSES MAJOR SLOWDOWN
                             do m=1,4
                               do n=1,4
 
                                 cfe(a,b)=cfe(a,b)
-     &                          -2*n_l(c)*g0_uu(d,c)*g0_uu(e,f)
-     *                           *g0_uu(m,n)*weyl(a,d,b,e)
+     &                          -2*n_l(c)*weyl_x(a,d,b,e,m)*n_l_x(f,n)
+     &                               *g0_uu(d,c)*g0_uu(e,f)*g0_uu(m,n)
+     &                          -2*n_l(c)*weyl_x(a,e,b,d,m)*n_l_x(f,n)
+     &                               *g0_uu(d,c)*g0_uu(e,f)*g0_uu(m,n)
+     &                          +gamma_ull(b,c,d)*n_l(e)*weyl(a,f,b,m)
+     &                               *g0_uu(f,e)*g0_uu(m,d)*g0_uu(n,c)
+     &                                                     *n_l_x(b,n) 
+     &                          -n_l(c)*weyl(a,d,b,e)*n_l_xx(f,m,n)
+     &                            *g0_uu(d,c)*g0_uu(e,f)*g0_uu(m,n)
+     &                          -n_l(c)*weyl(a,d,b,e)*n_l_xx(f,m,n)
+     &                            *g0_uu(e,c)*g0_uu(d,f)*g0_uu(m,n)
+     &                          -2*weyl(a,c,b,e)*n_l_x(n,f)*n_l_x(d,m)
+     &                               *g0_uu(c,d)*g0_uu(f,m)*g0_uu(e,n) !run11
 
-!                                do p=1,4
-!                                  do q=1,4
-!                                    cfe(a,b)=cfe(a,b)
-!     &                              -gamma_ull(c,d,e)*gamma_ull(e,f,m)
-!     &                               *n_l(c)*n_l(n)*weyl(a,p,b,q)
-!     &                               *g0_uu(p,n)*g0_uu(q,m)*g0_uu(f,d)
-!                                  end do
-!                                end do  
+                                do p=1,4
+                                  cfe(a,b)=cfe(a,b)
+     &                            +2*gamma_ull(c,d,e)*n_l(c)
+     &                              *weyl(a,f,b,m)*g0_uu(f,e)*g0_uu(n,d)
+     &                              *g0_uu(m,p)*n_l_x(p,n)
+     &                            +n_l(c)*n_l(d)*weyl(a,e,b,f)
+     &                              *g0_uu(e,d)*g0_uu(f,m)*g0_uu(n,p)
+     &                              *gamma_ull_x(c,p,m,n)
+     &                            +n_l(c)*n_l(d)*weyl(a,e,b,f)
+     &                              *g0_uu(f,d)*g0_uu(e,n)*g0_uu(m,p)
+     &                              *gamma_ull_x(c,p,n,m)
+     &                            +gamma_ull(c,d,e)*n_l(f)*weyl(a,n,b,p)
+     &                              *g0_uu(p,f)*g0_uu(n,e)*g0_uu(m,d)
+     &                              *n_l_x(c,m)
+     &                            +2*gamma_ull(c,d,e)*n_l(c)*n_l(f)
+     &                              *g0_uu(m,f)*g0_uu(n,e)*g0_uu(p,d)
+     &                              *weyl_x(a,m,b,n,p)
+     &                            +2*gamma_ull(c,d,e)*n_l(c)*n_l(f)
+     &                              *g0_uu(m,f)*g0_uu(n,e)*g0_uu(p,d)
+     &                              *weyl_x(a,n,b,m,p)
+     &                            +2*gamma_ull(c,d,e)*n_l(c)
+     &                              *weyl(a,f,b,m)
+     &                              *g0_uu(f,n)*g0_uu(d,p)*g0_uu(m,e)
+     &                              *n_l_x(n,p)
+                                                                       !run12
+
+     &                            +gamma_ull(c,d,e)*n_l(f)
+     &                              *weyl(a,m,b,n)
+     &                              *g0_uu(m,f)*g0_uu(n,e)*g0_uu(d,p)
+     &                              *n_l_x(c,p)
+     &                            +gamma_ull(c,d,e)*n_l(f)
+     &                              *weyl(a,m,b,n)
+     &                              *g0_uu(m,f)*g0_uu(n,p)*g0_uu(d,e)
+     &                              *n_l_x(p,c)
+     &                            +gamma_ull(c,m,d)*n_l(e)
+     &                              *weyl(a,f,b,n)
+     &                              *g0_uu(n,e)*g0_uu(f,d)*g0_uu(m,p)
+     &                              *n_l_x(c,p)
+     &                            +gamma_ull(c,m,d)*n_l(e)
+     &                              *weyl(a,f,b,n)
+     &                              *g0_uu(n,e)*g0_uu(f,p)*g0_uu(m,d)
+     &                              *n_l_x(p,c)
+                                                                       !run13
+
+     &                            +2*gamma_ull(c,d,e)*n_l(f)
+     &                              *weyl(a,c,b,m)
+     &                              *g0_uu(e,f)*g0_uu(m,n)*g0_uu(d,p)
+     &                              *n_l_x(n,p)
+     &                            +2*gamma_ull(c,d,e)*n_l(f)
+     &                              *weyl(a,m,b,c)
+     &                              *g0_uu(m,f)*g0_uu(e,n)*g0_uu(d,p)
+     &                              *n_l_x(n,p)
+     &                            +2*gamma_ull(c,d,b)*n_l(e)
+     &                              *weyl(a,f,c,m)
+     &                              *g0_uu(f,e)*g0_uu(m,n)*g0_uu(d,p)
+     &                              *n_l_x(n,p)
+     &                            +2*gamma_ull(c,d,a)*n_l(e)
+     &                              *weyl(c,f,b,m)
+     &                              *g0_uu(f,e)*g0_uu(m,n)*g0_uu(d,p)
+     &                              *n_l_x(n,p)
+     &                            +2*gamma_ull(c,d,e)*n_l(f)
+     &                              *weyl(a,m,b,c)
+     &                              *g0_uu(e,f)*g0_uu(m,n)*g0_uu(d,p)
+     &                              *n_l_x(n,p)
+     &                            +2*gamma_ull(c,d,e)*n_l(f)
+     &                              *weyl(a,c,b,m)
+     &                              *g0_uu(m,f)*g0_uu(e,n)*g0_uu(d,p)
+     &                              *n_l_x(n,p)
+     &                            +2*gamma_ull(c,d,b)*n_l(e)
+     &                              *weyl(a,f,c,m)
+     &                              *g0_uu(m,e)*g0_uu(n,p)*g0_uu(d,f)
+     &                              *n_l_x(p,n)
+     &                            +2*gamma_ull(c,d,a)*n_l(e)
+     &                              *weyl(c,f,b,m)
+     &                              *g0_uu(m,e)*g0_uu(f,n)*g0_uu(d,p)
+     &                              *n_l_x(n,p)
+                                  
+                                                                       !run14
+
+                                  do q=1,4
+                                    cfe(a,b)=cfe(a,b)
+     &                              -gamma_ull(c,d,e)*gamma_ull(e,f,m)
+     &                                *n_l(c)*n_l(n)*weyl(a,p,b,q)
+     &                                *g0_uu(p,n)*g0_uu(q,m)*g0_uu(f,d) 
+     &                              -gamma_ull(b,c,d)*gamma_ull(c,e,f)
+     &                                *n_l(b)*n_l(m)*weyl(a,f,b,p)
+     &                                *g0_uu(n,m)*g0_uu(p,d)*g0_uu(e,n) 
+     &                              -gamma_ull(c,d,e)*gamma_ull(e,m,f)
+     &                                *n_l(c)*n_l(n)*weyl(a,p,b,q)
+     &                                *g0_uu(q,n)*g0_uu(p,f)*g0_uu(m,d) 
+     &                              -gamma_ull(c,d,e)*gamma_ull(d,m,f)
+     &                                *n_l(c)*n_l(n)*weyl(a,p,b,q)
+     &                                *g0_uu(q,n)*g0_uu(p,e)*g0_uu(m,f)
+     &                              -2*gamma_ull(c,d,e)*gamma_ull(f,m,n)
+     &                                *n_l(f)*n_l(p)*weyl(a,c,b,q)
+     &                                *g0_uu(e,p)*g0_uu(q,n)*g0_uu(d,m)
+     &                              -2*gamma_ull(c,d,e)*gamma_ull(f,m,n)
+     &                                *n_l(f)*n_l(p)*weyl(a,q,b,c)
+     &                                *g0_uu(q,p)*g0_uu(e,n)*g0_uu(d,m)
+     &                              -2*gamma_ull(c,d,e)*gamma_ull(f,m,b)
+     &                                *n_l(c)*n_l(n)*weyl(a,p,f,q)
+     &                                *g0_uu(p,n)*g0_uu(q,e)*g0_uu(m,d)
+     &                              -2*gamma_ull(c,d,e)*gamma_ull(f,m,a)
+     &                                *n_l(c)*n_l(n)*weyl(f,p,b,q)
+     &                                *g0_uu(p,n)*g0_uu(q,e)*g0_uu(m,d)
+     &                              -2*gamma_ull(c,d,e)*gamma_ull(f,m,n)
+     &                                *n_l(f)*n_l(p)*weyl(a,q,b,c)
+     &                                *g0_uu(e,p)*g0_uu(q,n)*g0_uu(d,m)
+     &                              -2*gamma_ull(c,d,e)*gamma_ull(f,m,n)
+     &                                *n_l(f)*n_l(p)*weyl(a,c,b,q)
+     &                                *g0_uu(q,p)*g0_uu(e,n)*g0_uu(d,m)
+     &                              -2*gamma_ull(c,d,e)*gamma_ull(f,m,b)
+     &                                *n_l(c)*n_l(n)*weyl(a,p,f,q)
+     &                                *g0_uu(q,n)*g0_uu(p,e)*g0_uu(m,d)
+     &                              -2*gamma_ull(c,d,e)*gamma_ull(f,m,a)
+     &                                *n_l(c)*n_l(n)*weyl(f,p,b,q)
+     &                                *g0_uu(q,n)*g0_uu(p,e)*g0_uu(m,d)
+     &                              -2*gamma_ull(c,d,e)*gamma_ull(f,m,n)
+     &                                *n_l(c)*n_l(f)*weyl(a,p,b,q)
+     &                                *g0_uu(p,n)*g0_uu(d,m)*g0_uu(q,e)
+                                                                        !run15
+     &                              +2*omega*n_l(c)*n_l(d)*weyl(a,e,b,f)
+     &                                *weyl(m,n,p,q)*g0_uu(m,c)
+     &                                *g0_uu(p,d)*g0_uu(e,n)*g0_uu(f,q)
+     &                              +2*omega*n_l(c)*n_l(d)*weyl(a,e,f,m)
+     &                                *weyl(b,n,p,q)*g0_uu(f,c)
+     &                                *g0_uu(n,d)*g0_uu(e,p)*g0_uu(m,q)
+     &                              +2*omega*n_l(c)*n_l(d)*weyl(a,f,m,n)
+     &                                *weyl(b,e,p,q)*g0_uu(m,f)
+     &                                *g0_uu(p,d)*g0_uu(c,q)*g0_uu(n,e)
+                                                                        !run16
+
+                                  end do
+
+                                end do  
 
                               end do
                             end do  
