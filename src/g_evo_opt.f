@@ -8,13 +8,19 @@ c choosing theta=pi/2
 c
 c L below is the AdS length scale
 c----------------------------------------------------------------------
-        subroutine g_evo_opt(eb_res,gb_res,kg_res,cl_res,
+        subroutine g_evo_opt(eb_res,bb_res,gb_res,kg_res,cl_res,
      &                       eb_xx_np1,eb_xx_n,eb_xx_nm1,
      &                       eb_xy_np1,eb_xy_n,eb_xy_nm1,
      &                       eb_xz_np1,eb_xz_n,eb_xz_nm1,
      &                       eb_yy_np1,eb_yy_n,eb_yy_nm1,
      &                       eb_yz_np1,eb_yz_n,eb_yz_nm1,
      &                       eb_zz_np1,eb_zz_n,eb_zz_nm1,
+     &                       bb_xx_np1,bb_xx_n,bb_xx_nm1,
+     &                       bb_xy_np1,bb_xy_n,bb_xy_nm1,
+     &                       bb_xz_np1,bb_xz_n,bb_xz_nm1,
+     &                       bb_yy_np1,bb_yy_n,bb_yy_nm1,
+     &                       bb_yz_np1,bb_yz_n,bb_yz_nm1,
+     &                       bb_zz_np1,bb_zz_n,bb_zz_nm1,
      &                       gb_tt_np1,gb_tt_n,gb_tt_nm1,
      &                       gb_tx_np1,gb_tx_n,gb_tx_nm1,
      &                       gb_ty_np1,gb_ty_n,gb_ty_nm1,
@@ -41,13 +47,20 @@ c----------------------------------------------------------------------
         integer diss_kmax
         integer max_ghost_width
         real*8 kappa_cd,rho_cd
-        real*8 eb_res(Nx,Ny),gb_res(Nx,Ny),kg_res(Nx,Ny),cl_res(Nx,Ny)
+        real*8 eb_res(Nx,Ny),bb_res(Nx,Ny),gb_res(Nx,Ny)
+        real*8 kg_res(Nx,Ny),cl_res(Nx,Ny)
         real*8 eb_xx_np1(Nx,Ny),eb_xx_n(Nx,Ny),eb_xx_nm1(Nx,Ny)
         real*8 eb_xy_np1(Nx,Ny),eb_xy_n(Nx,Ny),eb_xy_nm1(Nx,Ny)
         real*8 eb_xz_np1(Nx,Ny),eb_xz_n(Nx,Ny),eb_xz_nm1(Nx,Ny)
         real*8 eb_yy_np1(Nx,Ny),eb_yy_n(Nx,Ny),eb_yy_nm1(Nx,Ny)
         real*8 eb_yz_np1(Nx,Ny),eb_yz_n(Nx,Ny),eb_yz_nm1(Nx,Ny)
         real*8 eb_zz_np1(Nx,Ny),eb_zz_n(Nx,Ny),eb_zz_nm1(Nx,Ny)
+        real*8 bb_xx_np1(Nx,Ny),bb_xx_n(Nx,Ny),bb_xx_nm1(Nx,Ny)
+        real*8 bb_xy_np1(Nx,Ny),bb_xy_n(Nx,Ny),bb_xy_nm1(Nx,Ny)
+        real*8 bb_xz_np1(Nx,Ny),bb_xz_n(Nx,Ny),bb_xz_nm1(Nx,Ny)
+        real*8 bb_yy_np1(Nx,Ny),bb_yy_n(Nx,Ny),bb_yy_nm1(Nx,Ny)
+        real*8 bb_yz_np1(Nx,Ny),bb_yz_n(Nx,Ny),bb_yz_nm1(Nx,Ny)
+        real*8 bb_zz_np1(Nx,Ny),bb_zz_n(Nx,Ny),bb_zz_nm1(Nx,Ny)
         real*8 gb_tt_np1(Nx,Ny),gb_tt_n(Nx,Ny),gb_tt_nm1(Nx,Ny)
         real*8 gb_tx_np1(Nx,Ny),gb_tx_n(Nx,Ny),gb_tx_nm1(Nx,Ny)
         real*8 gb_ty_np1(Nx,Ny),gb_ty_n(Nx,Ny),gb_ty_nm1(Nx,Ny)
@@ -269,6 +282,7 @@ c----------------------------------------------------------------------
         !(indices are t,x,w,y,z)
         !--------------------------------------------------------------
         real*8 e0_ll(4,4),e0_ll_x(4,4,4),e0_ll_xx(4,4,4,4)
+        real*8 b0_ll(4,4),b0_ll_x(4,4,4),b0_ll_xx(4,4,4,4) 
 
         real*8 g0_ll(4,4),g0_uu(4,4)
         real*8 g0_ll_x(4,4,4),g0_uu_x(4,4,4),g0_ll_xx(4,4,4,4)
@@ -289,7 +303,6 @@ c----------------------------------------------------------------------
         real*8 weyl(4,4,4,4),weyl_x(4,4,4,4,4)
         real*8 g0_uu_xx(4,4,4,4)
         !TEMPORARY
-        real*8 b0_ll(4,4),b0_ll_x(4,4,4),b0_ll_xx(4,4,4,4) !move to tensor_init()
         real*8 omega !move to tensor_init()
 
         !--------------------------------------------------------------
@@ -545,6 +558,12 @@ c----------------------------------------------------------------------
      &                eb_yy_np1,eb_yy_n,eb_yy_nm1,
      &                eb_yz_np1,eb_yz_n,eb_yz_nm1,
      &                eb_zz_np1,eb_zz_n,eb_zz_nm1,
+     &                bb_xx_np1,bb_xx_n,bb_xx_nm1,
+     &                bb_xy_np1,bb_xy_n,bb_xy_nm1,
+     &                bb_xz_np1,bb_xz_n,bb_xz_nm1,
+     &                bb_yy_np1,bb_yy_n,bb_yy_nm1,
+     &                bb_yz_np1,bb_yz_n,bb_yz_nm1,
+     &                bb_zz_np1,bb_zz_n,bb_zz_nm1,
      &                gb_tt_np1,gb_tt_n,gb_tt_nm1,
      &                gb_tx_np1,gb_tx_n,gb_tx_nm1,
      &                gb_ty_np1,gb_ty_n,gb_ty_nm1,
@@ -557,6 +576,7 @@ c----------------------------------------------------------------------
      &                Hb_y_np1,Hb_y_n,Hb_y_nm1,
      &                phi1_np1,phi1_n,phi1_nm1,
      &                e0_ll,e0_ll_x,e0_ll_xx,
+     &                b0_ll,b0_ll_x,b0_ll_xx,
      &                g0_ll,g0_uu,g0_ll_x,g0_uu_x,g0_ll_xx,
      &                gads_ll,gads_uu,gads_ll_x,gads_uu_x,gads_ll_xx,
      &                h0_ll,h0_uu,h0_ll_x,h0_uu_x,h0_ll_xx,

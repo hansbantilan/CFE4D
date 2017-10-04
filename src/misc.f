@@ -1206,6 +1206,12 @@ c----------------------------------------------------------------------
      &                  eb_yy_np1,eb_yy_n,eb_yy_nm1,
      &                  eb_yz_np1,eb_yz_n,eb_yz_nm1,
      &                  eb_zz_np1,eb_zz_n,eb_zz_nm1,
+     &                  bb_xx_np1,bb_xx_n,bb_xx_nm1,
+     &                  bb_xy_np1,bb_xy_n,bb_xy_nm1,
+     &                  bb_xz_np1,bb_xz_n,bb_xz_nm1,
+     &                  bb_yy_np1,bb_yy_n,bb_yy_nm1,
+     &                  bb_yz_np1,bb_yz_n,bb_yz_nm1,
+     &                  bb_zz_np1,bb_zz_n,bb_zz_nm1,
      &                  gb_tt_np1,gb_tt_n,gb_tt_nm1,
      &                  gb_tx_np1,gb_tx_n,gb_tx_nm1,
      &                  gb_ty_np1,gb_ty_n,gb_ty_nm1,
@@ -1218,6 +1224,7 @@ c----------------------------------------------------------------------
      &                  Hb_y_np1,Hb_y_n,Hb_y_nm1,
      &                  phi1_np1,phi1_n,phi1_nm1,
      &                  e0_ll,e0_ll_x,e0_ll_xx,
+     &                  b0_ll,b0_ll_x,b0_ll_xx,
      &                  g0_ll,g0_uu,g0_ll_x,g0_uu_x,g0_ll_xx,
      &                  gads_ll,gads_uu,gads_ll_x,gads_uu_x,gads_ll_xx,
      &                  h0_ll,h0_uu,h0_ll_x,h0_uu_x,h0_ll_xx,
@@ -1241,6 +1248,12 @@ c----------------------------------------------------------------------
         real*8 eb_yy_np1(Nx,Ny),eb_yy_n(Nx,Ny),eb_yy_nm1(Nx,Ny)
         real*8 eb_yz_np1(Nx,Ny),eb_yz_n(Nx,Ny),eb_yz_nm1(Nx,Ny)
         real*8 eb_zz_np1(Nx,Ny),eb_zz_n(Nx,Ny),eb_zz_nm1(Nx,Ny)
+        real*8 bb_xx_np1(Nx,Ny),bb_xx_n(Nx,Ny),bb_xx_nm1(Nx,Ny)
+        real*8 bb_xy_np1(Nx,Ny),bb_xy_n(Nx,Ny),bb_xy_nm1(Nx,Ny)
+        real*8 bb_xz_np1(Nx,Ny),bb_xz_n(Nx,Ny),bb_xz_nm1(Nx,Ny)
+        real*8 bb_yy_np1(Nx,Ny),bb_yy_n(Nx,Ny),bb_yy_nm1(Nx,Ny)
+        real*8 bb_yz_np1(Nx,Ny),bb_yz_n(Nx,Ny),bb_yz_nm1(Nx,Ny)
+        real*8 bb_zz_np1(Nx,Ny),bb_zz_n(Nx,Ny),bb_zz_nm1(Nx,Ny)
         real*8 gb_tt_np1(Nx,Ny),gb_tt_n(Nx,Ny),gb_tt_nm1(Nx,Ny)
         real*8 gb_tx_np1(Nx,Ny),gb_tx_n(Nx,Ny),gb_tx_nm1(Nx,Ny)
         real*8 gb_ty_np1(Nx,Ny),gb_ty_n(Nx,Ny),gb_ty_nm1(Nx,Ny)
@@ -1269,6 +1282,7 @@ c----------------------------------------------------------------------
         !(indices are t,x,y,z)
         !--------------------------------------------------------------
         real*8 e0_ll(4,4),e0_ll_x(4,4,4),e0_ll_xx(4,4,4,4)
+        real*8 b0_ll(4,4),b0_ll_x(4,4,4),b0_ll_xx(4,4,4,4)
 
         real*8 g0_ll(4,4),g0_uu(4,4)
         real*8 g0_ll_x(4,4,4),g0_uu_x(4,4,4),g0_ll_xx(4,4,4,4)
@@ -1312,6 +1326,30 @@ c----------------------------------------------------------------------
         real*8 eb_zz_tt,eb_zz_tx,eb_zz_ty
         real*8 eb_zz_xx,eb_zz_xy
         real*8 eb_zz_yy
+        real*8 bb_xx_t, bb_xx_x, bb_xx_y
+        real*8 bb_xx_tt,bb_xx_tx,bb_xx_ty
+        real*8 bb_xx_xx,bb_xx_xy
+        real*8 bb_xx_yy
+        real*8 bb_xy_t, bb_xy_x, bb_xy_y
+        real*8 bb_xy_tt,bb_xy_tx,bb_xy_ty
+        real*8 bb_xy_xx,bb_xy_xy
+        real*8 bb_xy_yy
+        real*8 bb_xz_t, bb_xz_x, bb_xz_y
+        real*8 bb_xz_tt,bb_xz_tx,bb_xz_ty
+        real*8 bb_xz_xx,bb_xz_xy
+        real*8 bb_xz_yy
+        real*8 bb_yy_t, bb_yy_x, bb_yy_y
+        real*8 bb_yy_tt,bb_yy_tx,bb_yy_ty
+        real*8 bb_yy_xx,bb_yy_xy
+        real*8 bb_yy_yy
+        real*8 bb_yz_t, bb_yz_x, bb_yz_y
+        real*8 bb_yz_tt,bb_yz_tx,bb_yz_ty
+        real*8 bb_yz_xx,bb_yz_xy
+        real*8 bb_yz_yy
+        real*8 bb_zz_t, bb_zz_x, bb_zz_y
+        real*8 bb_zz_tt,bb_zz_tx,bb_zz_ty
+        real*8 bb_zz_xx,bb_zz_xy
+        real*8 bb_zz_yy
         real*8 gb_tt_t, gb_tt_x, gb_tt_y
         real*8 gb_tt_tt,gb_tt_tx,gb_tt_ty
         real*8 gb_tt_xx,gb_tt_xy
@@ -1348,6 +1386,10 @@ c----------------------------------------------------------------------
         real*8 eb_xx0,eb_xy0,eb_xz0
         real*8 eb_yy0,eb_yz0
         real*8 eb_zz0
+
+        real*8 bb_xx0,bb_xy0,bb_xz0
+        real*8 bb_yy0,bb_yz0
+        real*8 bb_zz0
 
         real*8 gb_tt0,gb_tx0,gb_ty0
         real*8 gb_xx0,gb_xy0
@@ -1414,6 +1456,14 @@ c----------------------------------------------------------------------
         eb_yy0=eb_yy_n(i,j)
         eb_yz0=eb_yz_n(i,j)
         eb_zz0=eb_zz_n(i,j)
+
+        ! set bbar values
+        bb_xx0=bb_xx_n(i,j)
+        bb_xy0=bb_xy_n(i,j)
+        bb_xz0=bb_xz_n(i,j)
+        bb_yy0=bb_yy_n(i,j)
+        bb_yz0=bb_yz_n(i,j)
+        bb_zz0=bb_zz_n(i,j)
 
         ! set gbar values
         gb_tt0=gb_tt_n(i,j)
@@ -1488,6 +1538,32 @@ c----------------------------------------------------------------------
      &       eb_zz_x,eb_zz_y,eb_zz_tt,eb_zz_tx,eb_zz_ty,
      &       eb_zz_xx,eb_zz_xy,eb_zz_yy,
      &       x,y,dt,i,j,chr,ex,Nx,Ny,'eb_zz')
+
+        ! calculate bbar derivatives
+        call df2_int(bb_xx_np1,bb_xx_n,bb_xx_nm1,bb_xx_t,
+     &       bb_xx_x,bb_xx_y,bb_xx_tt,bb_xx_tx,bb_xx_ty,
+     &       bb_xx_xx,bb_xx_xy,bb_xx_yy,
+     &       x,y,dt,i,j,chr,ex,Nx,Ny,'bb_xx')
+        call df2_int(bb_xy_np1,bb_xy_n,bb_xy_nm1,bb_xy_t,
+     &       bb_xy_x,bb_xy_y,bb_xy_tt,bb_xy_tx,bb_xy_ty,
+     &       bb_xy_xx,bb_xy_xy,bb_xy_yy,
+     &       x,y,dt,i,j,chr,ex,Nx,Ny,'bb_xy')
+        call df2_int(bb_xz_np1,bb_xz_n,bb_xz_nm1,bb_xz_t,
+     &       bb_xz_x,bb_xz_y,bb_xz_tt,bb_xz_tx,bb_xz_ty,
+     &       bb_xz_xx,bb_xz_xy,bb_xz_yy,
+     &       x,y,dt,i,j,chr,ex,Nx,Ny,'bb_xz')
+        call df2_int(bb_yy_np1,bb_yy_n,bb_yy_nm1,bb_yy_t,
+     &       bb_yy_x,bb_yy_y,bb_yy_tt,bb_yy_tx,bb_yy_ty,
+     &       bb_yy_xx,bb_yy_xy,bb_yy_yy,
+     &       x,y,dt,i,j,chr,ex,Nx,Ny,'bb_yy')
+        call df2_int(bb_yz_np1,bb_yz_n,bb_yz_nm1,bb_yz_t,
+     &       bb_yz_x,bb_yz_y,bb_yz_tt,bb_yz_tx,bb_yz_ty,
+     &       bb_yz_xx,bb_yz_xy,bb_yz_yy,
+     &       x,y,dt,i,j,chr,ex,Nx,Ny,'bb_yz')
+        call df2_int(bb_zz_np1,bb_zz_n,bb_zz_nm1,bb_zz_t,
+     &       bb_zz_x,bb_zz_y,bb_zz_tt,bb_zz_tx,bb_zz_ty,
+     &       bb_zz_xx,bb_zz_xy,bb_zz_yy,
+     &       x,y,dt,i,j,chr,ex,Nx,Ny,'bb_zz')
 
         ! calculate gbar derivatives
         call df2_int(gb_tt_np1,gb_tt_n,gb_tt_nm1,gb_tt_t,
@@ -1602,6 +1678,74 @@ c----------------------------------------------------------------------
         e0_ll_xx(4,4,2,2)=eb_zz_xx
         e0_ll_xx(4,4,2,3)=eb_zz_xy
         e0_ll_xx(4,4,3,3)=eb_zz_yy
+
+        ! give values to the magnetic components of the rescaled Weyl
+        b0_ll(2,2)=bb_xx0
+        b0_ll(2,3)=bb_xy0
+        b0_ll(2,4)=bb_xz0
+        b0_ll(3,3)=bb_yy0
+        b0_ll(3,4)=bb_yz0
+        b0_ll(4,4)=bb_zz0
+
+        b0_ll_x(2,2,1)   =bb_xx_t
+        b0_ll_x(2,2,2)   =bb_xx_x
+        b0_ll_x(2,2,3)   =bb_xx_y
+        b0_ll_xx(2,2,1,1)=bb_xx_tt
+        b0_ll_xx(2,2,1,2)=bb_xx_tx
+        b0_ll_xx(2,2,1,3)=bb_xx_ty
+        b0_ll_xx(2,2,2,2)=bb_xx_xx
+        b0_ll_xx(2,2,2,3)=bb_xx_xy
+        b0_ll_xx(2,2,3,3)=bb_xx_yy
+
+        b0_ll_x(2,3,1)   =bb_xy_t
+        b0_ll_x(2,3,2)   =bb_xy_x
+        b0_ll_x(2,3,3)   =bb_xy_y
+        b0_ll_xx(2,3,1,1)=bb_xy_tt
+        b0_ll_xx(2,3,1,2)=bb_xy_tx
+        b0_ll_xx(2,3,1,3)=bb_xy_ty
+        b0_ll_xx(2,3,2,2)=bb_xy_xx
+        b0_ll_xx(2,3,2,3)=bb_xy_xy
+        b0_ll_xx(2,3,3,3)=bb_xy_yy
+
+        b0_ll_x(2,4,1)   =bb_xz_t
+        b0_ll_x(2,4,2)   =bb_xz_x
+        b0_ll_x(2,4,3)   =bb_xz_y
+        b0_ll_xx(2,4,1,1)=bb_xz_tt
+        b0_ll_xx(2,4,1,2)=bb_xz_tx
+        b0_ll_xx(2,4,1,3)=bb_xz_ty
+        b0_ll_xx(2,4,2,2)=bb_xz_xx
+        b0_ll_xx(2,4,2,3)=bb_xz_xy
+        b0_ll_xx(2,4,3,3)=bb_xz_yy
+
+        b0_ll_x(3,3,1)   =bb_yy_t
+        b0_ll_x(3,3,2)   =bb_yy_x
+        b0_ll_x(3,3,3)   =bb_yy_y
+        b0_ll_xx(3,3,1,1)=bb_yy_tt
+        b0_ll_xx(3,3,1,2)=bb_yy_tx
+        b0_ll_xx(3,3,1,3)=bb_yy_ty
+        b0_ll_xx(3,3,2,2)=bb_yy_xx
+        b0_ll_xx(3,3,2,3)=bb_yy_xy
+        b0_ll_xx(3,3,3,3)=bb_yy_yy
+
+        b0_ll_x(3,4,1)   =bb_yz_t
+        b0_ll_x(3,4,2)   =bb_yz_x
+        b0_ll_x(3,4,3)   =bb_yz_y
+        b0_ll_xx(3,4,1,1)=bb_yz_tt
+        b0_ll_xx(3,4,1,2)=bb_yz_tx
+        b0_ll_xx(3,4,1,3)=bb_yz_ty
+        b0_ll_xx(3,4,2,2)=bb_yz_xx
+        b0_ll_xx(3,4,2,3)=bb_yz_xy
+        b0_ll_xx(3,4,3,3)=bb_yz_yy
+
+        b0_ll_x(4,4,1)   =bb_zz_t
+        b0_ll_x(4,4,2)   =bb_zz_x
+        b0_ll_x(4,4,3)   =bb_zz_y
+        b0_ll_xx(4,4,1,1)=bb_zz_tt
+        b0_ll_xx(4,4,1,2)=bb_zz_tx
+        b0_ll_xx(4,4,1,3)=bb_zz_ty
+        b0_ll_xx(4,4,2,2)=bb_zz_xx
+        b0_ll_xx(4,4,2,3)=bb_zz_xy
+        b0_ll_xx(4,4,3,3)=bb_zz_yy
 
         ! give values to the metric
         g0_ll(1,1)=g0_tt_ads0+gb_tt0*(1-rho0**2)

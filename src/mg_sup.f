@@ -254,6 +254,47 @@ c-----------------------------------------------------------------------
         end
 
 c-----------------------------------------------------------------------
+c The following initializes the bbars
+c-----------------------------------------------------------------------
+        subroutine init_bb(bb_xx,bb_xy,bb_xz,bb_yy,bb_yz,bb_zz,
+     &                     L,cmask,phys_bdy,x,y,chr,ex,Nx,Ny,regtype)
+        implicit none
+        integer Nx,Ny
+        real*8 bb_xx(Nx,Ny),bb_xy(Nx,Ny),bb_xz(Nx,Ny)
+        real*8 bb_yy(Nx,Ny),bb_yz(Nx,Ny),bb_zz(Nx,Ny)
+        real*8 cmask(Nx,Ny),chr(Nx,Ny),ex,L
+        real*8 x(Nx),y(Ny)
+        integer phys_bdy(4),regtype
+
+        real*8 PI
+        parameter (PI=0.3141592653589793D1)
+        integer i,j
+        real*8 x0,y0
+        real*8 rho0
+
+        !--------------------------------------------------------------
+
+        ! initialize magnetic part of the Weyl tensor
+        do i=2,Nx-1
+          do j=2,Ny-1
+ 
+            x0=x(i)
+            y0=y(j)
+            rho0=sqrt(x0**2+y0**2)
+
+            if (chr(i,j).ne.ex) then 
+
+              bb_xx(i,j)=exp(-rho0**2)*(1-rho0**2)
+
+            endif
+
+          end do
+        end do
+
+        return
+        end
+
+c-----------------------------------------------------------------------
 c The following initializes the rest of the metric and Hb,
 c given zeta
 c

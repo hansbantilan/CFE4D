@@ -95,6 +95,13 @@ extern real *eb_yy,*eb_yy_n,*eb_yy_np1,*eb_yy_nm1;
 extern real *eb_yz,*eb_yz_n,*eb_yz_np1,*eb_yz_nm1; 
 extern real *eb_zz,*eb_zz_n,*eb_zz_np1,*eb_zz_nm1; 
 
+extern real *bb_xx,*bb_xx_n,*bb_xx_np1,*bb_xx_nm1; 
+extern real *bb_xy,*bb_xy_n,*bb_xy_np1,*bb_xy_nm1; 
+extern real *bb_xz,*bb_xz_n,*bb_xz_np1,*bb_xz_nm1; 
+extern real *bb_yy,*bb_yy_n,*bb_yy_np1,*bb_yy_nm1; 
+extern real *bb_yz,*bb_yz_n,*bb_yz_np1,*bb_yz_nm1; 
+extern real *bb_zz,*bb_zz_n,*bb_zz_np1,*bb_zz_nm1; 
+
 extern real *gb_tt,*gb_tt_n,*gb_tt_np1,*gb_tt_nm1; 
 extern real *gb_tx,*gb_tx_n,*gb_tx_np1,*gb_tx_nm1; 
 extern real *gb_ty,*gb_ty_n,*gb_ty_np1,*gb_ty_nm1; 
@@ -117,6 +124,13 @@ extern real *eb_xz_t,*eb_xz_t_n;
 extern real *eb_yy_t,*eb_yy_t_n;
 extern real *eb_yz_t,*eb_yz_t_n;
 extern real *eb_zz_t,*eb_zz_t_n;
+
+extern real *bb_xx_t,*bb_xx_t_n;
+extern real *bb_xy_t,*bb_xy_t_n;
+extern real *bb_xz_t,*bb_xz_t_n;
+extern real *bb_yy_t,*bb_yy_t_n;
+extern real *bb_yz_t,*bb_yz_t_n;
+extern real *bb_zz_t,*bb_zz_t_n;
 
 extern real *gb_tt_t,*gb_tt_t_n;
 extern real *gb_tx_t,*gb_tx_t_n;
@@ -195,6 +209,13 @@ extern int eb_yy_gfn,eb_yy_n_gfn,eb_yy_np1_gfn,eb_yy_nm1_gfn;
 extern int eb_yz_gfn,eb_yz_n_gfn,eb_yz_np1_gfn,eb_yz_nm1_gfn; 
 extern int eb_zz_gfn,eb_zz_n_gfn,eb_zz_np1_gfn,eb_zz_nm1_gfn; 
 
+extern int bb_xx_gfn,bb_xx_n_gfn,bb_xx_np1_gfn,bb_xx_nm1_gfn; 
+extern int bb_xy_gfn,bb_xy_n_gfn,bb_xy_np1_gfn,bb_xy_nm1_gfn; 
+extern int bb_xz_gfn,bb_xz_n_gfn,bb_xz_np1_gfn,bb_xz_nm1_gfn; 
+extern int bb_yy_gfn,bb_yy_n_gfn,bb_yy_np1_gfn,bb_yy_nm1_gfn; 
+extern int bb_yz_gfn,bb_yz_n_gfn,bb_yz_np1_gfn,bb_yz_nm1_gfn; 
+extern int bb_zz_gfn,bb_zz_n_gfn,bb_zz_np1_gfn,bb_zz_nm1_gfn; 
+
 extern int gb_tt_gfn,gb_tt_n_gfn,gb_tt_np1_gfn,gb_tt_nm1_gfn; 
 extern int gb_tx_gfn,gb_tx_n_gfn,gb_tx_np1_gfn,gb_tx_nm1_gfn; 
 extern int gb_ty_gfn,gb_ty_n_gfn,gb_ty_np1_gfn,gb_ty_nm1_gfn; 
@@ -258,13 +279,19 @@ void calc_gbu(void);
 void calc_gbu_nm1(void);
 
 /* prototypes for the various fortran functions we use: */
-void g_evo_opt_(real *eb_res, real *gb_res, real *phi1_res, real *cl_res,
+void g_evo_opt_(real *eb_res, real *bb_res, real *gb_res, real *phi1_res, real *cl_res,
                 real *eb_xx_np1, real *eb_xx_n, real *eb_xx_nm1,
                 real *eb_xy_np1, real *eb_xy_n, real *eb_xy_nm1,
                 real *eb_xz_np1, real *eb_xz_n, real *eb_xz_nm1,
                 real *eb_yy_np1, real *eb_yy_n, real *eb_yy_nm1,
                 real *eb_yz_np1, real *eb_yz_n, real *eb_yz_nm1,
                 real *eb_zz_np1, real *eb_zz_n, real *eb_zz_nm1,
+                real *bb_xx_np1, real *bb_xx_n, real *bb_xx_nm1,
+                real *bb_xy_np1, real *bb_xy_n, real *bb_xy_nm1,
+                real *bb_xz_np1, real *bb_xz_n, real *bb_xz_nm1,
+                real *bb_yy_np1, real *bb_yy_n, real *bb_yy_nm1,
+                real *bb_yz_np1, real *bb_yz_n, real *bb_yz_nm1,
+                real *bb_zz_np1, real *bb_zz_n, real *bb_zz_nm1,
                 real *gb_tt_np1, real *gb_tt_n, real *gb_tt_nm1,
                 real *gb_tx_np1, real *gb_tx_n, real *gb_tx_nm1,
                 real *gb_ty_np1, real *gb_ty_n, real *gb_ty_nm1,
@@ -363,6 +390,11 @@ void mg_sup_(int *action, real *zeta, real *zeta_rhs, real *zeta_lop, real *zeta
 
 void init_eb_(real *eb_xx, real *eb_xy, real *eb_xz,
               real *eb_yy, real *eb_yz, real *eb_zz,
+              real *AdS_L, real *cmask, int *phys_bdy, real *x, real *y,
+              real *chr, real *ex, int *Nx, int *Ny, int *regtype);
+
+void init_bb_(real *bb_xx, real *bb_xy, real *bb_xz,
+              real *bb_yy, real *bb_yz, real *bb_zz,
               real *AdS_L, real *cmask, int *phys_bdy, real *x, real *y,
               real *chr, real *ex, int *Nx, int *Ny, int *regtype);
 

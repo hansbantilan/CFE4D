@@ -23,8 +23,8 @@ do_ex :=1
 #       See the maple scripts for the exact definitions     
 #==============================================================================
 
-num_hyperbolic_vars := 34
-hyperbolic_vars := [ "phi1" "eb_xx" "eb_xy" "eb_xz" "eb_yy" "eb_yz" "eb_zz" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "eb_xx_t" "eb_xy_t" "eb_xz_t" "eb_yy_t" "eb_yz_t" "eb_zz_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
+num_hyperbolic_vars := 46
+hyperbolic_vars := [ "phi1" "eb_xx" "eb_xy" "eb_xz" "eb_yy" "eb_yz" "eb_zz" "bb_xx" "bb_xy" "bb_xz" "bb_yy" "bb_yz" "bb_zz" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "eb_xx_t" "eb_xy_t" "eb_xz_t" "eb_yy_t" "eb_yz_t" "eb_zz_t" "bb_xx_t" "bb_xy_t" "bb_xz_t" "bb_yy_t" "bb_yz_t" "bb_zz_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
 
 #==============================================================================
 # For now only time-symmetric initial data ... 'conformal' to AdS space
@@ -38,26 +38,26 @@ elliptic_vars_t0 := ["zeta"]
 # "work" variables ... residuals, inverse metric components, etc.
 #==============================================================================
 
-num_AMRH_work_vars := 63
-AMRH_work_vars := [ "phi1_res" "eb_res" "gb_res" "hb_t_res" "hb_i_res" "kg_ires" "efe_all_ires" "efe_tt_ires" "efe_tx_ires" "efe_ty_ires" "efe_xx_ires" "efe_xy_ires" "efe_yy_ires" "efe_psi_ires" "quasiset_tt" "quasiset_tx" "quasiset_ty" "quasiset_xx" "quasiset_xy" "quasiset_yy" "quasiset_psi" "quasiset_mass" "kretsch" "w1" "w2" "w3" "w4" "alpha" "theta" "f" "tfunction" "iresall" "irestt" "irestx" "iresty" "iresxx" "iresxy" "iresyy" "irespsi" "qstt" "qstx" "qsty" "qsxx" "qsxy" "qsyy" "qspsi" "qsmass" "qsone" "test1" "test2" "test3" "test4" "gu_tt" "gu_tx" "gu_ty" "gu_xx" "gu_xy" "gu_yy" "m_g_det" "Hb_t_0" "Hb_x_0" "Hb_y_0" "cl_res" ]
+num_AMRH_work_vars := 64
+AMRH_work_vars := [ "phi1_res" "eb_res" "bb_res" "gb_res" "hb_t_res" "hb_i_res" "kg_ires" "efe_all_ires" "efe_tt_ires" "efe_tx_ires" "efe_ty_ires" "efe_xx_ires" "efe_xy_ires" "efe_yy_ires" "efe_psi_ires" "quasiset_tt" "quasiset_tx" "quasiset_ty" "quasiset_xx" "quasiset_xy" "quasiset_yy" "quasiset_psi" "quasiset_mass" "kretsch" "w1" "w2" "w3" "w4" "alpha" "theta" "f" "tfunction" "iresall" "irestt" "irestx" "iresty" "iresxx" "iresxy" "iresyy" "irespsi" "qstt" "qstx" "qsty" "qsxx" "qsxy" "qsyy" "qspsi" "qsmass" "qsone" "test1" "test2" "test3" "test4" "gu_tt" "gu_tx" "gu_ty" "gu_xx" "gu_xy" "gu_yy" "m_g_det" "Hb_t_0" "Hb_x_0" "Hb_y_0" "cl_res" ]
 
 num_MGH_work_vars := 4
 MGH_work_vars := [ "mg_w1" "mg_w2" "mg_w3" "mg_w4" ]
 
-num_AMRH_work_in_MGH_vars := 27
-AMRH_work_in_MGH_vars := [ "phi1_res" "eb_res" "gb_res" "gb_ii_res" "hb_t_res" "hb_i_res" "kg_ires" "efe_all_ires" "efe_tt_ires" "efe_xx_ires" "efe_xy_ires" "efe_yy_ires" "efe_psi_ires" "w1" "w2" "w3" "w4" "alpha" "theta" "test1" "test2" "test3" "test4" "Hb_t_0" "Hb_x_0" "Hb_y_0" "cl_res" ]
+num_AMRH_work_in_MGH_vars := 28
+AMRH_work_in_MGH_vars := [ "phi1_res" "eb_res" "bb_res" "gb_res" "gb_ii_res" "hb_t_res" "hb_i_res" "kg_ires" "efe_all_ires" "efe_tt_ires" "efe_xx_ires" "efe_xy_ires" "efe_yy_ires" "efe_psi_ires" "w1" "w2" "w3" "w4" "alpha" "theta" "test1" "test2" "test3" "test4" "Hb_t_0" "Hb_x_0" "Hb_y_0" "cl_res" ]
 
-num_amr_inject   := 34
-amr_inject       := [ "phi1" "eb_xx" "eb_xy" "eb_xz" "eb_yy" "eb_yz" "eb_zz" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "eb_xx_t" "eb_xy_t" "eb_xz_t" "eb_yy_t" "eb_yz_t" "eb_zz_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
+num_amr_inject   := 46
+amr_inject       := [ "phi1" "eb_xx" "eb_xy" "eb_xz" "eb_yy" "eb_yz" "eb_zz" "bb_xx" "bb_xy" "bb_xz" "bb_yy" "bb_yz" "bb_zz" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "eb_xx_t" "eb_xy_t" "eb_xz_t" "eb_yy_t" "eb_yz_t" "eb_zz_t" "bb_xx_t" "bb_xy_t" "bb_xz_t" "bb_yy_t" "bb_yz_t" "bb_zz_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
 
-num_amr_sync     := 34
-amr_sync         := [ "phi1" "eb_xx" "eb_xy" "eb_xz" "eb_yy" "eb_yz" "eb_zz" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "eb_xx_t" "eb_xy_t" "eb_xz_t" "eb_yy_t" "eb_yz_t" "eb_zz_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
+num_amr_sync     := 46
+amr_sync         := [ "phi1" "eb_xx" "eb_xy" "eb_xz" "eb_yy" "eb_yz" "eb_zz" "bb_xx" "bb_xy" "bb_xz" "bb_yy" "bb_yz" "bb_zz" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "eb_xx_t" "eb_xy_t" "eb_xz_t" "eb_yy_t" "eb_yz_t" "eb_zz_t" "bb_xx_t" "bb_xy_t" "bb_xz_t" "bb_yy_t" "bb_yz_t" "bb_zz_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
 
-num_amr_interp4  := 34
-amr_interp4      := [ "phi1" "eb_xx" "eb_xy" "eb_xz" "eb_yy" "eb_yz" "eb_zz" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "eb_xx_t" "eb_xy_t" "eb_xz_t" "eb_yy_t" "eb_yz_t" "eb_zz_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
+num_amr_interp4  := 46
+amr_interp4      := [ "phi1" "eb_xx" "eb_xy" "eb_xz" "eb_yy" "eb_yz" "eb_zz" "bb_xx" "bb_xy" "bb_xz" "bb_yy" "bb_yz" "bb_zz" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "eb_xx_t" "eb_xy_t" "eb_xz_t" "eb_yy_t" "eb_yz_t" "eb_zz_t" "bb_xx_t" "bb_xy_t" "bb_xz_t" "bb_yy_t" "bb_yz_t" "bb_zz_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
 
-num_amr_transfer4:= 34
-amr_transfer4    := [ "phi1" "eb_xx" "eb_xy" "eb_xz" "eb_yy" "eb_yz" "eb_zz" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "eb_xx_t" "eb_xy_t" "eb_xz_t" "eb_yy_t" "eb_yz_t" "eb_zz_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
+num_amr_transfer4:= 46
+amr_transfer4    := [ "phi1" "eb_xx" "eb_xy" "eb_xz" "eb_yy" "eb_yz" "eb_zz" "bb_xx" "bb_xy" "bb_xz" "bb_yy" "bb_yz" "bb_zz" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "eb_xx_t" "eb_xy_t" "eb_xz_t" "eb_yy_t" "eb_yz_t" "eb_zz_t" "bb_xx_t" "bb_xy_t" "bb_xz_t" "bb_yy_t" "bb_yz_t" "bb_zz_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
 
 num_mg_hw_restr  := 2
 mg_hw_restr      := [ "zeta" "phi1" ]
@@ -68,17 +68,17 @@ mg_sync          := [ "zeta" ]
 num_mg_interp2   := 1
 mg_interp2       := [ "zeta" ]
 
-num_MG_cnst_data_vars := 26
-MG_cnst_data_vars := [ "eb_xx" "eb_xy" "eb_xz" "eb_yy" "eb_yz" "eb_zz" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t"]
+num_MG_cnst_data_vars := 44
+MG_cnst_data_vars := [ "eb_xx" "eb_xy" "eb_xz" "eb_yy" "eb_yz" "eb_zz" "bb_xx" "bb_xy" "bb_xz" "bb_yy" "bb_yz" "bb_zz" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "eb_xx_t" "eb_xy_t" "eb_xz_t" "eb_yy_t" "eb_yz_t" "eb_zz_t" "bb_xx_t" "bb_xy_t" "bb_xz_t" "bb_yy_t" "bb_yz_t" "bb_zz_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t"]
 
-num_rg_diss_vars := 34
-rg_diss_vars     := [ "phi1" "eb_xx" "eb_xy" "eb_xz" "eb_yy" "eb_yz" "eb_zz" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "eb_xx_t" "eb_xy_t" "eb_xz_t" "eb_yy_t" "eb_yz_t" "eb_zz_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
+num_rg_diss_vars := 46
+rg_diss_vars     := [ "phi1" "eb_xx" "eb_xy" "eb_xz" "eb_yy" "eb_yz" "eb_zz" "bb_xx" "bb_xy" "bb_xz" "bb_yy" "bb_yz" "bb_zz" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "eb_xx_t" "eb_xy_t" "eb_xz_t" "eb_yy_t" "eb_yz_t" "eb_zz_t" "bb_xx_t" "bb_xy_t" "bb_xz_t" "bb_yy_t" "bb_yz_t" "bb_zz_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
 
-num_tn_diss_vars := 34
-tn_diss_vars := [ "phi1" "eb_xx" "eb_xy" "eb_xz" "eb_yy" "eb_yz" "eb_zz" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "eb_xx_t" "eb_xy_t" "eb_xz_t" "eb_yy_t" "eb_yz_t" "eb_zz_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
+num_tn_diss_vars := 46
+tn_diss_vars := [ "phi1" "eb_xx" "eb_xy" "eb_xz" "eb_yy" "eb_yz" "eb_zz" "bb_xx" "bb_xy" "bb_xz" "bb_yy" "bb_yz" "bb_zz" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "eb_xx_t" "eb_xy_t" "eb_xz_t" "eb_yy_t" "eb_yz_t" "eb_zz_t" "bb_xx_t" "bb_xy_t" "bb_xz_t" "bb_yy_t" "bb_yz_t" "bb_zz_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
 
-num_tnp1_diss_vars := 34
-tnp1_diss_vars := [ "phi1" "eb_xx" "eb_xy" "eb_xz" "eb_yy" "eb_yz" "eb_zz" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "eb_xx_t" "eb_xy_t" "eb_xz_t" "eb_yy_t" "eb_yz_t" "eb_zz_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
+num_tnp1_diss_vars := 46
+tnp1_diss_vars := [ "phi1" "eb_xx" "eb_xy" "eb_xz" "eb_yy" "eb_yz" "eb_zz" "bb_xx" "bb_xy" "bb_xz" "bb_yy" "bb_yz" "bb_zz" "gb_tt" "gb_tx" "gb_ty" "gb_xx" "gb_xy" "gb_yy" "psi" "Hb_t" "Hb_x" "Hb_y" "phi1_t" "eb_xx_t" "eb_xy_t" "eb_xz_t" "eb_yy_t" "eb_yz_t" "eb_zz_t" "bb_xx_t" "bb_xy_t" "bb_xz_t" "bb_yy_t" "bb_yz_t" "bb_zz_t" "gb_tt_t" "gb_tx_t" "gb_ty_t" "gb_xx_t" "gb_xy_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" "Hb_y_t" ]
 
 num_even_vars_x1min := 16
 even_vars_x1min := [ "phi1" "gb_tt" "gb_tx" "gb_xx" "gb_yy" "Hb_t" "Hb_x" "psi" "phi1_t" "gb_tt_t" "gb_tx_t" "gb_xx_t" "gb_yy_t" "psi_t" "Hb_t_t" "Hb_x_t" ]
