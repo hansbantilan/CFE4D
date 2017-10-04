@@ -302,6 +302,7 @@ c----------------------------------------------------------------------
         !--------------------------------------------------------------
         real*8 weyl(4,4,4,4),weyl_x(4,4,4,4,4)
         real*8 g0_uu_xx(4,4,4,4)
+        real*8 levicivi(4,4,4,4)
         !TEMPORARY
         real*8 omega !move to tensor_init()
 
@@ -406,6 +407,7 @@ c----------------------------------------------------------------------
 
         data weyl,weyl_x/256*0.0,1024*0/
         data g0_uu_xx/256*0.0/
+        data levicivi/256*0.0/
 
         data g0_ll,g0_uu,gads_ll/16*0.0,16*0.0,16*0.0/
         data gads_uu,h0_ll,h0_uu/16*0.0,16*0.0,16*0.0/
@@ -729,6 +731,36 @@ c----------------------------------------------------------------------
                     do c=1,4
                       do d=1,4
                         g0_uu_xx(a,b,c,d)=0
+                        if ((a.eq.1.and.b.eq.2.and.c.eq.3.and.d.eq.4)
+     &                  .or.(a.eq.1.and.b.eq.3.and.c.eq.4.and.d.eq.2)
+     &                  .or.(a.eq.1.and.b.eq.4.and.c.eq.2.and.d.eq.3)
+     &                  .or.(a.eq.2.and.b.eq.1.and.c.eq.4.and.d.eq.3)
+     &                  .or.(a.eq.2.and.b.eq.3.and.c.eq.1.and.d.eq.4)
+     &                  .or.(a.eq.2.and.b.eq.4.and.c.eq.3.and.d.eq.1)
+     &                  .or.(a.eq.3.and.b.eq.1.and.c.eq.2.and.d.eq.4)
+     &                  .or.(a.eq.3.and.b.eq.2.and.c.eq.4.and.d.eq.1)
+     &                  .or.(a.eq.3.and.b.eq.4.and.c.eq.1.and.d.eq.2)
+     &                  .or.(a.eq.4.and.b.eq.1.and.c.eq.3.and.d.eq.2)
+     &                  .or.(a.eq.4.and.b.eq.2.and.c.eq.1.and.d.eq.3)
+     &                  .or.(a.eq.4.and.b.eq.3.and.c.eq.2.and.d.eq.1))
+     &                  then 
+                          levicivi=+1
+                        end if
+                        if ((a.eq.1.and.b.eq.2.and.c.eq.4.and.d.eq.3)
+     &                  .or.(a.eq.1.and.b.eq.3.and.c.eq.2.and.d.eq.4)
+     &                  .or.(a.eq.1.and.b.eq.4.and.c.eq.3.and.d.eq.2)
+     &                  .or.(a.eq.2.and.b.eq.1.and.c.eq.3.and.d.eq.4)
+     &                  .or.(a.eq.3.and.b.eq.2.and.c.eq.1.and.d.eq.4)
+     &                  .or.(a.eq.4.and.b.eq.2.and.c.eq.3.and.d.eq.1)
+     &                  .or.(a.eq.2.and.b.eq.3.and.c.eq.4.and.d.eq.1)
+     &                  .or.(a.eq.2.and.b.eq.4.and.c.eq.1.and.d.eq.3)
+     &                  .or.(a.eq.3.and.b.eq.1.and.c.eq.4.and.d.eq.2)
+     &                  .or.(a.eq.3.and.b.eq.4.and.c.eq.2.and.d.eq.1)
+     &                  .or.(a.eq.4.and.b.eq.1.and.c.eq.2.and.d.eq.3)
+     &                  .or.(a.eq.4.and.b.eq.3.and.c.eq.1.and.d.eq.2))
+     &                  then 
+                          levicivi=-1
+                        end if
                         do e=1,4
                           do f=1,4
                             g0_uu_xx(a,b,c,d)=g0_uu_xx(a,b,c,d)
