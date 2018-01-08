@@ -1,6 +1,6 @@
 %%%%%%%% The wave equation for the electric part %%%%%%%%%%
 
-+ ginv[c,d]*Electric[a,b]_[c,d]
++ ginv[d,c]*Electric[a,b]_[c,d]
 
 -Gamma[d,c,e]*ginv[e,c]*Electric[a,b]_[d]
 -Gamma[e,c,b]*ginv[d,c]*Electric[a,e]_[d]
@@ -147,16 +147,16 @@
 Weyl[a,b,c,d] == 
  2*Electric[b,d]*Normal[a]*Normal[c]
 -2*Electric[a,d]*Normal[b]*Normal[c]
--2*Electric[b,c]*Normal[a]*Normal[d]
-+2*Electric[a,c]*Normal[b]*Normal[d]
-+Electric[b,d]*g[a,c]
+-2*Electric[b, c]*Normal[a]*Normal[d]
++2*Electric[a, c]*Normal[b]*Normal[d]
++Electric[b,d]*g[a, c]
 -Electric[b,c]*g[a,d]
 -Electric[a,d]*g[b,c]
 +Electric[a,c]*g[b,d]
 -epsilon[c,d,e,f]*Magnetic[b,m]*Normal[-a]*Normal[n]*ginv[e,n]*ginv[f,m]
-+epsilon[c,d,e,f]*Magnetic[a,m]*Normal[b]*Normal[n]*ginv[e,n]*ginv[f,m]
--epsilon[a,b,e,f]*Magnetic[d,m]*Normal[c]*Normal[n]*ginv[e,n]*ginv[f,m]
-+epsilon[a,b,e,f]*Magnetic[c,m]*Normal[d]*Normal[n]*ginv[e,n]*ginv[f,m]
++ epsilon[c,d,e,f]*Magnetic[a,m]*Normal[b]*Normal[n]*ginv[e,n]*ginv[f,m]
+- epsilon[a,b,e,f]*Magnetic[d,m]*Normal[c]*Normal[n]*ginv[e,n]*ginv[f,m]
++ epsilon[a,b,e,f]*Magnetic[c,m]*Normal[d]*Normal[n]*ginv[e,n]*ginv[f,m]
 
 %%%%%%%%%%%%%%%% Replacement table
 
@@ -190,3 +190,26 @@ Electric[0,3]==0
 Electric[2,1]==0
 Electric[3,1]== -4y
 Electric[3,2]== 4x
+
+%%%%%% The wave equation for the Schouten tensor
+
+Gamma[e,d,f]*Gamma[f,a,c]*Schouten[b,e]*ginv[a,d] - 4*Schouten[b,d]*Schouten[c, a]*ginv[a,d]
+ + Gamma[e,d,f]*Gamma[f, a, b]*Schouten[e, c]*ginv[a,d] + Gamma[e,d,b]*Gamma[f, a, c]*Schouten[e,f]*ginv[a,d]
+ + Gamma[e, a, b]*Gamma[f,d,c]*Schouten[e,f]*ginv[a,d]+Gamma[d,a,e]*Gamma[f,d,c]*Schouten[b,f]*ginv[a,e]
+ + Gamma[d,a,e]*Gamma[f,d,b]*Schouten[f, c]*ginv[a,e] +2*ConformalFactor*Weyl[b,a, c,f]*Schouten[d,e]*ginv[a,d]*ginv[f,e]
+ + Schouten[a,f]*Schouten[d,e]*ginv[a,d]*ginv[b,c]*ginv[f,e]-Schouten[e,c]*ginv[a,d]*Gamma[e,d,b]_[a]
+ - Schouten[b,e]*ginv[a,d]*Gamma[e, d, c]_[a] + (Gamma[a, b, c]*RicciScalar_[a])/6  
+ - Gamma[e, d, c]*ginv[a,d]*Schouten[b,e]_[a] - Gamma[e,d,b]*ginv[a,d]*Schouten[e, c]_[a]
+ + ginv[a,d]*Schouten[b, c]_[a,d] - RicciScalar]_[b,c]/6 - Gamma[d,a,e]*ginv[a,e]*Schouten[b, c]_[d]
+ - Gamma[e,a,c]*ginv[a,d]*Schouten[b,e]_[d] - Gamma[e,a,b]*ginv[a,d]*Schouten[e, c]_[d] == 0
+
+%%%%%%% The wave equation for the Friedrich scalar
+
+(FriedrichScalar*RicciScalar)/6 - ConformalFactor*Schouten[a,d]*Schouten[b,c]*ginv[a,b]*ginv[d,c]
+- Gamma[a,c,b]*ginv[b,c]*FriedrichScalar_[a] +ginv[a,b]*RicciScalar_[a]*ConformalFactor_[b]/6
++ ginv[a,b]*FriedrichScalar_[a,b] == 0
+
+%%%%%%% The wave equation for the conformal factor
+
+-4*FriedrichScalar+ ConformalFactor*RicciScalar/6 - Gamma[a,c,b]*ginv[b,c]*ConformalFactor_[a]
+ + ginv[a,b]*ConformalFactor_[a,b] == 0
