@@ -243,7 +243,12 @@ c-----------------------------------------------------------------------
 
             if (chr(i,j).ne.ex) then 
 
-              eb_xx(i,j)=exp(-rho0**2)*(1-rho0**2)
+              eb_xx(i,j)=0
+              eb_xy(i,j)=0
+              eb_xz(i,j)=-4*y0
+              eb_yy(i,j)=0
+              eb_yz(i,j)=4*x0
+              eb_zz(i,j)=0 !run30
 
             endif
 
@@ -284,7 +289,12 @@ c-----------------------------------------------------------------------
 
             if (chr(i,j).ne.ex) then 
 
-              bb_xx(i,j)=exp(-rho0**2)*(1-rho0**2)
+              bb_xx(i,j)=0
+              bb_xy(i,j)=0
+              bb_xz(i,j)=0
+              bb_yy(i,j)=0
+              bb_yz(i,j)=0
+              bb_zz(i,j)=0 !run30
 
             endif
 
