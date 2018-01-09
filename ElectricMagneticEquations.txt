@@ -147,16 +147,16 @@
 Weyl[a,b,c,d] == 
  2*Electric[b,d]*Normal[a]*Normal[c]
 -2*Electric[a,d]*Normal[b]*Normal[c]
--2*Electric[b, c]*Normal[a]*Normal[d]
-+2*Electric[a, c]*Normal[b]*Normal[d]
-+Electric[b,d]*g[a, c]
+-2*Electric[b,c]*Normal[a]*Normal[d]
++2*Electric[a,c]*Normal[b]*Normal[d]
++Electric[b,d]*g[a,c]
 -Electric[b,c]*g[a,d]
 -Electric[a,d]*g[b,c]
 +Electric[a,c]*g[b,d]
--epsilon[c,d,e,f]*Magnetic[b,m]*Normal[-a]*Normal[n]*ginv[e,n]*ginv[f,m]
-+ epsilon[c,d,e,f]*Magnetic[a,m]*Normal[b]*Normal[n]*ginv[e,n]*ginv[f,m]
-- epsilon[a,b,e,f]*Magnetic[d,m]*Normal[c]*Normal[n]*ginv[e,n]*ginv[f,m]
-+ epsilon[a,b,e,f]*Magnetic[c,m]*Normal[d]*Normal[n]*ginv[e,n]*ginv[f,m]
+-epsilon[c,d,e,f]*Magnetic[b,m]*Normal[a]*Normal[n]*ginv[e,n]*ginv[f,m]
++epsilon[c,d,e,f]*Magnetic[a,m]*Normal[b]*Normal[n]*ginv[e,n]*ginv[f,m]
+-epsilon[a,b,e,f]*Magnetic[d,m]*Normal[c]*Normal[n]*ginv[e,n]*ginv[f,m]
++epsilon[a,b,e,f]*Magnetic[c,m]*Normal[d]*Normal[n]*ginv[e,n]*ginv[f,m]
 
 %%%%%%%%%%%%%%%% Replacement table
 

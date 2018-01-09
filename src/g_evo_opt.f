@@ -847,31 +847,98 @@ c----------------------------------------------------------------------
      &                  -e0_ll(b,c)*g0_ll(a,d)
      &                  -e0_ll(a,d)*g0_ll(b,c)
      &                  +e0_ll(a,c)*g0_ll(b,d)
+
                         do e=1,4
-                          weyl_x(a,b,c,d,e)=
-     &                     2*e0_ll_x(b,d,e)*n_l(a)*n_l(c)
-     &                    +2*e0_ll(b,d)*n_l_x(a,e)*n_l(c)
-     &                    +2*e0_ll(b,d)*n_l(a)*n_l_x(c,e)
-     &                    -2*e0_ll_x(a,d,e)*n_l(b)*n_l(c)
-     &                    -2*e0_ll(a,d)*n_l_x(b,e)*n_l(c)
-     &                    -2*e0_ll(a,d)*n_l(b)*n_l_x(c,e)
-     &                    -2*e0_ll_x(b,c,e)*n_l(a)*n_l(d)
-     &                    -2*e0_ll(b,c)*n_l_x(a,e)*n_l(d)
-     &                    -2*e0_ll(b,c)*n_l(a)*n_l_x(d,e)
-     &                    +2*e0_ll_x(a,c,e)*n_l(b)*n_l(d)
-     &                    +2*e0_ll(a,c)*n_l_x(b,e)*n_l(d)
-     &                    +2*e0_ll(a,c)*n_l(b)*n_l_x(d,e)
-     &                    +e0_ll_x(b,d,e)*g0_ll(a,c)
-     &                    +e0_ll(b,d)*g0_ll_x(a,c,e)
-     &                    -e0_ll_x(b,c,e)*g0_ll(a,d)
-     &                    -e0_ll(b,c)*g0_ll_x(a,d,e)
-     &                    -e0_ll_x(a,d,e)*g0_ll(b,c)
-     &                    -e0_ll(a,d)*g0_ll_x(b,c,e)
-     &                    +e0_ll_x(a,c,e)*g0_ll(b,d)
-     &                    +e0_ll(a,c)*g0_ll_x(b,d,e)
-!                          do f=1,4
-!                            weyl_x(a,b,c,d,e)=
-!                          end do
+                          do f=1,4
+                            do m=1,4 
+                              do n=1,4
+                                weyl(a,b,c,d)=weyl(a,b,c,d)
+     &                          -levicivi(c,d,e,f)*b0_ll(b,m)
+     &                          *n_l(a)*n_l(n)*g0_uu(e,n)*g0_uu(f,m)
+     &                          +levicivi(c,d,e,f)*b0_ll(a,m)
+     &                          *n_l(b)*n_l(n)*g0_uu(e,n)*g0_uu(f,m)
+     &                          -levicivi(a,b,e,f)*b0_ll(d,m)
+     &                          *n_l(c)*n_l(n)*g0_uu(e,n)*g0_uu(f,m)
+     &                          +levicivi(a,b,e,f)*b0_ll(c,m)
+     &                          *n_l(d)*n_l(n)*g0_uu(e,n)*g0_uu(f,m) !run30
+                              end do
+                            end do
+                          end do
+                        end do
+
+                        do p=1,4
+                          weyl_x(a,b,c,d,p)=
+     &                     2*e0_ll_x(b,d,p)*n_l(a)*n_l(c)
+     &                    +2*e0_ll(b,d)*n_l_x(a,p)*n_l(c)
+     &                    +2*e0_ll(b,d)*n_l(a)*n_l_x(c,p)
+     &                    -2*e0_ll_x(a,d,p)*n_l(b)*n_l(c)
+     &                    -2*e0_ll(a,d)*n_l_x(b,p)*n_l(c)
+     &                    -2*e0_ll(a,d)*n_l(b)*n_l_x(c,p)
+     &                    -2*e0_ll_x(b,c,p)*n_l(a)*n_l(d)
+     &                    -2*e0_ll(b,c)*n_l_x(a,p)*n_l(d)
+     &                    -2*e0_ll(b,c)*n_l(a)*n_l_x(d,p)
+     &                    +2*e0_ll_x(a,c,p)*n_l(b)*n_l(d)
+     &                    +2*e0_ll(a,c)*n_l_x(b,p)*n_l(d)
+     &                    +2*e0_ll(a,c)*n_l(b)*n_l_x(d,p)
+     &                    +e0_ll_x(b,d,p)*g0_ll(a,c)
+     &                    +e0_ll(b,d)*g0_ll_x(a,c,p)
+     &                    -e0_ll_x(b,c,p)*g0_ll(a,d)
+     &                    -e0_ll(b,c)*g0_ll_x(a,d,p)
+     &                    -e0_ll_x(a,d,p)*g0_ll(b,c)
+     &                    -e0_ll(a,d)*g0_ll_x(b,c,p)
+     &                    +e0_ll_x(a,c,p)*g0_ll(b,d)
+     &                    +e0_ll(a,c)*g0_ll_x(b,d,p)
+
+                          do e=1,4
+                            do f=1,4
+                              do m=1,4 
+                                do n=1,4
+                                weyl_x(a,b,c,d,p)=weyl_x(a,b,c,d,p)
+     &                          -levicivi(c,d,e,f)*b0_ll_x(b,m,p)
+     &                          *n_l(a)*n_l(n)*g0_uu(e,n)*g0_uu(f,m)
+     &                          -levicivi(c,d,e,f)*b0_ll(b,m)
+     &                          *n_l_x(a,p)*n_l(n)*g0_uu(e,n)*g0_uu(f,m)
+     &                          -levicivi(c,d,e,f)*b0_ll(b,m)
+     &                          *n_l(a)*n_l_x(n,p)*g0_uu(e,n)*g0_uu(f,m)
+     &                          -levicivi(c,d,e,f)*b0_ll(b,m)
+     &                          *n_l(a)*n_l(n)*g0_uu_x(e,n,p)*g0_uu(f,m)
+     &                          -levicivi(c,d,e,f)*b0_ll(b,m)
+     &                          *n_l(a)*n_l(n)*g0_uu(e,n)*g0_uu_x(f,m,p)
+     &                          +levicivi(c,d,e,f)*b0_ll_x(a,m,p)
+     &                          *n_l(b)*n_l(n)*g0_uu(e,n)*g0_uu(f,m)
+     &                          +levicivi(c,d,e,f)*b0_ll(a,m)
+     &                          *n_l_x(b,p)*n_l(n)*g0_uu(e,n)*g0_uu(f,m)
+     &                          +levicivi(c,d,e,f)*b0_ll(a,m)
+     &                          *n_l(b)*n_l_x(n,p)*g0_uu(e,n)*g0_uu(f,m)
+     &                          +levicivi(c,d,e,f)*b0_ll(a,m)
+     &                          *n_l(b)*n_l(n)*g0_uu_x(e,n,p)*g0_uu(f,m)
+     &                          +levicivi(c,d,e,f)*b0_ll(a,m)
+     &                          *n_l(b)*n_l(n)*g0_uu(e,n)*g0_uu_x(f,m,p)
+     &                          -levicivi(a,b,e,f)*b0_ll_x(d,m,p)
+     &                          *n_l(c)*n_l(n)*g0_uu(e,n)*g0_uu(f,m)
+     &                          -levicivi(a,b,e,f)*b0_ll(d,m)
+     &                          *n_l_x(c,p)*n_l(n)*g0_uu(e,n)*g0_uu(f,m)
+     &                          -levicivi(a,b,e,f)*b0_ll(d,m)
+     &                          *n_l(c)*n_l_x(n,p)*g0_uu(e,n)*g0_uu(f,m)
+     &                          -levicivi(a,b,e,f)*b0_ll(d,m)
+     &                          *n_l(c)*n_l(n)*g0_uu_x(e,n,p)*g0_uu(f,m)
+     &                          -levicivi(a,b,e,f)*b0_ll(d,m)
+     &                          *n_l(c)*n_l(n)*g0_uu(e,n)*g0_uu_x(f,m,p)
+     &                          +levicivi(a,b,e,f)*b0_ll_x(c,m,p)
+     &                          *n_l(d)*n_l(n)*g0_uu(e,n)*g0_uu(f,m)
+     &                          +levicivi(a,b,e,f)*b0_ll(c,m)
+     &                          *n_l_x(d,p)*n_l(n)*g0_uu(e,n)*g0_uu(f,m)
+     &                          +levicivi(a,b,e,f)*b0_ll(c,m)
+     &                          *n_l(d)*n_l_x(n,p)*g0_uu(e,n)*g0_uu(f,m)
+     &                          +levicivi(a,b,e,f)*b0_ll(c,m)
+     &                          *n_l(d)*n_l(n)*g0_uu_x(e,n,p)*g0_uu(f,m)
+     &                          +levicivi(a,b,e,f)*b0_ll(c,m)
+     &                          *n_l(d)*n_l(n)*g0_uu(e,n)*g0_uu_x(f,m,p)
+                                end do
+                              end do
+                            end do
+                          end do
+
                         end do        
                       end do
                     end do
