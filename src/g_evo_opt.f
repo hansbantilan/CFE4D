@@ -746,7 +746,7 @@ c----------------------------------------------------------------------
      &                  .or.(a.eq.4.and.b.eq.2.and.c.eq.1.and.d.eq.3)
      &                  .or.(a.eq.4.and.b.eq.3.and.c.eq.2.and.d.eq.1))
      &                  then 
-                          levicivi=+1
+                          levicivi(a,b,c,d)=+1
                         end if
                         if ((a.eq.1.and.b.eq.2.and.c.eq.4.and.d.eq.3)
      &                  .or.(a.eq.1.and.b.eq.3.and.c.eq.2.and.d.eq.4)
@@ -761,7 +761,7 @@ c----------------------------------------------------------------------
      &                  .or.(a.eq.4.and.b.eq.1.and.c.eq.2.and.d.eq.3)
      &                  .or.(a.eq.4.and.b.eq.3.and.c.eq.1.and.d.eq.2))
      &                  then 
-                          levicivi=-1
+                          levicivi(a,b,c,d)=-1
                         end if
                         do e=1,4
                           do f=1,4
