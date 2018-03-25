@@ -33,7 +33,7 @@ Gamma[e,d,f]*Gamma[f,c,b]*Electric[a,e]*ginv[d,c]
 + ginv[d,c]*Electric[a,b]_[c,d]
 + 2*Gamma[c,d,e]*Normal[c]*Weyl[a,f,b,m]*ginv[f,e]*ginv[n,d]*ginv[m,p]*Normal[p]_[n]
 + Normal[c]*Normal[d]*Weyl[a,e,b,f]*ginv[e,d]*ginv[f,m]*ginv[n,p]*Gamma[c,p,m]_[n]
-+ Gamma[b,c,d]*Normal[e]*Weyl[a,f,b,m]*ginv[f,e]*ginv[m,d]*ginv[n,c]*Normal[b]_[n]
++ Gamma[b,c,d]*Normal[e]*Weyl[a,f,b,m]*ginv[f,e]*ginv[m,d]*ginv[n,c]*Normal[b]_[n] !WARNING!
 - Normal[c]*Weyl[a,d,b,e]*ginv[d,c]*ginv[e,f]*ginv[m,n]*Normal[f]_[m,n]
 + Normal[c]*Normal[d]*Weyl[a,e,b,f]*ginv[f,d]*ginv[e,n]*ginv[m,p]*Gamma[c,p,n]_[m]
 + Gamma[c,d,e]*Normal[f]*Weyl[a,n,b,p]*ginv[p,f]*ginv[n,e]*ginv[m,d]*Normal[c]_[m]
