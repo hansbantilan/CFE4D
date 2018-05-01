@@ -1270,7 +1270,6 @@ c----------------------------------------------------------------------
         real*8 dx,dy
         real*8 x0,y0
         real*8 rho0
-        real*8 f0
 
         real*8 PI
         parameter (PI=3.141592653589793d0)
@@ -1397,6 +1396,8 @@ c----------------------------------------------------------------------
         real*8 psi0
         real*8 phi10
 
+        real*8 e0_xz_ads_y,e0_yz_ads_x
+
         real*8 g0_tt_ads_x,g0_tt_ads_xx,g0_tt_ads_xy
         real*8 g0_tt_ads_y,g0_tt_ads_yy
         real*8 g0_xx_ads_x,g0_xx_ads_xx,g0_xx_ads_xy
@@ -1407,6 +1408,14 @@ c----------------------------------------------------------------------
         real*8 g0_yy_ads_y,g0_yy_ads_yy
         real*8 g0_psi_ads_x,g0_psi_ads_xx,g0_psi_ads_xy
         real*8 g0_psi_ads_y,g0_psi_ads_yy
+
+        real*8 e0_xx_ads0,e0_xy_ads0,e0_xz_ads0
+        real*8 e0_yy_ads0,e0_yz_ads0
+        real*8 e0_zz_ads0
+
+        real*8 b0_xx_ads0,b0_xy_ads0,b0_xz_ads0
+        real*8 b0_yy_ads0,b0_yz_ads0
+        real*8 b0_zz_ads0
 
         real*8 g0_tt_ads0,g0_xx_ads0
         real*8 g0_xy_ads0,g0_yy_ads0,g0_psi_ads0
@@ -1430,12 +1439,25 @@ c----------------------------------------------------------------------
 
         x0=x(i)
         y0=y(j)
+        rho0=sqrt(x0**2+y0**2)
+
 !ADDED!
         z0=0 ! cartoon method
-        rho0=sqrt(x0**2+y0**2)
-       
-        f0=(1-rho0**2)**2+4*rho0**2/L**2
 
+        ! set eads,bads values according to Exact initial data from ElectricMagneticEquations.txt
+        e0_xx_ads0=0
+        e0_xy_ads0=0
+        e0_xz_ads0=-4*y0
+        e0_yy_ads0=0
+        e0_yz_ads0=4*x0
+        e0_zz_ads0=0
+        b0_xx_ads0=0
+        b0_xy_ads0=0
+        b0_xz_ads0=0
+        b0_yy_ads0=0
+        b0_yz_ads0=0
+        b0_zz_ads0=0
+       
         ! set gads values according to (15a) in ConformalWaveEqnsSummary.pdf
         g0_tt_ads0 =-(1+x0**2+y0**2+z0**2)**2/4
         g0_xx_ads0 =1
@@ -1483,6 +1505,9 @@ c----------------------------------------------------------------------
         phi10=phi1_n(i,j)
 
         ! ASSUMES L=1
+        e0_xz_ads_y  =-4
+        e0_yz_ads_x  =4
+
         g0_tt_ads_x  =-x0*(1+x0**2+y0**2+z0**2)
         g0_tt_ads_y  =-y0*(1+x0**2+y0**2+z0**2)
         g0_tt_ads_xx =-(1+3*x0**2+y0**2+z0**2)
@@ -1612,12 +1637,12 @@ c----------------------------------------------------------------------
      &       chr,ex,Nx,Ny,'phi1')
 
         ! give values to the electric components of the rescaled Weyl
-        e0_ll(2,2)=eb_xx0
-        e0_ll(2,3)=eb_xy0
-        e0_ll(2,4)=eb_xz0
-        e0_ll(3,3)=eb_yy0
-        e0_ll(3,4)=eb_yz0
-        e0_ll(4,4)=eb_zz0
+        e0_ll(2,2)=           eb_xx0
+        e0_ll(2,3)=           eb_xy0
+        e0_ll(2,4)=e0_xz_ads0+eb_xz0
+        e0_ll(3,3)=           eb_yy0
+        e0_ll(3,4)=e0_yz_ads0+eb_yz0
+        e0_ll(4,4)=           eb_zz0
 
         e0_ll_x(2,2,1)   =eb_xx_t
         e0_ll_x(2,2,2)   =eb_xx_x
@@ -1639,15 +1664,15 @@ c----------------------------------------------------------------------
         e0_ll_xx(2,3,2,3)=eb_xy_xy
         e0_ll_xx(2,3,3,3)=eb_xy_yy
 
-        e0_ll_x(2,4,1)   =eb_xz_t
-        e0_ll_x(2,4,2)   =eb_xz_x
-        e0_ll_x(2,4,3)   =eb_xz_y
-        e0_ll_xx(2,4,1,1)=eb_xz_tt
-        e0_ll_xx(2,4,1,2)=eb_xz_tx
-        e0_ll_xx(2,4,1,3)=eb_xz_ty
-        e0_ll_xx(2,4,2,2)=eb_xz_xx
-        e0_ll_xx(2,4,2,3)=eb_xz_xy
-        e0_ll_xx(2,4,3,3)=eb_xz_yy
+        e0_ll_x(2,4,1)   =            eb_xz_t
+        e0_ll_x(2,4,2)   =            eb_xz_x
+        e0_ll_x(2,4,3)   =e0_xz_ads_y+eb_xz_y
+        e0_ll_xx(2,4,1,1)=            eb_xz_tt
+        e0_ll_xx(2,4,1,2)=            eb_xz_tx
+        e0_ll_xx(2,4,1,3)=            eb_xz_ty
+        e0_ll_xx(2,4,2,2)=            eb_xz_xx
+        e0_ll_xx(2,4,2,3)=            eb_xz_xy
+        e0_ll_xx(2,4,3,3)=            eb_xz_yy
 
         e0_ll_x(3,3,1)   =eb_yy_t
         e0_ll_x(3,3,2)   =eb_yy_x
@@ -1659,15 +1684,15 @@ c----------------------------------------------------------------------
         e0_ll_xx(3,3,2,3)=eb_yy_xy
         e0_ll_xx(3,3,3,3)=eb_yy_yy
 
-        e0_ll_x(3,4,1)   =eb_yz_t
-        e0_ll_x(3,4,2)   =eb_yz_x
-        e0_ll_x(3,4,3)   =eb_yz_y
-        e0_ll_xx(3,4,1,1)=eb_yz_tt
-        e0_ll_xx(3,4,1,2)=eb_yz_tx
-        e0_ll_xx(3,4,1,3)=eb_yz_ty
-        e0_ll_xx(3,4,2,2)=eb_yz_xx
-        e0_ll_xx(3,4,2,3)=eb_yz_xy
-        e0_ll_xx(3,4,3,3)=eb_yz_yy
+        e0_ll_x(3,4,1)   =            eb_yz_t
+        e0_ll_x(3,4,2)   =e0_yz_ads_x+eb_yz_x
+        e0_ll_x(3,4,3)   =            eb_yz_y
+        e0_ll_xx(3,4,1,1)=            eb_yz_tt
+        e0_ll_xx(3,4,1,2)=            eb_yz_tx
+        e0_ll_xx(3,4,1,3)=            eb_yz_ty
+        e0_ll_xx(3,4,2,2)=            eb_yz_xx
+        e0_ll_xx(3,4,2,3)=            eb_yz_xy
+        e0_ll_xx(3,4,3,3)=            eb_yz_yy
 
         e0_ll_x(4,4,1)   =eb_zz_t
         e0_ll_x(4,4,2)   =eb_zz_x

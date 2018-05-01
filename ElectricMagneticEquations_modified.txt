@@ -137,8 +137,8 @@
 Weyl[a,b,c,d] == 
  2*Electric[b,d]*Normal[a]*Normal[c]
 -2*Electric[a,d]*Normal[b]*Normal[c]
--2*Electric[b, c]*Normal[a]*Normal[d]
-+2*Electric[a, c]*Normal[b]*Normal[d]
+-2*Electric[b,c]*Normal[a]*Normal[d]
++2*Electric[a,c]*Normal[b]*Normal[d]
 +Electric[b,d]*g[a, c]
 -Electric[b,c]*g[a,d]
 -Electric[a,d]*g[b,c]
